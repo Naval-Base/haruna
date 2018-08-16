@@ -4,9 +4,9 @@ const url = require('url');
 class PlayCommand extends Command {
 	constructor() {
 		super('play', {
-			aliases: ['play'],
+			aliases: ['play', 'p', 'add'],
 			description: {
-				content: '',
+				content: 'Play a song from literally any source you can think of.',
 				usage: '<link/search>',
 				examples: ['play', 'play justin bieber']
 			},

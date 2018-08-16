@@ -3,7 +3,7 @@ const { Command } = require('discord-akairo');
 class RemoveCommand extends Command {
 	constructor() {
 		super('remove', {
-			aliases: ['remove'],
+			aliases: ['remove', 'rm'],
 			description: {
 				content: 'Removes a song from the queue.',
 				usage: '[number]',
