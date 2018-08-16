@@ -29,8 +29,9 @@ class QueueCommand extends Command {
 
 	async exec(message, { page }) {
 		const queue = this.client.music.queues.get(message.guild.id);
-		const tracks = [(await queue.current()).track].concat(await queue.tracks());
-		const decoded = await this.client.music.decode(tracks.filter(track => track));
+		const tracks = [(await queue.current() || { track: null }).track].concat(await queue.tracks()).filter(track => track);
+		if (!tracks.length) return message.util.send('Got nothing in queue!');
+		const decoded = await this.client.music.decode(tracks);
 		const totalLength = decoded.reduce((prev, song) => prev + song.info.length, 0);
 		const paginated = paginate(decoded.slice(1), page);
 		let index = 10 * (paginated.page - 1);
