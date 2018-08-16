@@ -1,0 +1,25 @@
+version: '3.7'
+services:
+  bot:
+    build:
+      context: .
+    restart: always
+    env_file:
+      - ./.env
+    network_mode: 'host'
+
+  lavalink:
+    build:
+      context: .
+      dockerfile: Dockerfile-Lavalink
+    restart: always
+    env_file:
+      - ./.env_lavalink
+    ports:
+      - 7000:7000
+
+  redis:
+    image: "redis:4-alpine"
+    restart: always
+    ports:
+      - 6379:6379
