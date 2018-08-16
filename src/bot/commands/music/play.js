@@ -36,16 +36,19 @@ class PlayCommand extends Command {
 		const res = await this.client.music.load(query);
 		const queue = this.client.music.queues.get(message.guild.id);
 		if (!message.guild.me.voice.channel) await queue.player.join(message.member.voice.channel.id);
+		let msg;
 		if (['TRACK_LOADED', 'SEARCH_RESULT'].includes(res.loadType)) {
 			await queue.add(res.tracks[0].track);
+			msg = res.tracks[0].info.title;
 		} else if (res.loadType === 'PLAYLIST_LOADED') {
 			await queue.add(...res.tracks.map(track => track.track));
+			msg = res.playlistInfo.name;
 		} else {
 			return message.util.send("I know you hate to hear that, but even searching the universe I couldn't find what you were looking for.");
 		}
 		if (!queue.player.playing && !queue.player.paused) await queue.start();
 
-		return message.util.send(`${this.client.emojis.get('479430354759843841')} **Queued up:** \`${res.tracks[0].info.title}\``);
+		return message.util.send(`${this.client.emojis.get('479430354759843841')} **Queued up:** \`${msg}\``);
 	}
 }
 
