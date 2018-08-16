@@ -32,7 +32,7 @@ class LeaveCommand extends Command {
 		await queue.player.destroy();
 		if (message.guild.me.voice || message.guild.me.voice.channel) await queue.player.join(null);
 
-		return message.util.send(this.client.emojis.get('479430325169160193'));
+		return message.util.send(this.client.emojis.get('479430325169160193').toString());
 	}
 }
 
