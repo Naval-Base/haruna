@@ -11,7 +11,7 @@ class QueueCommand extends Command {
 			description: {
 				content: 'Shows you the current queue.',
 				usage: '[page]',
-				examples: ['queue', 'queue 1']
+				examples: ['1', '3']
 			},
 			category: 'music',
 			channel: 'guild',

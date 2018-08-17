@@ -8,7 +8,7 @@ class PlayCommand extends Command {
 			description: {
 				content: 'Play a song from literally any source you can think of.',
 				usage: '<link/search>',
-				examples: ['play', 'play justin bieber']
+				examples: ['justin bieber']
 			},
 			category: 'music',
 			channel: 'guild',

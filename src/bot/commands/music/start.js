@@ -7,7 +7,7 @@ class StartCommand extends Command {
 			description: {
 				content: 'Joins and starts the queue.',
 				usage: '[--force/-f]',
-				examples: ['start --force', 'start -f']
+				examples: ['--force', '-f']
 			},
 			category: 'music',
 			channel: 'guild',

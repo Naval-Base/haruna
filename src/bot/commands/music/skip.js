@@ -11,7 +11,7 @@ class SkipCommand extends Command {
 			description: {
 				content: 'Skips the amount of songs you specify (defaults to 1)',
 				usage: '<number>',
-				examples: ['skip', 'skip 3']
+				examples: ['3', '1']
 			},
 			category: 'music',
 			channel: 'guild',

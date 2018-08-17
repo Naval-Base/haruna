@@ -7,7 +7,7 @@ class RemoveCommand extends Command {
 			description: {
 				content: 'Removes a song from the queue.',
 				usage: '[number]',
-				examples: ['remove 3', 'remove 6']
+				examples: ['3', '6']
 			},
 			category: 'music',
 			channel: 'guild',

@@ -7,7 +7,7 @@ class LeaveCommand extends Command {
 			description: {
 				content: 'Leaves the voice channel (`--clear` to clear the queue before leaving)',
 				usage: '[--clear/-c]',
-				examples: ['leave --clear', 'leave -c']
+				examples: ['--clear', '-c']
 			},
 			category: 'music',
 			channel: 'guild',
