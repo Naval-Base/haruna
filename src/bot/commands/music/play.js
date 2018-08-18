@@ -5,7 +5,7 @@ const path = require('path');
 class PlayCommand extends Command {
 	constructor() {
 		super('play', {
-			aliases: ['play', 'p', 'add'],
+			aliases: ['play', 'p', 'add', '📥', '➕'],
 			description: {
 				content: 'Play a song from literally any source you can think of.',
 				usage: '<link/search>',

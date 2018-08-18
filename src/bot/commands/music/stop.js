@@ -3,7 +3,7 @@ const { Command } = require('discord-akairo');
 class StopCommand extends Command {
 	constructor() {
 		super('stop', {
-			aliases: ['stop'],
+			aliases: ['stop', '🛑', '⏹'],
 			description: {
 				content: 'Stops and clears the queue.'
 			},

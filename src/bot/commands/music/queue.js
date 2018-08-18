@@ -7,7 +7,7 @@ const timeString = require('../../../util/timeString');
 class QueueCommand extends Command {
 	constructor() {
 		super('queue', {
-			aliases: ['queue', 'q', 'nowplaying', 'np'],
+			aliases: ['queue', 'q', 'nowplaying', 'np', 'ℹ'],
 			description: {
 				content: 'Shows you the current queue.',
 				usage: '[page]',
