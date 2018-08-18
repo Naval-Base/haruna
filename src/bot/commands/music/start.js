@@ -3,7 +3,7 @@ const { Command } = require('discord-akairo');
 class StartCommand extends Command {
 	constructor() {
 		super('start', {
-			aliases: ['start'],
+			aliases: ['start', '▶', '🎶', '🎵', '🎼', '🎹', '🎺', '🎻', '🎷', '🎸', '🎤', '🎧', '🥁'],
 			description: {
 				content: 'Joins and starts the queue.',
 				usage: '[--force/-f]',
