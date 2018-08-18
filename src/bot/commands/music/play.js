@@ -33,9 +33,12 @@ class PlayCommand extends Command {
 		} else if (!message.member.voice.channel.speakable) {
 			return message.util.send("I don't seem to have permission to talk in this voice channel.");
 		}
-		if (!query && message.attachments.first()) query = message.attachments.first().url;
-		else if (!query) return;
-		if (!['.mp3', '.ogg', '.flac', '.m4a'].includes(path.parse(url.parse(query).path).ext)) return;
+		if (!query && message.attachments.first()) {
+			query = message.attachments.first().url;
+			if (!['.mp3', '.ogg', '.flac', '.m4a'].includes(path.parse(url.parse(query).path).ext)) return;
+		} else if (!query) {
+			return;
+		}
 		query = query.replace(/<(.+)>/g, '$1');
 		if (!['http:', 'https:'].includes(url.parse(query).protocol)) query = `ytsearch:${query}`;
 		const res = await this.client.music.load(query);
