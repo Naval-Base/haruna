@@ -1,5 +1,6 @@
 const { Command } = require('discord-akairo');
 const url = require('url');
+const path = require('path');
 
 class PlayCommand extends Command {
 	constructor() {
@@ -15,9 +16,10 @@ class PlayCommand extends Command {
 			ratelimit: 2,
 			args: [
 				{
-					id: 'query',
-					match: 'content',
-					type: 'string'
+					'id': 'query',
+					'match': 'content',
+					'type': 'string',
+					'default': ''
 				}
 			]
 		});
@@ -31,6 +33,9 @@ class PlayCommand extends Command {
 		} else if (!message.member.voice.channel.speakable) {
 			return message.util.send("I don't seem to have permission to talk in this voice channel.");
 		}
+		if (!query && message.attachments.first()) query = message.attachments.first().url;
+		else if (!query) return;
+		if (!['.mp3', '.ogg', '.flac', '.m4a'].includes(path.parse(url.parse(query).path).ext)) return;
 		query = query.replace(/<(.+)>/g, '$1');
 		if (!['http:', 'https:'].includes(url.parse(query).protocol)) query = `ytsearch:${query}`;
 		const res = await this.client.music.load(query);
