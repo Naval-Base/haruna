@@ -1,4 +1,4 @@
-const { Command } = require('discord-akairo');
+const { Argument, Command } = require('discord-akairo');
 const url = require('url');
 const path = require('path');
 
@@ -18,7 +18,7 @@ class PlayCommand extends Command {
 				{
 					'id': 'query',
 					'match': 'content',
-					'type': 'string',
+					'type': Argument.map('string', string => string.replace(/<(.+)>/g, '$1')),
 					'default': ''
 				}
 			]
@@ -39,7 +39,6 @@ class PlayCommand extends Command {
 		} else if (!query) {
 			return;
 		}
-		query = query.replace(/<(.+)>/g, '$1');
 		if (!['http:', 'https:'].includes(url.parse(query).protocol)) query = `ytsearch:${query}`;
 		const res = await this.client.music.load(query);
 		const queue = this.client.music.queues.get(message.guild.id);
