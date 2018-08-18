@@ -52,7 +52,7 @@ class SkipCommand extends Command {
 		await queue.next(number);
 		const decoded = await this.client.music.decode(tracks.filter(track => track));
 		const totalLength = decoded.reduce((prev, song) => prev + song.info.length, 0);
-		const paginated = paginate(decoded, 1, 20);
+		const paginated = paginate(decoded, 1, 10);
 		let index = 10 * (paginated.page - 1);
 
 		const embed = new MessageEmbed()
