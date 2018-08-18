@@ -1,4 +1,4 @@
-const { Argument, Command } = require('discord-akairo');
+const { Argument, Control, Command } = require('discord-akairo');
 const { MessageEmbed } = require('discord.js');
 const { stripIndents } = require('common-tags');
 const paginate = require('../../../util/paginate');
@@ -18,11 +18,25 @@ class SkipCommand extends Command {
 			ratelimit: 2,
 			args: [
 				{
-					'id': 'number',
-					'match': 'content',
-					'type': Argument.range('number', 1, 20),
-					'default': 1
-				}
+					id: 'force',
+					match: 'flag',
+					flag: ['--force', '-f']
+				},
+				Control.if((msg, args) => msg.member.roles.has(msg.client.settings.get(msg.guild, 'djRole')) && args.force, [
+					{
+						'id': 'number',
+						'match': 'content',
+						'type': Argument.range('number', 1, Infinity),
+						'default': 1
+					}
+				], [
+					{
+						'id': 'number',
+						'match': 'content',
+						'type': Argument.range('number', 1, 20),
+						'default': 1
+					}
+				])
 			]
 		});
 	}
