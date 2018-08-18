@@ -25,14 +25,14 @@ class SkipCommand extends Command {
 				Control.if((msg, args) => msg.member.roles.has(msg.client.settings.get(msg.guild, 'djRole')) && args.force, [
 					{
 						'id': 'number',
-						'match': 'content',
+						'match': 'rest',
 						'type': Argument.range('number', 1, Infinity),
 						'default': 1
 					}
 				], [
 					{
 						'id': 'number',
-						'match': 'content',
+						'match': 'rest',
 						'type': Argument.range('number', 1, 20),
 						'default': 1
 					}
