@@ -59,8 +59,12 @@ class HarunaClient extends AkairoClient {
 						await this.storage.upsert('players', [{ guild_id: packet.d.guild_id, channel_id: packet.d.channel_id }]);
 					} else if (players && typeof index !== 'undefined' && index >= 0 && !packet.d.channel_id) {
 						players.splice(index, 1);
-						if (players.length === 0) await this.storage.delete('players');
-						else await this.storage.set('players', players);
+						if (players.length === 0) {
+							await this.storage.delete('players');
+						} else {
+							await this.storage.delete('players');
+							await this.storage.set('players', players);
+						}
 					}
 					break;
 				case 'VOICE_SERVER_UPDATE':
