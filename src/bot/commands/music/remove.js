@@ -1,4 +1,4 @@
-const { Command } = require('discord-akairo');
+const { Argument, Command } = require('discord-akairo');
 
 class RemoveCommand extends Command {
 	constructor() {
@@ -16,7 +16,7 @@ class RemoveCommand extends Command {
 				{
 					id: 'number',
 					match: 'content',
-					type: 'number'
+					type: Argument.union('number', 'emojint')
 				}
 			]
 		});

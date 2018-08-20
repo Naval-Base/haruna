@@ -26,14 +26,14 @@ class SkipCommand extends Command {
 					{
 						'id': 'number',
 						'match': 'rest',
-						'type': Argument.range('number', 1, Infinity),
+						'type': Argument.range(Argument.union('number', 'emojint'), 1, Infinity),
 						'default': 1
 					}
 				], [
 					{
 						'id': 'number',
 						'match': 'rest',
-						'type': Argument.range('number', 1, 20),
+						'type': Argument.range(Argument.union('number', 'emojint'), 1, 20),
 						'default': 1
 					}
 				])
