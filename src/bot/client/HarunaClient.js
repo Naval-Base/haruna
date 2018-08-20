@@ -51,6 +51,7 @@ class HarunaClient extends AkairoClient {
 		this.on('raw', async packet => {
 			switch (packet.t) {
 				case 'VOICE_STATE_UPDATE':
+					if (packet.user_id !== process.env.ID) return;
 					this.music.voiceStateUpdate(packet.d);
 					const players = await this.storage.get('players', { type: 'arr' }); // eslint-disable-line no-case-declarations
 					let index; // eslint-disable-line no-case-declarations
@@ -59,12 +60,8 @@ class HarunaClient extends AkairoClient {
 						await this.storage.upsert('players', [{ guild_id: packet.d.guild_id, channel_id: packet.d.channel_id }]);
 					} else if (players && typeof index !== 'undefined' && index >= 0 && !packet.d.channel_id) {
 						players.splice(index, 1);
-						if (players.length === 0) {
-							await this.storage.delete('players');
-						} else {
-							await this.storage.delete('players');
-							await this.storage.set('players', players);
-						}
+						await this.storage.delete('players');
+						if (players.length) await this.storage.set('players', players);
 					}
 					break;
 				case 'VOICE_SERVER_UPDATE':
