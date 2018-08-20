@@ -49,7 +49,11 @@ class SkipCommand extends Command {
 		let tracks;
 		if (number > 1) tracks = await this.client.music.queues.redis.lrange(`playlists.${message.guild.id}`, 0, number - 2);
 		tracks = [(await queue.current()).track].concat(tracks);
-		await queue.next(number);
+		const skip = await queue.next(number);
+		if (!skip) {
+			await queue.stop();
+			return;
+		}
 		const decoded = await this.client.music.decode(tracks.filter(track => track));
 		const totalLength = decoded.reduce((prev, song) => prev + song.info.length, 0);
 		const paginated = paginate(decoded, 1, 10);
