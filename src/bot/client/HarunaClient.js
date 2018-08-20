@@ -51,7 +51,7 @@ class HarunaClient extends AkairoClient {
 		this.on('raw', async packet => {
 			switch (packet.t) {
 				case 'VOICE_STATE_UPDATE':
-					if (packet.user_id !== process.env.ID) return;
+					if (packet.d.user_id !== process.env.ID) return;
 					this.music.voiceStateUpdate(packet.d);
 					const players = await this.storage.get('players', { type: 'arr' }); // eslint-disable-line no-case-declarations
 					let index; // eslint-disable-line no-case-declarations
