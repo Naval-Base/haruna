@@ -16,7 +16,7 @@ class RemoveCommand extends Command {
 				{
 					id: 'number',
 					match: 'content',
-					type: Argument.union('number', 'emojint')
+					type: Argument.compose(string => string.replace(/\s/g, ''), Argument.union('number', 'emojint'))
 				}
 			]
 		});

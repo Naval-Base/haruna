@@ -320,7 +320,7 @@ diagnostics@^1.0.1:
 
 discord-akairo@1Computer1/discord-akairo:
   version "8.0.0-dev"
-  resolved "https://codeload.github.com/1Computer1/discord-akairo/tar.gz/de52050417ccf920678d04a39aa56452b8877022"
+  resolved "https://codeload.github.com/1Computer1/discord-akairo/tar.gz/7c18fcc709a15073c689b7ca9f782b03bf62f48c"
 
 discord.js@discordjs/discord.js:
   version "12.0.0-dev"

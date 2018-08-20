@@ -20,7 +20,7 @@ class QueueCommand extends Command {
 				{
 					'id': 'page',
 					'match': 'content',
-					'type': Argument.range(Argument.union('number', 'emojint'), 1, Infinity),
+					'type': Argument.compose(string => string.replace(/\s/g, ''), Argument.range(Argument.union('number', 'emojint'), 1, Infinity)),
 					'default': 1
 				}
 			]
