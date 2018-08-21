@@ -320,11 +320,11 @@ diagnostics@^1.0.1:
 
 discord-akairo@1Computer1/discord-akairo:
   version "8.0.0-dev"
-  resolved "https://codeload.github.com/1Computer1/discord-akairo/tar.gz/7c18fcc709a15073c689b7ca9f782b03bf62f48c"
+  resolved "https://codeload.github.com/1Computer1/discord-akairo/tar.gz/ff4368c3f4b028090111e687e28d232c22294b15"
 
 discord.js@discordjs/discord.js:
   version "12.0.0-dev"
-  resolved "https://codeload.github.com/discordjs/discord.js/tar.gz/ab0ede0d5a8dcb4f02a998123d7347be00a38e48"
+  resolved "https://codeload.github.com/discordjs/discord.js/tar.gz/c59d3299bcbe09ce12cd1b78ed5009a82d80363a"
   dependencies:
     form-data "^2.3.2"
     node-fetch "^2.1.2"
