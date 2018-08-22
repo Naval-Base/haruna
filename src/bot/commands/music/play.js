@@ -16,8 +16,13 @@ class PlayCommand extends Command {
 			ratelimit: 2,
 			args: [
 				{
+					id: 'unshift',
+					match: 'flag',
+					flag: ['--start', '-s']
+				},
+				{
 					'id': 'query',
-					'match': 'content',
+					'match': 'rest',
 					'type': Argument.compose('string', string => string ? string.replace(/<(.+)>/g, '$1') : ''), // eslint-disable-line no-confusing-arrow
 					'default': ''
 				}
@@ -45,7 +50,8 @@ class PlayCommand extends Command {
 		if (!message.guild.me.voice.channel) await queue.player.join(message.member.voice.channel.id);
 		let msg;
 		if (['TRACK_LOADED', 'SEARCH_RESULT'].includes(res.loadType)) {
-			await queue.add(res.tracks[0].track);
+			if (unshift) await queue.unshift(res.tracks[0].track);
+			else await queue.add(res.tracks[0].track);
 			msg = res.tracks[0].info.title;
 		} else if (res.loadType === 'PLAYLIST_LOADED') {
 			await queue.add(...res.tracks.map(track => track.track));
