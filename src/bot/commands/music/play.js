@@ -30,7 +30,7 @@ class PlayCommand extends Command {
 		});
 	}
 
-	async exec(message, { query }) {
+	async exec(message, { query, unshift }) {
 		if (!message.member.voice || !message.member.voice.channel) {
 			return message.util.reply('You have to be in a voice channel first, silly.');
 		} else if (!message.member.voice.channel.joinable) {
