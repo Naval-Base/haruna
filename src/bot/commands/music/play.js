@@ -18,7 +18,7 @@ class PlayCommand extends Command {
 				{
 					'id': 'query',
 					'match': 'content',
-					'type': Argument.map('string', string => string.replace(/<(.+)>/g, '$1')),
+					'type': Argument.compose('string', string => string.replace(/<(.+)>/g, '$1')),
 					'default': ''
 				}
 			]
