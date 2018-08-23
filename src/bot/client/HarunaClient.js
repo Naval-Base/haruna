@@ -1,5 +1,6 @@
 const { join } = require('path');
 const { AkairoClient, CommandHandler, InhibitorHandler, ListenerHandler } = require('discord-akairo');
+const { Util } = require('discord.js');
 const { Client: Lavaqueue } = require('lavaqueue');
 const { createLogger, transports, format } = require('winston');
 const database = require('../structures/Database');
@@ -90,6 +91,18 @@ class HarunaClient extends AkairoClient {
 				retries: 3,
 				time: 30000
 			}
+		});
+		this.commandHandler.resolver.addType('playlist', async (phrase, message) => {
+			if (!phrase) return null;
+			phrase = Util.cleanContent(phrase.toLowerCase(), message);
+			const playlist = await this.db.models.playlists.findOne({
+				where: {
+					name: phrase,
+					guild: message.guild.id
+				}
+			});
+
+			return playlist || null;
 		});
 
 		this.inhibitorHandler = new InhibitorHandler(this, { directory: join(__dirname, '..', 'inhibitors') });
