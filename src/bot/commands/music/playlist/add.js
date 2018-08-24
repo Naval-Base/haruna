@@ -55,7 +55,7 @@ class PlaylistAddCommand extends Command {
 		}
 		await playlist.update({ songs: playlist.songs });
 
-		return message.util.send(`${this.client.emojis.get('479430354759843841')} **Added to playlist:** \`${msg}\``)
+		return message.util.send(`${this.client.emojis.get('479430354759843841')} **Added to playlist:** \`${msg}\``);
 	}
 }
 
