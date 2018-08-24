@@ -7,14 +7,14 @@ class PlaylistCommand extends Command {
 			aliases: ['playlist', 'pl'],
 			description: {
 				content: stripIndents`
-					 • create
-					 • load
-					 • add
-					 • remove
-					 • edit
-					 • del
-					 • show
-					 • info
+					 • create \`<playlist>\` \`[info]\`
+					 • add \`<playlist>\` \`<link/playlist>\`
+					 • load \`<playlist>\`
+					 • remove \`<playlist>\` \`<position>\`
+					 • edit \`<playlist>\` \`[info]\`
+					 • del \`<playlist>\`
+					 • show \`<playlist>\` \`[page]\`
+					 • info \`<playlist>\`
 
 					Required: \`<>\` | Optional: \`[]\`
 
@@ -22,13 +22,15 @@ class PlaylistCommand extends Command {
 				`,
 				usage: '<method> <...arguments>',
 				examples: [
-					'create',
-					'load',
-					'add',
-					'remove',
-					'edit',
-					'show',
-					'info'
+					'create Test',
+					'create Test Some additional description',
+					'load Test',
+					'add Test <link/playlist>',
+					'remove Test 3',
+					'edit Test Some other additional info',
+					'show Test',
+					'show Test 3',
+					'info Test'
 				]
 			},
 			category: 'music',

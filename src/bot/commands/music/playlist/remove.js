@@ -5,7 +5,7 @@ class PlaylistRemoveCommand extends Command {
 		super('playlist-remove', {
 			description: {
 				content: 'Removes a song from the playlist.',
-				usage: '<playlist> <number>',
+				usage: '<playlist> <position>',
 				examples: []
 			},
 			category: 'music',
@@ -21,7 +21,7 @@ class PlaylistRemoveCommand extends Command {
 					}
 				},
 				{
-					'id': 'number',
+					'id': 'position',
 					'match': 'rest',
 					'type': 'number',
 					'default': 1
@@ -30,11 +30,11 @@ class PlaylistRemoveCommand extends Command {
 		});
 	}
 
-	async exec(message, { playlist, number }) {
+	async exec(message, { playlist, position }) {
 		if (playlist.user !== message.author.id) return message.util.reply('you can only remove songs from your own playlists.');
-		number = number >= 1 ? number - 1 : playlist.songs.length - (~number + 1);
-		const decoded = await this.client.music.decode([playlist.songs[number]]);
-		playlist.songs.splice(number, 1);
+		position = position >= 1 ? position - 1 : playlist.songs.length - (~position + 1);
+		const decoded = await this.client.music.decode([playlist.songs[position]]);
+		playlist.songs.splice(position, 1);
 		await this.client.db.models.playlists.update({ songs: playlist.songs });
 
 		return message.util.send(`${this.client.emojis.get('479430354759843841')} **Removed:** \`${decoded[0].info.title}\``);
