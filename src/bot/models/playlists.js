@@ -12,6 +12,9 @@ module.exports = (sequelize, DataTypes) =>
 			type: DataTypes.STRING,
 			allowNull: false
 		},
+		description: {
+			type: DataTypes.STRING
+		},
 		songs: {
 			type: DataTypes.ARRAY(DataTypes.JSONB), // eslint-disable-line new-cap
 			defaultValue: []
