@@ -21,7 +21,7 @@
 		"node-fetch": "^2.2.0",
 		"pg": "6.4.2",
 		"raven": "^2.6.3",
-		"rejects": "^0.5.1",
+		"rejects": "^0.6.1",
 		"sequelize": "^4.38.0",
 		"winston": "^3.0.0",
 		"zlib-sync": "^0.1.4"
