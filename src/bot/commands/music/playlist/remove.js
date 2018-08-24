@@ -14,7 +14,6 @@ class PlaylistRemoveCommand extends Command {
 			args: [
 				{
 					id: 'playlist',
-					match: 'content',
 					type: 'playlist',
 					prompt: {
 						start: message => `${message.author}, what playlist should this song/playlist be removed from?`,
@@ -23,7 +22,7 @@ class PlaylistRemoveCommand extends Command {
 				},
 				{
 					'id': 'number',
-					'match': 'content',
+					'match': 'rest',
 					'type': 'number',
 					'default': 1
 				}

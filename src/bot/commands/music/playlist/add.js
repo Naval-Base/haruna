@@ -16,7 +16,6 @@ class PlaylistAddCommand extends Command {
 			args: [
 				{
 					id: 'playlist',
-					match: 'content',
 					type: 'playlist',
 					prompt: {
 						start: message => `${message.author}, what playlist should this song/playlist be added to?`,
@@ -25,7 +24,7 @@ class PlaylistAddCommand extends Command {
 				},
 				{
 					'id': 'query',
-					'match': 'content',
+					'match': 'rest',
 					'type': Argument.compose('string', string => string ? string.replace(/<(.+)>/g, '$1') : ''), // eslint-disable-line no-confusing-arrow
 					'default': ''
 				}

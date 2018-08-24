@@ -14,7 +14,6 @@ class PlaylistCreateCommand extends Command {
 			args: [
 				{
 					id: 'playlist',
-					match: 'content',
 					type: 'existingPlaylist',
 					prompt: {
 						start: message => `${message.author}, what playlist do you want to create?`,
@@ -23,7 +22,7 @@ class PlaylistCreateCommand extends Command {
 				},
 				{
 					id: 'info',
-					match: 'content',
+					match: 'rest',
 					type: 'string'
 				}
 			]

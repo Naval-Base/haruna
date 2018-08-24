@@ -4,7 +4,7 @@ class PlaylistLoadCommand extends Command {
 	constructor() {
 		super('playlist-load', {
 			description: {
-				content: 'Lodas a playlist into the queue.',
+				content: 'Loads a playlist into the queue.',
 				usage: '<playlist>',
 				examples: []
 			},
