@@ -37,7 +37,7 @@ class PlaylistCommand extends Command {
 			args: [
 				{
 					id: 'method',
-					type: ['create', 'add', 'rm', 'remove', 'del', 'delete', 'edit', 'show', 'info']
+					type: ['create', 'add', 'load', 'rm', 'remove', 'del', 'delete', 'edit', 'show', 'info']
 				},
 				{
 					'id': 'args',
