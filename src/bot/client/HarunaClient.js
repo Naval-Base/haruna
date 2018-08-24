@@ -104,6 +104,18 @@ class HarunaClient extends AkairoClient {
 
 			return playlist || null;
 		});
+		this.commandHandler.resolver.addType('existingPlaylist', async (phrase, message) => {
+			if (!phrase) return null;
+			phrase = Util.cleanContent(phrase.toLowerCase(), message);
+			const playlist = await this.db.models.playlists.findOne({
+				where: {
+					name: phrase,
+					guild: message.guild.id
+				}
+			});
+
+			return playlist ? null : phrase;
+		});
 
 		this.inhibitorHandler = new InhibitorHandler(this, { directory: join(__dirname, '..', 'inhibitors') });
 		this.listenerHandler = new ListenerHandler(this, { directory: join(__dirname, '..', 'listeners') });
