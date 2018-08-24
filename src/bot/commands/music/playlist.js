@@ -11,7 +11,7 @@ class PlaylistCommand extends Command {
 					 • add \`<playlist>\` \`<link/playlist>\`
 					 • load \`<playlist>\`
 					 • remove \`<playlist>\` \`<position>\`
-					 • edit \`<playlist>\` \`[info]\`
+					 • edit \`<playlist>\` \`<info>\`
 					 • del \`<playlist>\`
 					 • show \`<playlist>\` \`[page]\`
 					 • info \`<playlist>\`
