@@ -15,6 +15,7 @@ class PlaylistCommand extends Command {
 					 • del \`<playlist>\`
 					 • show \`<playlist>\` \`[page]\`
 					 • info \`<playlist>\`
+					 • list \`[member]\` \`[page]\`
 
 					Required: \`<>\` | Optional: \`[]\`
 
@@ -30,7 +31,8 @@ class PlaylistCommand extends Command {
 					'edit Test Some other additional info',
 					'show Test',
 					'show Test 3',
-					'info Test'
+					'info Test',
+					'list Crawl 2'
 				]
 			},
 			category: 'music',
@@ -39,7 +41,7 @@ class PlaylistCommand extends Command {
 			args: [
 				{
 					id: 'method',
-					type: ['create', 'add', 'load', 'rm', 'remove', 'del', 'delete', 'edit', 'show', 'info']
+					type: ['create', 'add', 'load', 'rm', 'remove', 'del', 'delete', 'edit', 'show', 'info', 'list']
 				},
 				{
 					'id': 'args',
@@ -62,7 +64,8 @@ class PlaylistCommand extends Command {
 			'delete': this.handler.modules.get('playlist-delete'),
 			'edit': this.handler.modules.get('playlist-edit'),
 			'show': this.handler.modules.get('playlist-show'),
-			'info': this.handler.modules.get('playlist-info')
+			'info': this.handler.modules.get('playlist-info'),
+			'list': this.handler.modules.get('playlist-list')
 		}[method];
 
 		return this.handler.handleDirectCommand(message, args, command, true);
