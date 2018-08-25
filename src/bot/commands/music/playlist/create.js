@@ -34,7 +34,7 @@ class PlaylistCreateCommand extends Command {
 			user: message.author.id,
 			guild: message.guild.id,
 			name: playlist,
-			description: Util.cleanContent(info, message)
+			description: info ? Util.cleanContent(info, message) : null
 		});
 
 		return message.util.reply(`successfully created **${pls.name}**.`);
