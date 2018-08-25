@@ -33,7 +33,7 @@ class SkipCommand extends Command {
 					{
 						'id': 'number',
 						'match': 'rest',
-						'type': Argument.compose(string => string.replace(/\s/g, ''), Argument.range(Argument.union('number', 'emojint'), 1, 20)),
+						'type': Argument.compose(string => string.replace(/\s/g, ''), Argument.range(Argument.union('number', 'emojint'), 1, 10)),
 						'default': 1
 					}
 				])
@@ -52,7 +52,7 @@ class SkipCommand extends Command {
 		const skip = await queue.next(number);
 		if (!skip) {
 			await queue.stop();
-			return;
+			return message.util.send('Skipped the last playing song.');
 		}
 		const decoded = await this.client.music.decode(tracks.filter(track => track));
 		const totalLength = decoded.reduce((prev, song) => prev + song.info.length, 0);

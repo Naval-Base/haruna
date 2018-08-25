@@ -1,11 +1,11 @@
 const { Command } = require('discord-akairo');
 
-class StopCommand extends Command {
+class PauseCommand extends Command {
 	constructor() {
-		super('stop', {
-			aliases: ['stop', '🛑', '⏹'],
+		super('pause', {
+			aliases: ['pause'],
 			description: {
-				content: 'Stops and clears the queue.'
+				content: 'Pauses the queue.'
 			},
 			category: 'music',
 			channel: 'guild',
@@ -17,13 +17,11 @@ class StopCommand extends Command {
 		if (!message.member.voice || !message.member.voice.channel) {
 			return message.util.reply('You have to be in a voice channel first, silly.');
 		}
-		const DJ = message.member.roles.has(message.client.settings.get(message.guild, 'djRole'));
 		const queue = this.client.music.queues.get(message.guild.id);
-		if (DJ) await queue.stop();
-		else await queue.player.pause();
+		await queue.player.pause();
 
-		return message.util.send(`${DJ ? 'Stopped' : 'Paused'} the queue.`);
+		return message.util.send('Paused the queue.');
 	}
 }
 
-module.exports = StopCommand;
+module.exports = PauseCommand;
