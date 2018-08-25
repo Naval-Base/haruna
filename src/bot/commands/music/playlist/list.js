@@ -29,7 +29,7 @@ class PlaylistListCommand extends Command {
 
 	async exec(message, { member, page }) {
 		const where = member ? { where: { member: member.id, guild: message.guild.id } } : { where: { guild: message.guild.id } };
-		const playlists = await this.client.db.models.playlist.findAll(where);
+		const playlists = await this.client.db.models.playlists.findAll(where);
 		if (!playlists.length) return message.util.send(`${member ? `${member.displayName}` : `${message.guild.name}`} doesn't have any playlists.`);
 		const paginated = paginate(playlists, page);
 
