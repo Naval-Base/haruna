@@ -35,7 +35,7 @@ class PlaylistRemoveCommand extends Command {
 		position = position >= 1 ? position - 1 : playlist.songs.length - (~position + 1);
 		const decoded = await this.client.music.decode([playlist.songs[position]]);
 		playlist.songs.splice(position, 1);
-		await this.client.db.models.playlists.update({ songs: playlist.songs });
+		await playlist.update({ songs: playlist.songs });
 
 		return message.util.send(`${this.client.emojis.get('479430354759843841')} **Removed:** \`${decoded[0].info.title}\``);
 	}
