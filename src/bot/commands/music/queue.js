@@ -41,7 +41,7 @@ class QueueCommand extends Command {
 			.setDescription(stripIndents`
 				**Now playing:**
 				
-				[${decoded[0].info.title}](${decoded[0].info.uri}) (${timeString(decoded[0].info.length)})
+				❯ [${decoded[0].info.title}](${decoded[0].info.uri}) (${timeString(decoded[0].info.length)})
 
 				**Song queue${paginated.page > 1 ? `, page ${paginated.page}` : ''}:**
 
