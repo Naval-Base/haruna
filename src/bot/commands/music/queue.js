@@ -39,9 +39,11 @@ class QueueCommand extends Command {
 		const embed = new MessageEmbed()
 			.setAuthor(`${message.author.tag} (${message.author.id})`, message.author.displayAvatarURL())
 			.setDescription(stripIndents`
-				**Now playing:** [${decoded[0].info.title}](${decoded[0].info.uri}) (${timeString(decoded[0].info.length)})
+				**Now playing:**
+				
+				[${decoded[0].info.title}](${decoded[0].info.uri}) (${timeString(decoded[0].info.length)})
 
-				**Song queue${paginated.page > 1 ? `, page ${paginated.page}` : ''}**
+				**Song queue${paginated.page > 1 ? `, page ${paginated.page}` : ''}:**
 
 				${paginated.items.length ? paginated.items.map(song => `**${++index}.** [${song.info.title}](${song.info.uri}) (${timeString(song.info.length)})`).join('\n') : 'No more songs in queue.'}
 
