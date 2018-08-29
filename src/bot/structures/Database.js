@@ -8,6 +8,5 @@ const sequelize = new Sequelize(process.env.DB, {
 
 sequelize.import(join(__dirname, '..', 'models', 'settings'));
 sequelize.import(join(__dirname, '..', 'models', 'playlists'));
-sequelize.sync();
 
 module.exports = sequelize;
