@@ -29,7 +29,8 @@ class QueueCommand extends Command {
 
 	async exec(message, { page }) {
 		const queue = this.client.music.queues.get(message.guild.id);
-		const tracks = [(await queue.current() || { track: null }).track].concat(await queue.tracks()).filter(track => track);
+		const current = await queue.current();
+		const tracks = [(current || { track: null }).track].concat(await queue.tracks()).filter(track => track);
 		if (!tracks.length) return message.util.send('Got nothing in queue!');
 		const decoded = await this.client.music.decode(tracks);
 		const totalLength = decoded.reduce((prev, song) => prev + song.info.length, 0);
@@ -41,7 +42,7 @@ class QueueCommand extends Command {
 			.setDescription(stripIndents`
 				**Now playing:**
 				
-				**❯** [${decoded[0].info.title}](${decoded[0].info.uri}) (${timeString(decoded[0].info.length)})
+				**❯** [${decoded[0].info.title}](${decoded[0].info.uri}) (${timeString(current.position)}/${timeString(decoded[0].info.length)}) 
 
 				**Song queue${paginated.page > 1 ? `, page ${paginated.page}` : ''}:**
 
