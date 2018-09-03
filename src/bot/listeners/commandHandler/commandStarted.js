@@ -12,6 +12,7 @@ class CommandStartedListener extends Listener {
 
 	exec(message, command, args) {
 		Raven.captureBreadcrumb({
+			message: 'command_started',
 			category: command.category.id,
 			data: {
 				user: {
