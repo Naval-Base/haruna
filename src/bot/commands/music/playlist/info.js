@@ -34,7 +34,7 @@ class PlaylistInfoCommand extends Command {
 		const embed = new MessageEmbed()
 			.setColor(3447003)
 			.addField('❯ Name', playlist.name)
-			.addField('❯ Description', playlist.description ? playlist.description.substring(0, 1020) : '')
+			.addField('❯ Description', playlist.description ? playlist.description.substring(0, 1020) : 'No description.')
 			.addField('❯ User', user ? `${user.tag} (ID: ${user.id})` : "Couldn't fetch user.")
 			.addField('❯ Guild', guild ? `${guild.name}` : "Couldn't fetch guild.")
 			.addField('❯ Songs', playlist.songs.length || 'No songs.')
