@@ -14,7 +14,7 @@
 		"dotenv": "^6.0.0",
 		"erlpack": "discordapp/erlpack",
 		"ioredis": "^4.0.0",
-		"lavalink": "^2.1.1",
+		"lavalink": "^2.2.1",
 		"lavaqueue": "^2.0.1",
 		"moment": "^2.22.2",
 		"moment-duration-format": "^2.2.2",
