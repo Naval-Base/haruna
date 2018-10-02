@@ -750,9 +750,9 @@ kuler@1.0.x:
   dependencies:
     colornames "^1.1.1"
 
-lavalink@^2.2.1:
-  version "2.2.1"
-  resolved "https://registry.yarnpkg.com/lavalink/-/lavalink-2.2.1.tgz#5155070b252ee427a305fb28d26447d490e8bf1d"
+lavalink@^2.2.2:
+  version "2.2.2"
+  resolved "https://registry.yarnpkg.com/lavalink/-/lavalink-2.2.2.tgz#a758f917269716c6a1e936f36bbc4d9b362e7795"
   dependencies:
     ws "^6.0.0"
 
