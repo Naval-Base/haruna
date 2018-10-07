@@ -9,7 +9,7 @@ WORKDIR /opt/Lavalink
 RUN apt-get update \
 && apt-get install -y curl
 
-RUN curl -o Lavalink.jar https://ci.fredboat.com/repository/download/Lavalink_Build/4968:id/Lavalink.jar?guest=1
+RUN curl -o Lavalink.jar https://ci.fredboat.com/repository/download/Lavalink_Build/5083:id/Lavalink.jar?guest=1
 
 EXPOSE 7000
 

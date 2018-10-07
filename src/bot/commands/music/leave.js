@@ -26,8 +26,9 @@ class LeaveCommand extends Command {
 		if (!message.member.voice || !message.member.voice.channel) {
 			return message.util.reply('You have to be in a voice channel first, silly.');
 		}
+		const DJ = message.member.roles.has(message.client.settings.get(message.guild, 'djRole'));
 		const queue = this.client.music.queues.get(message.guild.id);
-		if (clear) await queue.clear();
+		if (clear && DJ) await queue.clear();
 		await queue.player.stop();
 		await queue.player.destroy();
 		if (message.guild.me.voice || message.guild.me.voice.channel) await queue.player.leave();
