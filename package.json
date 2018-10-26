@@ -27,7 +27,7 @@
 		"zlib-sync": "^0.1.4"
 	},
 	"devDependencies": {
-		"eslint": "^5.7.0",
+		"eslint": "^5.8.0",
 		"eslint-config-aqua": "^4.4.1"
 	},
 	"eslintConfig": {
