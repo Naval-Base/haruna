@@ -43,7 +43,8 @@ class HarunaClient extends AkairoClient {
 				/* eslint-enable multiline-ternary */
 			},
 			send: (guild, packet) => {
-				if (this.guilds.has(guild)) return this.ws.send(packet);
+				const shardGuild = this.guilds.get(guild);
+				if (shardGuild) return shardGuild.shard.send(packet);
 			}
 		});
 		this.redis = this.music.queues.redis;
