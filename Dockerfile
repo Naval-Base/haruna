@@ -12,6 +12,7 @@ RUN apk add --update \
 && apk add --no-cache ca-certificates \
 && apk add --no-cache --virtual .build-deps git curl build-base python g++ make \
 && yarn install \
+&& yarn build \
 && apk del .build-deps
 
 COPY . .
@@ -27,4 +28,4 @@ ENV NODE_ENV= \
 	REDIS= \
 	RAVEN=
 
-CMD ["node", "src/haruna.js"]
+CMD ["node", "dist/haruna.js"]
