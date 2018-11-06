@@ -12,10 +12,11 @@ RUN apk add --update \
 && apk add --no-cache ca-certificates \
 && apk add --no-cache --virtual .build-deps git curl build-base python g++ make \
 && yarn install \
-&& yarn build \
 && apk del .build-deps
 
 COPY . .
+
+RUN yarn build
 
 ENV NODE_ENV= \
 	ID= \
