@@ -4,6 +4,6 @@ import { Entity, Column, PrimaryColumn } from 'typeorm';
 export class Setting {
 	@PrimaryColumn({ type: 'bigint' })
 	guild!: string;
-	@Column({ type: 'jsonb' })
+	@Column({ type: 'jsonb', default: () => "'{}'::jsonb" })
 	settings: any;
 }
