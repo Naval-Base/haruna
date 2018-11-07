@@ -11,10 +11,10 @@ export class Playlist {
 	@Column({ type: 'text' })
 	name!: string;
 	@Column({ type: 'text' })
-	description!: string;
-	@Column({ type: 'jsonb', array: true })
-	songs: any;
+	description!: string | null;
+	@Column({ type: 'jsonb', array: true, default: [] })
+	songs!: any[];
 
-	@Column()
+	@Column({ default: 0 })
 	plays!: number;
 }
