@@ -12,8 +12,8 @@ export class Playlist {
 	name!: string;
 	@Column({ type: 'text' })
 	description!: string | null;
-	@Column({ type: 'jsonb', array: true, default: () => "ARRAY[]::jsonb[]" })
-	songs!: any[];
+	@Column({ type: 'text', array: true, default: () => "ARRAY[]::text[]" })
+	songs!: string[];
 
 	@Column({ default: 0 })
 	plays!: number;
