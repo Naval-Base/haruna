@@ -16,6 +16,8 @@ RUN apk add --update \
 
 COPY . .
 
+RUN yarn build
+
 ENV NODE_ENV= \
 	ID= \
 	OWNERS= \
@@ -27,4 +29,4 @@ ENV NODE_ENV= \
 	REDIS= \
 	RAVEN=
 
-CMD ["node", "src/haruna.js"]
+CMD ["node", "dist/haruna.js"]

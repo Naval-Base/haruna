@@ -6,6 +6,9 @@
 	"author": "iCrawl <icrawltogo@gmail.com>",
 	"license": "UNLICENSED",
 	"private": true,
+	"scripts": {
+		"build": "gulp"
+	},
 	"dependencies": {
 		"@discordjs/uws": "^11.149.1",
 		"common-tags": "^1.8.0",
@@ -15,22 +18,30 @@
 		"erlpack": "discordapp/erlpack",
 		"ioredis": "^4.2.0",
 		"lavalink": "^2.3.0",
-		"lavaqueue": "^2.0.1",
+		"lavaqueue": "^3.0.0-alpha.6",
 		"moment": "^2.22.2",
 		"moment-duration-format": "^2.2.2",
 		"node-fetch": "^2.2.1",
-		"pg": "6.4.2",
+		"pg": "^7.6.0",
 		"raven": "^2.6.4",
+		"reflect-metadata": "^0.1.12",
 		"rejects": "^0.6.2",
-		"sequelize": "^4.41.0",
+		"typeorm": "^0.2.8",
 		"winston": "^3.1.0",
 		"zlib-sync": "^0.1.4"
 	},
 	"devDependencies": {
-		"eslint": "^5.8.0",
-		"eslint-config-aqua": "^4.4.1"
-	},
-	"eslintConfig": {
-		"extends": "aqua/node"
+		"@types/common-tags": "^1.4.0",
+		"@types/ioredis": "^4.0.3",
+		"@types/moment-duration-format": "^2.2.2",
+		"@types/node": "^10.12.2",
+		"@types/sequelize": "^4.27.30",
+		"@types/ws": "^6.0.1",
+		"fs-nextra": "^0.3.7",
+		"gulp": "^3.9.1",
+		"gulp-sourcemaps": "^2.6.4",
+		"gulp-typescript": "^5.0.0-alpha.3",
+		"merge2": "^1.2.3",
+		"typescript": "^3.1.6"
 	}
 }
