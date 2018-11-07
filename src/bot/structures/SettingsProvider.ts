@@ -38,7 +38,7 @@ export default class TypeORMProvider extends Provider {
 		return this.repo.createQueryBuilder()
 			.insert()
 			.into(Setting)
-			.values(data)
+			.values({ guild: id, settings: data })
 			.onConflict(`("guild") DO UPDATE SET "settings" = :settings`)
 			.setParameter('settings', data)
 			.execute();
@@ -52,7 +52,7 @@ export default class TypeORMProvider extends Provider {
 		return this.repo.createQueryBuilder()
 			.insert()
 			.into(Setting)
-			.values(data)
+			.values({ guild: id, settings: data })
 			.onConflict(`("guild") DO UPDATE SET "settings" =:settings`)
 			.setParameter('settings', null)
 			.execute();

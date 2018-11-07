@@ -27,10 +27,11 @@ export default class RemoveCommand extends Command {
 		if (!message.member.voice || !message.member.voice.channel) {
 			return message.util!.reply('You have to be in a voice channel first, silly.');
 		}
-		const tracks = await this.client.music.queues.redis.lrange(`playlists.${message.guild.id}`, 0, -1);
+		const queue = this.client.music.queues.get(message.guild.id);
+		const tracks = await queue.tracks();
 		number = number >= 1 ? number - 1 : tracks.length - (~number + 1);
 		const decoded = await this.client.music.decode([tracks[number]]);
-		await this.client.music.queues.redis.lrem(`playlists.${message.guild.id}`, 1, tracks[number]);
+		await queue.remove(tracks[number]);
 
 		return message.util!.send(`${this.client.emojis.get('479430354759843841')} **Removed:** \`${decoded[0].info.title}\``);
 	}
