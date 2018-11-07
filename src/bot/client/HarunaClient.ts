@@ -6,7 +6,7 @@ import { Logger, createLogger, transports, format } from 'winston';
 import Storage, { ReferenceType } from 'rejects';
 import database from '../structures/Database';
 import TypeORMProvider from '../structures/SettingsProvider';
-import { Settings } from '../models/Settings';
+import { Setting } from '../models/Settings';
 import { Connection } from 'typeorm';
 import { ExtendedRedis } from 'lavaqueue/typings/QueueStore';
 import { Playlist } from '../models/Playlists';
@@ -151,10 +151,10 @@ export default class HarunaClient extends AkairoClient {
 			process.on('unhandledRejection', this.logger.error);
 		}
 
-		this.init();
+		this._init();
 	}
 
-	private async init() {
+	private async _init() {
 		this.commandHandler.useInhibitorHandler(this.inhibitorHandler);
 		this.commandHandler.useListenerHandler(this.listenerHandler);
 		this.listenerHandler.setEmitters({
@@ -169,7 +169,7 @@ export default class HarunaClient extends AkairoClient {
 
 		this.db = database.get('haruna');
 		await this.db.connect();
-		this.settings = new TypeORMProvider(this.db.getRepository(Settings));
+		this.settings = new TypeORMProvider(this.db.getRepository(Setting));
 		await this.settings.init();
 	}
 

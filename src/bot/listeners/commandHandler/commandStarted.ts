@@ -20,7 +20,6 @@ export default class CommandStartedListener extends Listener {
 					id: message.author.id,
 					username: message.author.tag
 				},
-				/* eslint-disable multiline-ternary */
 				guild: message.guild ? {
 					id: message.guild.id,
 					name: message.guild.name
@@ -58,7 +57,6 @@ export default class CommandStartedListener extends Listener {
 				},
 				args
 			}
-			/* eslint-enable multiline-ternary */
 		});
 	}
 }

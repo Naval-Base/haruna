@@ -1,5 +1,5 @@
 import { ConnectionManager } from 'typeorm';
-import { Settings } from '../models/Settings';
+import { Setting } from '../models/Settings';
 import { Playlist } from '../models/Playlists';
 
 const connectionManager = new ConnectionManager();
@@ -8,7 +8,7 @@ connectionManager.create({
 	type: 'postgres',
 	url: process.env.DB,
 	synchronize: true,
-	entities: [Settings, Playlist]
+	entities: [Setting, Playlist]
 });
 
 export default connectionManager;

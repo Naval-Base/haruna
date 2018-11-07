@@ -1,5 +1,6 @@
 import { Argument, Command } from 'discord-akairo';
 import { Message } from 'discord.js';
+import { Playlist } from '../../../models/Playlists';
 
 export default class PlaylistRemoveCommand extends Command {
 	public constructor() {
@@ -35,8 +36,9 @@ export default class PlaylistRemoveCommand extends Command {
 		if (playlist.user !== message.author.id) return message.util!.reply('you can only remove songs from your own playlists.');
 		position = position >= 1 ? position - 1 : playlist.songs.length - (~position + 1);
 		const decoded = await this.client.music.decode([playlist.songs[position]]);
+		const playlistRepo = this.client.db.getRepository(Playlist);
 		playlist.songs.splice(position, 1);
-		await playlist.update({ songs: playlist.songs });
+		await playlistRepo.save(playlist);
 
 		return message.util!.send(`${this.client.emojis.get('479430354759843841')} **Removed:** \`${decoded[0].info.title}\``);
 	}

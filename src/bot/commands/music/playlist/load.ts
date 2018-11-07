@@ -1,5 +1,6 @@
 import { Command } from 'discord-akairo';
 import { Message } from 'discord.js';
+import { Playlist } from '../../../models/Playlists';
 
 export default class PlaylistLoadCommand extends Command {
 	public constructor() {
@@ -39,8 +40,9 @@ export default class PlaylistLoadCommand extends Command {
 		if (!message.guild.me.voice.channel) await queue.player.join(message.member.voice.channel.id);
 		await queue.add(...playlist.songs);
 		if (!queue.player.playing && !queue.player.paused) await queue.start();
+		const playlistRepo = this.client.db.getRepository(Playlist);
 		playlist.plays += 1;
-		playlist.save();
+		await playlistRepo.save(playlist);
 
 		return message.util!.send(`${this.client.emojis.get('479430354759843841')} **Queued up:** \`${playlist.name}\` from ${user.tag}`);
 	}

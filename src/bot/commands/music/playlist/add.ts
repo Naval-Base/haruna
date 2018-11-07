@@ -2,6 +2,7 @@ import { Argument, Command } from 'discord-akairo';
 import { Message } from 'discord.js';
 import * as url from 'url';
 import * as path from 'path';
+import { Playlist } from '../../../models/Playlists';
 
 export default class PlaylistAddCommand extends Command {
 	public constructor() {
@@ -55,7 +56,8 @@ export default class PlaylistAddCommand extends Command {
 		} else {
 			return message.util!.send("I know you hate to hear that, but even searching the universe I couldn't find what you were looking for.");
 		}
-		await playlist.update({ songs: playlist.songs });
+		const playlistRepo = this.client.db.getRepository(Playlist);
+		await playlistRepo.save(playlist);
 
 		return message.util!.send(`${this.client.emojis.get('479430354759843841')} **Added to playlist:** \`${msg}\``);
 	}

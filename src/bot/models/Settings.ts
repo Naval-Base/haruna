@@ -1,7 +1,7 @@
 import { Entity, Column, PrimaryColumn } from 'typeorm';
 
-@Entity()
-export class Settings {
+@Entity('settings')
+export class Setting {
 	@PrimaryColumn({ type: 'bigint' })
 	guild!: string;
 	@Column({ type: 'jsonb' })

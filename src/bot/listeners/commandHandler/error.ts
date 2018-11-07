@@ -2,7 +2,7 @@ import { Listener, Command } from 'discord-akairo';
 import { Message } from 'discord.js';
 const Raven = require('raven');
 
-class CommandErrorListener extends Listener {
+export default class CommandErrorListener extends Listener {
 	public constructor() {
 		super('error', {
 			emitter: 'commandHandler',
@@ -21,7 +21,6 @@ class CommandErrorListener extends Listener {
 					id: message.author.id,
 					username: message.author.tag
 				},
-				/* eslint-disable multiline-ternary */
 				guild: message.guild ? {
 					id: message.guild.id,
 					name: message.guild.name
@@ -35,11 +34,8 @@ class CommandErrorListener extends Listener {
 					id: message.id,
 					content: message.content
 				}
-				/* eslint-enable multiline-ternary */
 			}
 		});
 		Raven.captureException(error);
 	}
 }
-
-module.exports = CommandErrorListener;

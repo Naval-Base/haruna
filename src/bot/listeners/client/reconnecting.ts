@@ -11,6 +11,6 @@ export default class ReconnectListener extends Listener {
 	}
 
 	public exec() {
-		(this.client as HarunaClient).logger.info('Firepower--full force!!');
+		this.client.logger.info('Firepower--full force!!');
 	}
 }

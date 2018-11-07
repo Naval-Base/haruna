@@ -37,7 +37,7 @@ export default class PlaylistCreateCommand extends Command {
 		pls.guild = message.guild.id;
 		pls.name = playlist;
 		if (info) pls.description = Util.cleanContent(info, message);
-		await playlistRepo.save(playlist);
+		await playlistRepo.save(pls);
 
 		return message.util!.reply(`successfully created **${pls.name}**.`);
 	}
