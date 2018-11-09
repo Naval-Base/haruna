@@ -10,6 +10,9 @@ import { Setting } from '../models/Settings';
 import { Connection } from 'typeorm';
 import { ExtendedRedis } from 'lavaqueue/typings/QueueStore';
 import { Playlist } from '../models/Playlists';
+import { Counter, Gauge, collectDefaultMetrics, register } from 'prom-client';
+import { createServer } from 'http';
+import { parse } from 'url';
 const Raven = require('raven');
 
 declare module 'discord-akairo' {
@@ -21,6 +24,9 @@ declare module 'discord-akairo' {
 		redis: ExtendedRedis;
 		storage: Storage;
 		config: HarunaOptions;
+		prometheus: {
+			commandCounter: Counter;
+		};
 	}
 }
 
@@ -91,6 +97,13 @@ export default class HarunaClient extends AkairoClient {
 
 	public config: HarunaOptions;
 
+	public prometheus = {
+		messagesCounter: new Counter({ name: 'haruna_message_create', help: 'Total number of messages Haruna has seen' }),
+		commandCounter: new Counter({ name: 'haruna_commands', help: 'Total number of commands used' }),
+		collectDefaultMetrics,
+		register
+	};
+
 	public constructor(config: HarunaOptions) {
 		super({ ownerID: config.owner }, {
 			disableEveryone: true,
@@ -115,6 +128,9 @@ export default class HarunaClient extends AkairoClient {
 					break;
 				case 'VOICE_SERVER_UPDATE':
 					this.music.voiceServerUpdate(packet.d);
+					break;
+				case 'MESSAGE_CREATE':
+					this.prometheus.messagesCounter.inc();
 					break;
 				default:
 					break;
@@ -151,6 +167,8 @@ export default class HarunaClient extends AkairoClient {
 			process.on('unhandledRejection', this.logger.error);
 		}
 
+		this.prometheus.collectDefaultMetrics({ prefix: 'haruna_', timeout: 30000 });
+
 		this._init();
 	}
 
@@ -171,6 +189,16 @@ export default class HarunaClient extends AkairoClient {
 		await this.db.connect();
 		this.settings = new TypeORMProvider(this.db.getRepository(Setting));
 		await this.settings.init();
+	}
+
+	public metrics() {
+		createServer((req, res) => {
+			if (parse(req.url!).pathname === '/metrics') {
+				res.writeHead(200, { 'Content-Type': this.prometheus.register.contentType });
+				res.write(this.prometheus.register.metrics());
+			}
+			res.end();
+		}).listen(5501);
 	}
 
 	public async start() {
