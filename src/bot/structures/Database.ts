@@ -7,7 +7,6 @@ connectionManager.create({
 	name: 'haruna',
 	type: 'postgres',
 	url: process.env.DB,
-	synchronize: true,
 	entities: [Setting, Playlist]
 });
 
