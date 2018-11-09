@@ -98,8 +98,8 @@ export default class HarunaClient extends AkairoClient {
 	public config: HarunaOptions;
 
 	public prometheus = {
-		messagesCounter: new Counter({ name: 'haruna_message_create', help: 'Total number of messages Haruna has seen' }),
-		commandCounter: new Counter({ name: 'haruna_commands', help: 'Total number of commands used' }),
+		messagesCounter: new Counter({ name: 'haruna_messages_total', help: 'Total number of messages Haruna has seen' }),
+		commandCounter: new Counter({ name: 'haruna_commands_total', help: 'Total number of commands used' }),
 		collectDefaultMetrics,
 		register
 	};
@@ -168,8 +168,6 @@ export default class HarunaClient extends AkairoClient {
 		}
 
 		this.prometheus.collectDefaultMetrics({ prefix: 'haruna_', timeout: 30000 });
-
-		this._init();
 	}
 
 	private async _init() {
@@ -202,6 +200,7 @@ export default class HarunaClient extends AkairoClient {
 	}
 
 	public async start() {
+		await this._init();
 		return this.login(this.config.token);
 	}
 }
