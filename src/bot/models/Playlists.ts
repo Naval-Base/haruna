@@ -12,7 +12,7 @@ export class Playlist {
 	name!: string;
 	@Column({ type: 'text' })
 	description!: string | null;
-	@Column({ type: 'text', array: true, default: () => "ARRAY[]::text[]" })
+	@Column({ type: 'text', array: true, default: '{}' })
 	songs!: string[];
 
 	@Column({ default: 0 })
