@@ -14,7 +14,7 @@ export default class PrefixCommand extends Command {
 		});
 	}
 
-	public exec(message: Message) {
+	public async exec(message: Message) {
 		return message.util!.send(`The current prefixes for this guild are: ${(this.handler.prefix as string[]).join(' | ')}`);
 	}
 }

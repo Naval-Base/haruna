@@ -7,7 +7,7 @@ export default class RemoveCommand extends Command {
 			aliases: ['remove', 'rm', '📤'],
 			description: {
 				content: 'Removes a song from the queue.',
-				usage: '[number]',
+				usage: '[num]',
 				examples: ['3', '6']
 			},
 			category: 'music',
@@ -15,23 +15,23 @@ export default class RemoveCommand extends Command {
 			ratelimit: 2,
 			args: [
 				{
-					id: 'number',
+					id: 'num',
 					match: 'content',
-					type: Argument.compose(string => string.replace(/\s/g, ''), Argument.union('number', 'emojint'))
+					type: Argument.compose(str => str.replace(/\s/g, ''), Argument.union('number', 'emojint'))
 				}
 			]
 		});
 	}
 
-	public async exec(message: Message, { number }: { number: number }) {
+	public async exec(message: Message, { num }: { num: number }) {
 		if (!message.member.voice || !message.member.voice.channel) {
 			return message.util!.reply('You have to be in a voice channel first, silly.');
 		}
 		const queue = this.client.music.queues.get(message.guild.id);
 		const tracks = await queue.tracks();
-		number = number >= 1 ? number - 1 : tracks.length - (~number + 1);
-		const decoded = await this.client.music.decode([tracks[number]]);
-		await queue.remove(tracks[number]);
+		num = num >= 1 ? num - 1 : tracks.length - (~num + 1);
+		const decoded = await this.client.music.decode([tracks[num]]);
+		queue.remove(tracks[num]);
 
 		return message.util!.send(`${this.client.emojis.get('479430354759843841')} **Removed:** \`${decoded[0].info.title}\``);
 	}

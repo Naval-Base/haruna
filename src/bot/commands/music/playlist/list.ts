@@ -22,7 +22,7 @@ export default class PlaylistListCommand extends Command {
 				},
 				{
 					id: 'page',
-					type: Argument.compose(string => string.replace(/\s/g, ''), Argument.range(Argument.union('number', 'emojint'), 1, Infinity))
+					type: Argument.compose(str => str.replace(/\s/g, ''), Argument.range(Argument.union('number', 'emojint'), 1, Infinity))
 				}
 			]
 		});

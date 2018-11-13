@@ -1,5 +1,7 @@
 import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 
+/* tslint:disable:member-access */
+
 @Entity('playlists')
 export class Playlist {
 	@PrimaryGeneratedColumn()

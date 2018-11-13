@@ -22,10 +22,10 @@ export default class PlayCommand extends Command {
 					flag: ['--start', '-s']
 				},
 				{
-					'id': 'query',
-					'match': 'rest',
-					'type': Argument.compose('string', string => string ? string.replace(/<(.+)>/g, '$1') : ''), // eslint-disable-line no-confusing-arrow
-					'default': ''
+					id: 'query',
+					match: 'rest',
+					type: Argument.compose('string', str => str ? str.replace(/<(.+)>/g, '$1') : ''),
+					default: ''
 				}
 			]
 		});

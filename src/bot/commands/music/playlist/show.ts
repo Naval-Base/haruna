@@ -26,10 +26,10 @@ export default class PlaylistShowCommand extends Command {
 					}
 				},
 				{
-					'id': 'page',
-					'match': 'content',
-					'type': Argument.compose(string => string.replace(/\s/g, ''), Argument.range(Argument.union('number', 'emojint'), 1, Infinity)),
-					'default': 1
+					id: 'page',
+					match: 'content',
+					type: Argument.compose(str => str.replace(/\s/g, ''), Argument.range(Argument.union('number', 'emojint'), 1, Infinity)),
+					default: 1
 				}
 			]
 		});
@@ -39,9 +39,9 @@ export default class PlaylistShowCommand extends Command {
 		if (!playlist.songs.length) return message.util!.send('This playlist has no songs!');
 		const decoded = await this.client.music.decode(playlist.songs);
 		// TODO: remove hack
-		const totalLength = (decoded as any).reduce((prev: number, song: any) => prev + song.info.length, 0);
+		const totalLength = (decoded as any).reduce((prev: number, song: any) => prev + song.info.length, 0); // tslint:disable-line
 		const paginated = paginate(decoded as any, page);
-		let index = 10 * (paginated.page - 1);
+		let index = (paginated.page - 1) * 10;
 
 		const embed = new MessageEmbed()
 			.setAuthor(`${message.author.tag} (${message.author.id})`, message.author.displayAvatarURL())

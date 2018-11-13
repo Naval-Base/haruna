@@ -18,10 +18,10 @@ export default class QueueCommand extends Command {
 			ratelimit: 2,
 			args: [
 				{
-					'id': 'page',
-					'match': 'content',
-					'type': Argument.compose(string => string.replace(/\s/g, ''), Argument.range(Argument.union('number', 'emojint'), 1, Infinity)),
-					'default': 1
+					id: 'page',
+					match: 'content',
+					type: Argument.compose(str => str.replace(/\s/g, ''), Argument.range(Argument.union('number', 'emojint'), 1, Infinity)),
+					default: 1
 				}
 			]
 		});
@@ -33,16 +33,16 @@ export default class QueueCommand extends Command {
 		const tracks = [(current || { track: null }).track].concat(await queue.tracks()).filter(track => track);
 		if (!tracks.length) return message.util!.send('Got nothing in queue!');
 		const decoded = await this.client.music.decode(tracks as any[]);
-		const totalLength = decoded.reduce((prev: number, song: any) => prev + song.info.length, 0);
+		const totalLength = decoded.reduce((prev: number, song: any) => prev + song.info.length, 0); // tslint:disable-line
 		const paginated = paginate(decoded.slice(1), page);
-		let index = 10 * (paginated.page - 1);
+		let index = (paginated.page - 1) * 10;
 
 		const embed = new MessageEmbed()
 			.setAuthor(`${message.author.tag} (${message.author.id})`, message.author.displayAvatarURL())
 			.setDescription(stripIndents`
 				**Now playing:**
-				
-				**❯** [${decoded[0].info.title}](${decoded[0].info.uri}) (${timeString(current!.position)}/${timeString(decoded[0].info.length)}) 
+
+				**❯** [${decoded[0].info.title}](${decoded[0].info.uri}) (${timeString(current!.position)}/${timeString(decoded[0].info.length)})
 
 				**Song queue${paginated.page > 1 ? `, page ${paginated.page}` : ''}:**
 

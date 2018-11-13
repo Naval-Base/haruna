@@ -45,9 +45,9 @@ export default class PlaylistCommand extends Command {
 					type: ['create', 'add', 'load', 'rm', 'remove', 'del', 'delete', 'edit', 'show', 'info', 'list']
 				},
 				{
-					'id': 'args',
-					'match': 'rest',
-					'default': ''
+					id: 'args',
+					match: 'rest',
+					default: ''
 				}
 			]
 		});
@@ -56,17 +56,17 @@ export default class PlaylistCommand extends Command {
 	public exec(message: Message, { method, args }: { method: string, args: any }) {
 		if (!method) return;
 		const command = ({
-			'create': this.handler.modules.get('playlist-create'),
-			'load': this.handler.modules.get('playlist-load'),
-			'add': this.handler.modules.get('playlist-add'),
-			'rm': this.handler.modules.get('playlist-remove'),
-			'remove': this.handler.modules.get('playlist-remove'),
-			'del': this.handler.modules.get('playlist-delete'),
-			'delete': this.handler.modules.get('playlist-delete'),
-			'edit': this.handler.modules.get('playlist-edit'),
-			'show': this.handler.modules.get('playlist-show'),
-			'info': this.handler.modules.get('playlist-info'),
-			'list': this.handler.modules.get('playlist-list')
+			create: this.handler.modules.get('playlist-create'),
+			load: this.handler.modules.get('playlist-load'),
+			add: this.handler.modules.get('playlist-add'),
+			rm: this.handler.modules.get('playlist-remove'),
+			remove: this.handler.modules.get('playlist-remove'),
+			del: this.handler.modules.get('playlist-delete'),
+			delete: this.handler.modules.get('playlist-delete'),
+			edit: this.handler.modules.get('playlist-edit'),
+			show: this.handler.modules.get('playlist-show'),
+			info: this.handler.modules.get('playlist-info'),
+			list: this.handler.modules.get('playlist-list')
 		} as { [key: string]: Command })[method];
 
 		return this.handler.handleDirectCommand(message, args, command, true);

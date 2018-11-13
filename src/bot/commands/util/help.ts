@@ -22,7 +22,7 @@ export default class HelpCommand extends Command {
 		});
 	}
 
-	public exec(message: Message, { command }: { command: Command }) {
+	public async exec(message: Message, { command }: { command: Command }) {
 		const prefix = (this.handler.prefix as string[])[0];
 		if (!command) {
 			const embed = new MessageEmbed()

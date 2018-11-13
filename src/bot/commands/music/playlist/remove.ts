@@ -23,10 +23,10 @@ export default class PlaylistRemoveCommand extends Command {
 					}
 				},
 				{
-					'id': 'position',
-					'match': 'rest',
-					'type': Argument.compose(string => string.replace(/\s/g, ''), Argument.range(Argument.union('number', 'emojint'), 1, Infinity)),
-					'default': 1
+					id: 'position',
+					match: 'rest',
+					type: Argument.compose(str => str.replace(/\s/g, ''), Argument.range(Argument.union('number', 'emojint'), 1, Infinity)),
+					default: 1
 				}
 			]
 		});

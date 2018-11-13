@@ -10,10 +10,10 @@ import { Setting } from '../models/Settings';
 import { Connection } from 'typeorm';
 import { ExtendedRedis } from 'lavaqueue/typings/QueueStore';
 import { Playlist } from '../models/Playlists';
-import { Counter, Gauge, collectDefaultMetrics, register } from 'prom-client';
+import { Counter, collectDefaultMetrics, register } from 'prom-client';
 import { createServer } from 'http';
 import { parse } from 'url';
-const Raven = require('raven');
+const Raven = require('raven'); // tslint:disable-line
 
 declare module 'discord-akairo' {
 	interface AkairoClient {
@@ -61,9 +61,9 @@ export default class HarunaClient extends AkairoClient {
 				db: 0
 			} : undefined
 		},
-		send: (guild, packet) => {
+		send: async (guild, packet) => {
 			const shardGuild = this.guilds.get(guild);
-			if (shardGuild) shardGuild.shard.send(packet);
+			if (shardGuild) return shardGuild.shard.send(packet);
 			return Promise.resolve();
 		}
 	});
@@ -119,7 +119,7 @@ export default class HarunaClient extends AkairoClient {
 					let index: number = 0;
 					if (Array.isArray(players)) index = players.findIndex(player => player.guild_id === packet.d.guild_id);
 					if (((!players && !index) || index < 0) && packet.d.channel_id) {
-						await this.storage.upsert('players', [{ guild_id: packet.d.guild_id, channel_id: packet.d.channel_id }]);
+						this.storage.upsert('players', [{ guild_id: packet.d.guild_id, channel_id: packet.d.channel_id }]);
 					} else if (players && typeof index !== 'undefined' && index >= 0 && !packet.d.channel_id) {
 						players.splice(index, 1);
 						await this.storage.delete('players');

@@ -11,7 +11,7 @@ export default class EvalCommand extends Command {
 
 	public lastResult: any = null;
 
-	private _sensitivePattern!: any;
+	private _sensitivePattern!: any; // tslint:disable-line
 
 	public constructor() {
 		super('eval', {
@@ -37,9 +37,9 @@ export default class EvalCommand extends Command {
 	}
 
 	public exec(message: Message, { code }: { code: string }) {
-		/* eslint-disable no-unused-vars */
-		const msg = message;
-		const { client, lastResult } = this;
+		const msg = message; // tslint:disable-line
+		const { client, lastResult } = this; // tslint:disable-line
+		// tslint:disable-next-line
 		const doReply = (val: any) => {
 			if (val instanceof Error) {
 				message.util!.send(`Callback error: \`${val}\``);
@@ -52,12 +52,11 @@ export default class EvalCommand extends Command {
 				message.util!.send(result);
 			}
 		};
-		/* eslint-enable no-unused-vars */
 
 		let hrDiff;
 		try {
 			const hrStart = process.hrtime();
-			this.lastResult = eval(code); // eslint-disable-line no-eval
+			this.lastResult = eval(code); // tslint:disable-line
 			hrDiff = process.hrtime(hrStart);
 		} catch (error) {
 			return message.util!.send(`Error while evaluating: \`${error}\``);
@@ -65,7 +64,7 @@ export default class EvalCommand extends Command {
 
 		this.hrStart = process.hrtime();
 		const result = this._result(this.lastResult, hrDiff, code);
-		if (Array.isArray(result)) return result.map(res => message.util!.send(res));
+		if (Array.isArray(result)) return result.map(async res => message.util!.send(res));
 		return message.util!.send(result);
 	}
 
