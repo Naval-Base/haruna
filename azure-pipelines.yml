@@ -1,0 +1,14 @@
+pool:
+  vmImage: 'Ubuntu 16.04'
+
+steps:
+- task: NodeTool@0
+  inputs:
+    versionSpec: '11.x'
+  displayName: 'Install Node.js'
+
+- script: |
+    curl -o- -L https://yarnpkg.com/install.sh | bash
+    yarn install
+    gulp default --gulpfile gulpfile.js
+  displayName: 'yarn install and run gulp'
