@@ -34,7 +34,7 @@
 		"@types/common-tags": "^1.4.0",
 		"@types/ioredis": "^4.0.4",
 		"@types/moment-duration-format": "^2.2.2",
-		"@types/node": "^10.12.7",
+		"@types/node": "^10.12.8",
 		"@types/sequelize": "^4.27.30",
 		"@types/ws": "^6.0.1",
 		"fs-nextra": "^0.3.7",
