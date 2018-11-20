@@ -115,7 +115,7 @@ export default class HarunaClient extends AkairoClient {
 				case 'VOICE_STATE_UPDATE':
 					if (packet.d.user_id !== process.env.ID) return;
 					this.music.voiceStateUpdate(packet.d);
-					const players: { guild_id: string, channel_id?: string }[] = await this.storage.get('players', { type: ReferenceType.ARRAY });
+					const players: { guild_id: string, channel_id?: string }[] | null = await this.storage.get('players', { type: ReferenceType.ARRAY });
 					let index: number = 0;
 					if (Array.isArray(players)) index = players.findIndex(player => player.guild_id === packet.d.guild_id);
 					if (((!players && !index) || index < 0) && packet.d.channel_id) {
