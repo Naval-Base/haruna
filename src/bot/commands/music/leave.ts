@@ -37,5 +37,3 @@ export default class LeaveCommand extends Command {
 		return message.util!.send(this.client.emojis.get('479430325169160193')!.toString());
 	}
 }
-
-module.exports = LeaveCommand;
