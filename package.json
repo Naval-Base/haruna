@@ -18,7 +18,7 @@
 		"dotenv": "^6.1.0",
 		"ioredis": "^4.2.0",
 		"lavalink": "^2.3.0",
-		"lavaqueue": "^3.0.0-alpha.6",
+		"lavaqueue": "^3.0.0",
 		"moment": "^2.22.2",
 		"moment-duration-format": "^2.2.2",
 		"node-fetch": "^2.3.0",
