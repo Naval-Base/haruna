@@ -132,7 +132,7 @@ export default class ReorderCommand extends Command {
 				}
 			}
 		}
-		await queue.clear();
+		await queue.trim(0, 0);
 		await queue.add(...newTracks);
 
 		return message.util!.reply('The queue has been reordered.');
