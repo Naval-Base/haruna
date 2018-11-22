@@ -132,7 +132,7 @@ export default class ReorderCommand extends Command {
 				}
 			}
 		}
-		await queue.trim(0, 0);
+		await queue.trim(0, 0); // tslint:disable-line
 		await queue.add(...newTracks);
 
 		return message.util!.reply('The queue has been reordered.');
