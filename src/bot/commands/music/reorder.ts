@@ -2,13 +2,23 @@ import { Command } from 'discord-akairo';
 import { Message } from 'discord.js';
 import { stripIndents } from 'common-tags';
 
-interface Actions {
-	kind?: 'single' | 'slice' | 'spread';
-	from?: number;
-	to?: number;
-	num?: number;
-	reverse?: boolean;
+interface SingleAction {
+	kind?: 'single';
+	num: number;
 }
+
+interface SliceAction {
+	kind?: 'slice';
+	from: number;
+	to: number;
+	reverse: boolean;
+}
+
+interface SpreadAction {
+	kind?: 'spread';
+}
+
+type Actions = SingleAction | SliceAction | SpreadAction; // tslint:disable-line
 
 export default class ReorderCommand extends Command {
 	constructor() {
@@ -93,14 +103,14 @@ export default class ReorderCommand extends Command {
 		for (const action of actions) {
 			switch (action.kind) {
 				case 'single':
-					newTracks.push(tracks[action.num!]);
-					numbers.delete(action.num!);
+					newTracks.push(tracks[action.num]);
+					numbers.delete(action.num);
 					break;
 				case 'slice':
-					const slice = tracks.slice(action.from, action.to! + 1);
+					const slice = tracks.slice(action.from, action.to + 1);
 					if (action.reverse) slice.reverse();
 					newTracks.push(...slice);
-					for (let i = action.from!; i <= action.to!; i++) {
+					for (let i = action.from; i <= action.to; i++) {
 						numbers.delete(i);
 					}
 					break;
