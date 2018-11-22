@@ -118,7 +118,7 @@ export default class ReorderCommand extends Command {
 			const numbersA = Array.from(numbers);
 			for (let i = 0; i < newTracks.length; i++) {
 				if (newTracks[i] === '*') {
-					newTracks.splice(i, 1, ...numbersA.splice(0, sliceSize));
+					newTracks.splice(i, 1, ...numbersA.splice(0, sliceSize).map(i => tracks[i]));
 				}
 			}
 		}
