@@ -52,7 +52,7 @@ export default class ReorderCommand extends Command {
 		}
 		const orderingRegex = /\s*(\d+)-(\d+)\s*|\s*(\d+)\s*|\s*(\*)\s*/g;
 		const orderingMatch = ordering.match(orderingRegex);
-		if (orderingMatch && orderingMatch.join('').length === ordering.length) {
+		if (!orderingMatch || orderingMatch.join('').length !== ordering.length) {
 			return message.util!.reply('You have to supply a valid new order for the songs.');
 		}
 
