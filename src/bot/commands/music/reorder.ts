@@ -65,7 +65,7 @@ export default class ReorderCommand extends Command {
 		}
 
 		const queue = this.client.music.queues.get(message.guild.id);
-		const queueLength = await queue.length();
+		const queueLength = await queue.length(); // tslint:disable-line
 		const actions: Action[] = [];
 		let match;
 		while ((match = orderingRegex.exec(ordering)) !== null) { // tslint:disable-line
