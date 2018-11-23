@@ -18,7 +18,7 @@ interface SpreadAction {
 	kind: 'spread';
 }
 
-type Action = SingleAction | SliceAction | SpreadAction;
+type Action = SingleAction | SliceAction | SpreadAction; // tslint:disable-line
 
 interface OrderingMatch {
 	sliceFrom?: string;
@@ -27,7 +27,7 @@ interface OrderingMatch {
 	spread?: string;
 }
 
-const orderingRegex = /\s*(?<sliceFrom>\d+)-(?<sliceTo>\d+)\s*|\s*(?<singleNum>\d+)\s*|\s*(?<spread>\*)\s*/g;
+const ORDERING_REGEX = /\s*(?<sliceFrom>\d+)-(?<sliceTo>\d+)\s*|\s*(?<singleNum>\d+)\s*|\s*(?<spread>\*)\s*/g;
 
 export default class ReorderCommand extends Command {
 	constructor() {
@@ -59,7 +59,7 @@ export default class ReorderCommand extends Command {
 		if (!ordering) {
 			return message.util!.reply('You have to supply a new order for the songs.');
 		}
-		const orderingMatch = ordering.match(orderingRegex);
+		const orderingMatch = ordering.match(ORDERING_REGEX);
 		if (!orderingMatch || orderingMatch.join('').length !== ordering.length) {
 			return message.util!.reply('You have to supply a valid new order for the songs.');
 		}
@@ -68,7 +68,7 @@ export default class ReorderCommand extends Command {
 		const queueLength = await queue.length(); // tslint:disable-line
 		const actions: Action[] = [];
 		let match;
-		while ((match = orderingRegex.exec(ordering)) !== null) { // tslint:disable-line
+		while ((match = ORDERING_REGEX.exec(ordering)) !== null) { // tslint:disable-line
 			const groups: OrderingMatch = match.groups!;
 			if (groups.sliceFrom && groups.sliceTo) {
 				let from = Number(groups.sliceFrom) - 1;
