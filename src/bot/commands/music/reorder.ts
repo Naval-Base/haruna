@@ -56,12 +56,19 @@ export default class ReorderCommand extends Command {
 	}
 
 	public async exec(message: Message, { ordering }: { ordering: string | null }) {
+		if (!message.member.voice || !message.member.voice.channel) {
+			return message.util!.reply('you have to be in a voice channel first, silly.');
+		}
+		const DJ = message.member.roles.has(this.client.settings.get(message.guild, 'djRole', undefined));
+		if (!DJ) {
+			return message.util!.reply('nuh, uh!')
+		}
 		if (!ordering) {
-			return message.util!.reply('You have to supply a new order for the songs.');
+			return message.util!.reply('you have to supply a new order for the songs.');
 		}
 		const orderingMatch = ordering.match(ORDERING_REGEX);
 		if (!orderingMatch || orderingMatch.join('').length !== ordering.length) {
-			return message.util!.reply('You have to supply a valid new order for the songs.');
+			return message.util!.reply('you have to supply a valid new order for the songs.');
 		}
 
 		const queue = this.client.music.queues.get(message.guild.id);
@@ -80,7 +87,7 @@ export default class ReorderCommand extends Command {
 				}
 
 				if (from >= queueLength || to >= queueLength || from < 0 || to < 0) {
-					return message.util!.reply('Some song numbers were out of bound.');
+					return message.util!.reply('some song numbers were out of bound.');
 				}
 
 				actions.push({
@@ -92,7 +99,7 @@ export default class ReorderCommand extends Command {
 			} else if (groups.singleNum) {
 				const num = Number(groups.singleNum) - 1;
 				if (num >= queueLength || num < 0) {
-					return message.util!.reply('Some song numbers were out of bound.');
+					return message.util!.reply('some song numbers were out of bound.');
 				}
 
 				actions.push({
@@ -144,6 +151,6 @@ export default class ReorderCommand extends Command {
 		await queue.store.redis.del(queue.keys.next);
 		await queue.add(...newTracks);
 
-		return message.util!.reply('The queue has been reordered.');
+		return message.util!.reply('the queue has been reordered.');
 	}
 }

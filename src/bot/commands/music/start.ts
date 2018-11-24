@@ -25,11 +25,11 @@ export default class StartCommand extends Command {
 
 	public async exec(message: Message, { force }: { force: boolean }) {
 		if (!message.member.voice || !message.member.voice.channel) {
-			return message.util!.reply('You have to be in a voice channel first, silly.');
+			return message.util!.reply('you have to be in a voice channel first, silly.');
 		} else if (!message.member.voice.channel.joinable) {
 			return message.util!.reply("I don't seem to have permission to enter this voice channel.");
 		} else if (!message.member.voice.channel.speakable) {
-			return message.util!.send("I don't seem to have permission to talk in this voice channel.");
+			return message.util!.reply("I don't seem to have permission to talk in this voice channel.");
 		}
 		const queue = this.client.music.queues.get(message.guild.id);
 		if (!message.guild.me.voice || !message.guild.me.voice.channel || force) {

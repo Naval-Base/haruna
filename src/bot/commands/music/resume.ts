@@ -16,7 +16,7 @@ export default class ResumeCommand extends Command {
 
 	public async exec(message: Message) {
 		if (!message.member.voice || !message.member.voice.channel) {
-			return message.util!.reply('You have to be in a voice channel first, silly.');
+			return message.util!.reply('you have to be in a voice channel first, silly.');
 		}
 		const queue = this.client.music.queues.get(message.guild.id);
 		await queue.player.pause(false);
