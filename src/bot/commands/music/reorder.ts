@@ -61,7 +61,7 @@ export default class ReorderCommand extends Command {
 		}
 		const DJ = message.member.roles.has(this.client.settings.get(message.guild, 'djRole', undefined));
 		if (!DJ) {
-			return message.util!.reply('nuh, uh!')
+			return message.util!.reply('nuh, uh!');
 		}
 		if (!ordering) {
 			return message.util!.reply('you have to supply a new order for the songs.');
