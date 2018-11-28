@@ -11,6 +11,6 @@ export default class ReconnectListener extends Listener {
 	}
 
 	public exec() {
-		this.client.logger.info('Firepower--full force!!');
+		this.client.logger.info('[RECONNECTING] Firepower--full force!!');
 	}
 }

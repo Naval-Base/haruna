@@ -10,6 +10,6 @@ export default class DisconnectListener extends Listener {
 	}
 
 	public exec(event: any) {
-		this.client.logger.warn(`Ugh...I'm sorry...but, a loss is a loss... (${event.code})`);
+		this.client.logger.warn(`[DISCONNECT] Ugh...I'm sorry...but, a loss is a loss... (${event.code})`, event);
 	}
 }

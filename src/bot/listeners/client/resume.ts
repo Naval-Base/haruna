@@ -10,6 +10,6 @@ export default class ResumeListener extends Listener {
 	}
 
 	public exec(events: number) {
-		this.client.logger.info(`Alright, next time I'll--Eh...again...? (replayed ${events} events)`);
+		this.client.logger.info(`[RESUME] Alright, next time I'll--Eh...again...? (replayed ${events} events)`);
 	}
 }
