@@ -21,7 +21,7 @@
 		"lavaqueue": "^3.0.0",
 		"moment": "^2.22.2",
 		"moment-duration-format": "^2.2.2",
-		"pg": "^7.6.0",
+		"pg": "^7.7.1",
 		"prom-client": "^11.2.0",
 		"raven": "^2.6.4",
 		"reflect-metadata": "^0.1.12",
