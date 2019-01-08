@@ -1874,10 +1874,10 @@ lavalink@^2.2.1, lavalink@^2.3.1:
   dependencies:
     ws "^6.0.0"
 
-lavaqueue@^3.0.0:
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/lavaqueue/-/lavaqueue-3.0.0.tgz#675cf7cbce88a1e256c30f6cddd98460a186b878"
-  integrity sha512-yFT9pPVmpy6fbXYD1T8iQxnVRcLtukAqiZaRQOjeBpoi/RIF+aDGKpAyY8boP5VPmV7bP4loCjrFNBHDq4GCUg==
+lavaqueue@^3.1.0:
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/lavaqueue/-/lavaqueue-3.1.0.tgz#5d1c36886ac9733ea35209e9aee61d0a1fd3670d"
+  integrity sha512-pdbpCxxpeMlDJS7k0IkxHbFAGKh+oSq8a2VFOhCropW+TY4VWg2RuAAvNYOiERVcx4b3PXkYG5FcjH6Cqizksg==
   dependencies:
     ioredis "^4.0.0"
     lavalink "^2.2.1"
