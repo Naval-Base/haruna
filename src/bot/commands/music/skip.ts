@@ -49,13 +49,14 @@ export default class SkipCommand extends Command {
 		const queue = this.client.music.queues.get(message.guild.id);
 		let tracks;
 		if (num > 1) tracks = await this.client.music.queues.redis.lrange(`playlists.${message.guild.id}`, 0, num - 2);
-		tracks = [(await queue.current())!.track].concat(tracks);
+		const current = await queue.current();
+		tracks = [(current || { track: null }).track].concat(tracks).filter(track => track);
 		const skip = await queue.next(num);
 		if (!skip) {
 			await queue.stop();
 			return message.util!.send('Skipped the last playing song.');
 		}
-		const decoded = await this.client.music.decode(tracks.filter(track => track));
+		const decoded = await this.client.music.decode(tracks as any[]);
 		const totalLength = decoded.reduce((prev: number, song: any) => prev + song.info.length, 0); // tslint:disable-line
 		const paginated = paginate(decoded, 1, 10);
 		let index = (paginated.page - 1) * 10;
