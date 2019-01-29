@@ -27,7 +27,7 @@
 		"reflect-metadata": "^0.1.13",
 		"rejects": "^0.6.2",
 		"typeorm": "^0.2.12",
-		"winston": "^3.2.0",
+		"winston": "^3.2.1",
 		"winston-daily-rotate-file": "^3.6.0"
 	},
 	"devDependencies": {
