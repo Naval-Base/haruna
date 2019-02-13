@@ -28,7 +28,7 @@
 		"rejects": "^0.6.2",
 		"typeorm": "^0.2.13",
 		"winston": "^3.2.1",
-		"winston-daily-rotate-file": "^3.6.0"
+		"winston-daily-rotate-file": "^3.7.0"
 	},
 	"devDependencies": {
 		"@types/common-tags": "^1.8.0",
