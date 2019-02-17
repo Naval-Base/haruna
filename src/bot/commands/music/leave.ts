@@ -32,7 +32,7 @@ export default class LeaveCommand extends Command {
 		if (clear && DJ) await queue.clear();
 		await queue.player.stop();
 		await queue.player.destroy();
-		if (message.guild.me.voice || message.guild.me!.voice.channel) await queue.player.leave();
+		if (message.guild.me.voice || message.guild.me.voice!.channel) await queue.player.leave();
 
 		return message.util!.send(this.client.emojis.get('479430325169160193')!.toString());
 	}
