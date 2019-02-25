@@ -17,7 +17,7 @@
 		"discord.js": "discordjs/discord.js",
 		"dotenv": "^6.2.0",
 		"ioredis": "^4.6.2",
-		"lavalink": "^2.3.1",
+		"lavalink": "^2.4.0",
 		"lavaqueue": "^3.1.0",
 		"moment": "^2.24.0",
 		"moment-duration-format": "^2.2.2",
