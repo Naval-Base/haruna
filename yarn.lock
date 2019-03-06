@@ -1859,10 +1859,10 @@ last-run@^1.1.0:
     default-resolution "^2.0.0"
     es6-weak-map "^2.0.1"
 
-lavalink@^2.2.1, lavalink@^2.4.0:
-  version "2.4.0"
-  resolved "https://registry.yarnpkg.com/lavalink/-/lavalink-2.4.0.tgz#7b1d31c31853d0c8bcdf58be3d7f5e1cfcc6398b"
-  integrity sha512-hNuEDotMw9LsDnNCh8MJ8eQumrjmDy5KPPkGP+6X8kCVgJ7mhT3mzqRSEjuwCuav8MWASeL5jtfoUAqJdubZbA==
+lavalink@^2.2.1, lavalink@^2.4.1:
+  version "2.4.1"
+  resolved "https://registry.yarnpkg.com/lavalink/-/lavalink-2.4.1.tgz#6e82e8afa3cb25c0f52f19848b13d43fc8c11473"
+  integrity sha512-KV6+UENBP/xXbSNQX0C8SH7iXm+4XRymYfSu4SvdFEx4L7XwyW7iyCPOUdjZoJDXTPh+AQ9yQHbpw3JCaY7Bdg==
   dependencies:
     ws "^6.0.0"
 
