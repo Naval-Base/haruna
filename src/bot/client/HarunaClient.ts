@@ -179,7 +179,7 @@ export default class HarunaClient extends AkairoClient {
 				release: '0.1.0'
 			}).install();
 		} else {
-			process.on('unhandledRejection', err => this.logger.error(`[UNHANDLED REJECTION] ${err.message}`, err.stack));
+			process.on('unhandledRejection', (err: any) => this.logger.error(`[UNHANDLED REJECTION] ${err.message}`, err.stack));
 		}
 
 		this.prometheus.collectDefaultMetrics({ prefix: 'haruna_', timeout: 30000 });
