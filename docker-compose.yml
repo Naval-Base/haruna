@@ -17,9 +17,11 @@ services:
       - ./.env_lavalink
     ports:
       - 7000:7000
+    mem_limit: 2GB
 
   redis:
     image: "redis:4-alpine"
     restart: always
     ports:
       - 6379:6379
+    mem_limit: 1GB
