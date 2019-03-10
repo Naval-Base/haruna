@@ -30,4 +30,4 @@ ENV SERVER_PORT=7000 \
 	METRICS_PROMETHEUS_ENABLED=false \
 	METRICS_PROMETHEUS_ENDPOINT=/metrics
 
-CMD ["java", "-jar", "-Xmx2G", "Lavalink.jar"]
+CMD ["java", "-jar", "-Xmx4G", "Lavalink.jar"]
