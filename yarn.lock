@@ -315,6 +315,13 @@ bach@^1.0.0:
     async-settle "^1.0.0"
     now-and-later "^2.0.0"
 
+backoff@^2.5.0:
+  version "2.5.0"
+  resolved "https://registry.yarnpkg.com/backoff/-/backoff-2.5.0.tgz#f616eda9d3e4b66b8ca7fca79f695722c5f8e26f"
+  integrity sha1-9hbtqdPktmuMp/ynn2lXIsX44m8=
+  dependencies:
+    precond "0.2"
+
 balanced-match@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/balanced-match/-/balanced-match-1.0.0.tgz#89b4d199ab2bee49de164ea02b89ce462d71b767"
@@ -1879,11 +1886,12 @@ last-run@^1.1.0:
     default-resolution "^2.0.0"
     es6-weak-map "^2.0.1"
 
-lavalink@^2.2.1, lavalink@^2.4.1:
-  version "2.4.1"
-  resolved "https://registry.yarnpkg.com/lavalink/-/lavalink-2.4.1.tgz#6e82e8afa3cb25c0f52f19848b13d43fc8c11473"
-  integrity sha512-KV6+UENBP/xXbSNQX0C8SH7iXm+4XRymYfSu4SvdFEx4L7XwyW7iyCPOUdjZoJDXTPh+AQ9yQHbpw3JCaY7Bdg==
+lavalink@^2.2.1, lavalink@^2.5.0:
+  version "2.5.0"
+  resolved "https://registry.yarnpkg.com/lavalink/-/lavalink-2.5.0.tgz#2184b01f7acadf752cacbe5ad6833147e9c9b696"
+  integrity sha512-ve0E9j33KfAGc8f6Ujsp5c3hRdlw47dzdo6QhDZ/cG9FJL8Hj80TSEllnPd8JpsQFtG1EuDIo0E2/HHeNEczrw==
   dependencies:
+    backoff "^2.5.0"
     ws "^6.0.0"
 
 lavaqueue@^3.1.0:
@@ -2743,6 +2751,11 @@ postgres-interval@^1.1.0:
   integrity sha512-9ZhXKM/rw350N1ovuWHbGxnGh/SNJ4cnxHiM0rxE4VN41wsg8P8zWn9hv/buK00RP4WvlOyr/RBDiptyxVbkZQ==
   dependencies:
     xtend "^4.0.0"
+
+precond@0.2:
+  version "0.2.3"
+  resolved "https://registry.yarnpkg.com/precond/-/precond-0.2.3.tgz#aa9591bcaa24923f1e0f4849d240f47efc1075ac"
+  integrity sha1-qpWRvKokkj8eD0hJ0kD0fvwQdaw=
 
 pretty-hrtime@^1.0.0:
   version "1.0.3"
