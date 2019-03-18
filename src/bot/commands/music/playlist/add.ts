@@ -27,7 +27,7 @@ export default class PlaylistAddCommand extends Command {
 				{
 					id: 'query',
 					match: 'rest',
-					type: Argument.compose('string', str => str ? str.replace(/<(.+)>/g, '$1') : ''), // eslint-disable-line no-confusing-arrow
+					type: Argument.compose('string', (_, str) => str ? str.replace(/<(.+)>/g, '$1') : ''), // eslint-disable-line no-confusing-arrow
 					default: ''
 				}
 			]

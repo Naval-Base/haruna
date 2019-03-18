@@ -1,5 +1,5 @@
 import HarunaClient from '../../client/HarunaClient';
-import { Argument, Control, Command } from 'discord-akairo';
+import { Argument, Command } from 'discord-akairo';
 import { Message, MessageEmbed } from 'discord.js';
 import { stripIndents } from 'common-tags';
 import paginate from '../../../util/paginate';
@@ -21,7 +21,7 @@ export default class SkipCommand extends Command {
 		});
 	}
 
-	private *args() {
+	public *args() {
 		const msg = yield (msg: Message) => msg;
 
 		const force = yield {

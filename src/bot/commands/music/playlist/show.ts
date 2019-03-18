@@ -28,7 +28,7 @@ export default class PlaylistShowCommand extends Command {
 				{
 					id: 'page',
 					match: 'content',
-					type: Argument.compose(str => str.replace(/\s/g, ''), Argument.range(Argument.union('number', 'emojint'), 1, Infinity)),
+					type: Argument.compose((_, str) => str.replace(/\s/g, ''), Argument.range(Argument.union('number', 'emojint'), 1, Infinity)),
 					default: 1
 				}
 			]
