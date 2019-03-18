@@ -24,7 +24,7 @@ export default class PlayCommand extends Command {
 				{
 					id: 'query',
 					match: 'rest',
-					type: Argument.compose('string', str => str ? str.replace(/<(.+)>/g, '$1') : ''),
+					type: Argument.compose('string', (_, str) => str ? str.replace(/<(.+)>/g, '$1') : ''),
 					default: ''
 				}
 			]
