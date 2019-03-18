@@ -13,8 +13,8 @@
 	},
 	"dependencies": {
 		"common-tags": "^1.8.0",
-		"discord-akairo": "1Computer1/discord-akairo",
-		"discord.js": "discordjs/discord.js#0d265d2ab168919212295e2eeaea37fa55e6fd25",
+		"discord-akairo": "1Computer1/discord-akairo#parsers",
+		"discord.js": "discordjs/discord.js#pull/3140/head",
 		"dotenv": "^7.0.0",
 		"ioredis": "^4.6.2",
 		"lavalink": "^2.5.0",
@@ -26,7 +26,7 @@
 		"raven": "^2.6.4",
 		"reflect-metadata": "^0.1.13",
 		"rejects": "^0.6.2",
-		"typeorm": "^0.2.15-rc.2",
+		"typeorm": "^0.2.15",
 		"winston": "^3.2.1",
 		"winston-daily-rotate-file": "^3.8.0"
 	},
