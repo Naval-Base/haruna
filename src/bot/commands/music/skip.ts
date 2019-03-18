@@ -21,9 +21,7 @@ export default class SkipCommand extends Command {
 		});
 	}
 
-	public *args() {
-		const msg = yield (msg: Message) => msg;
-
+	public *args(msg: Message) {
 		const force = yield {
 			match: 'flag',
 			flag: ['--force', '-f']
