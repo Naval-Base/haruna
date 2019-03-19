@@ -152,7 +152,7 @@ export default class HarunaClient extends AkairoClient {
 			}
 		});
 
-		this.commandHandler.resolver.addType('playlist', async (phrase, message) => {
+		this.commandHandler.resolver.addType('playlist', async (message, phrase) => {
 			if (!phrase) return null;
 			phrase = Util.cleanContent(phrase.toLowerCase(), message);
 			const playlistRepo = this.db.getRepository(Playlist);
@@ -160,7 +160,7 @@ export default class HarunaClient extends AkairoClient {
 
 			return playlist || null;
 		});
-		this.commandHandler.resolver.addType('existingPlaylist', async (phrase, message) => {
+		this.commandHandler.resolver.addType('existingPlaylist', async (message, phrase) => {
 			if (!phrase) return null;
 			phrase = Util.cleanContent(phrase.toLowerCase(), message);
 			const playlistRepo = this.db.getRepository(Playlist);
