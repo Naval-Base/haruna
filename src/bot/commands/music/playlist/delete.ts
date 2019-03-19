@@ -19,7 +19,7 @@ export default class PlaylistDeleteCommand extends Command {
 					type: 'playlist',
 					prompt: {
 						start: (message: Message) => `${message.author}, what playlist do you want to delete?`,
-						retry: (message: Message, _: never, provided: { phrase: string }) => `${message.author}, a playlist with the name **${provided.phrase}** does not exist.`
+						retry: (message: Message, { failure }: { failure: { data: string } }) => `${message.author}, a playlist with the name **${failure.data}** does not exist.`
 					}
 				}
 			]

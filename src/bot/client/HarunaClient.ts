@@ -1,5 +1,5 @@
 import { join } from 'path';
-import { AkairoClient, CommandHandler, InhibitorHandler, ListenerHandler } from 'discord-akairo';
+import { AkairoClient, CommandHandler, InhibitorHandler, ListenerHandler, Flag } from 'discord-akairo';
 import { Util } from 'discord.js';
 import { Client as Lavaqueue } from 'lavaqueue';
 import { Logger, createLogger, transports, format } from 'winston';
@@ -97,8 +97,8 @@ export default class HarunaClient extends AkairoClient {
 		commandUtilLifetime: 3e5,
 		defaultCooldown: 3000,
 		defaultPrompt: {
-			modifyStart: str => `${str}\n\nType \`cancel\` to cancel the command.`,
-			modifyRetry: str => `${str}\n\nType \`cancel\` to cancel the command.`,
+			modifyStart: (_, str) => `${str}\n\nType \`cancel\` to cancel the command.`,
+			modifyRetry: (_, str) => `${str}\n\nType \`cancel\` to cancel the command.`,
 			timeout: 'Guess you took too long, the command has been cancelled.',
 			ended: "More than 3 tries and you still didn't quite get it. The command has been cancelled",
 			cancel: 'The command has been cancelled.',
@@ -153,20 +153,20 @@ export default class HarunaClient extends AkairoClient {
 		});
 
 		this.commandHandler.resolver.addType('playlist', async (message, phrase) => {
-			if (!phrase) return null;
+			if (!phrase) return Flag.fail(phrase);
 			phrase = Util.cleanContent(phrase.toLowerCase(), message);
 			const playlistRepo = this.db.getRepository(Playlist);
 			const playlist = await playlistRepo.findOne({ name: phrase, guild: message.guild.id });
 
-			return playlist || null;
+			return playlist || Flag.fail(phrase);
 		});
 		this.commandHandler.resolver.addType('existingPlaylist', async (message, phrase) => {
-			if (!phrase) return null;
+			if (!phrase) return Flag.fail(phrase);
 			phrase = Util.cleanContent(phrase.toLowerCase(), message);
 			const playlistRepo = this.db.getRepository(Playlist);
 			const playlist = await playlistRepo.findOne({ name: phrase, guild: message.guild.id });
 
-			return playlist ? null : phrase;
+			return playlist ? Flag.fail(phrase) : phrase;
 		});
 
 		this.config = config;
