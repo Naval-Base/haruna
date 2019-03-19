@@ -31,6 +31,7 @@
 		"winston-daily-rotate-file": "^3.8.0"
 	},
 	"devDependencies": {
+		"@types/backoff": "^2.5.1",
 		"@types/common-tags": "^1.8.0",
 		"@types/ioredis": "^4.0.10",
 		"@types/moment-duration-format": "^2.2.2",
