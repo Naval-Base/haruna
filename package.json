@@ -13,7 +13,7 @@
 	},
 	"dependencies": {
 		"common-tags": "^1.8.0",
-		"discord-akairo": "1Computer1/discord-akairo#parsers",
+		"discord-akairo": "1Computer1/discord-akairo",
 		"discord.js": "discordjs/discord.js#pull/3140/head",
 		"dotenv": "^7.0.0",
 		"ioredis": "^4.6.2",
