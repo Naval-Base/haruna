@@ -21,7 +21,7 @@ export default class PlaylistAddCommand extends Command {
 					type: 'playlist',
 					prompt: {
 						start: (message: Message) => `${message.author}, what playlist should this song/playlist be added to?`,
-						retry: (message: Message, { failure }: { failure: { data: string } }) => `${message.author}, a playlist with the name **${failure.data}** does not exist.`
+						retry: (message: Message, { failure }: { failure: { value: string } }) => `${message.author}, a playlist with the name **${failure.value}** does not exist.`
 					}
 				},
 				{

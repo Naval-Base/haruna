@@ -18,7 +18,7 @@ export default class PlaylistCreateCommand extends Command {
 					type: 'existingPlaylist',
 					prompt: {
 						start: (message: Message) => `${message.author}, what playlist do you want to create?`,
-						retry: (message: Message, { failure }: { failure: { data: string } }) => `${message.author}, a playlist with the name **${failure.data}** already exists.`
+						retry: (message: Message, { failure }: { failure: { value: string } }) => `${message.author}, a playlist with the name **${failure.value}** already exists.`
 					}
 				},
 				{

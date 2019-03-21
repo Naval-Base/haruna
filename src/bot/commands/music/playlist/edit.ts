@@ -18,7 +18,7 @@ export default class PlaylistEditCommand extends Command {
 					type: 'playlist',
 					prompt: {
 						start: (message: Message) => `${message.author}, what playlists description do you want to edit?`,
-						retry: (message: Message, { failure }: { failure: { data: string } }) => `${message.author}, a playlist with the name **${failure.data}** does not exist.`
+						retry: (message: Message, { failure }: { failure: { value: string } }) => `${message.author}, a playlist with the name **${failure.value}** does not exist.`
 					}
 				},
 				{
