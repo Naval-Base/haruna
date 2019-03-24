@@ -1,4 +1,4 @@
-import { Command } from 'discord-akairo';
+import { Command, Flag } from 'discord-akairo';
 import { Message } from 'discord.js';
 import { stripIndents } from 'common-tags';
 
@@ -38,37 +38,25 @@ export default class PlaylistCommand extends Command {
 			},
 			category: 'music',
 			channel: 'guild',
-			ratelimit: 2,
-			args: [
-				{
-					id: 'method',
-					type: ['create', 'add', 'load', 'rm', 'remove', 'del', 'delete', 'edit', 'show', 'info', 'list']
-				},
-				{
-					id: 'args',
-					match: 'rest',
-					default: ''
-				}
-			]
+			ratelimit: 2
 		});
 	}
 
-	public exec(message: Message, { method, args }: { method: string, args: any }) {
-		if (!method) return;
-		const command = ({
-			create: this.handler.modules.get('playlist-create'),
-			load: this.handler.modules.get('playlist-load'),
-			add: this.handler.modules.get('playlist-add'),
-			rm: this.handler.modules.get('playlist-remove'),
-			remove: this.handler.modules.get('playlist-remove'),
-			del: this.handler.modules.get('playlist-delete'),
-			delete: this.handler.modules.get('playlist-delete'),
-			edit: this.handler.modules.get('playlist-edit'),
-			show: this.handler.modules.get('playlist-show'),
-			info: this.handler.modules.get('playlist-info'),
-			list: this.handler.modules.get('playlist-list')
-		} as { [key: string]: Command })[method];
+	public *args() {
+		const method = yield {
+			type: [
+				['playlist-show', 'show'],
+				['playlist-create', 'create'],
+				['playlist-add', 'add'],
+				['playlist-load', 'load'],
+				['playlist-remove', 'rm', 'remove'],
+				['playlist-delete', 'del', 'delete'],
+				['playlist-edit', 'edit'],
+				['playlist-info', 'info'],
+				['playlist-list', 'list']
+			]
+		};
 
-		return this.handler.handleDirectCommand(message, args, command, true);
+		return Flag.continue(method);
 	}
 }
