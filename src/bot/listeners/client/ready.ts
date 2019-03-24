@@ -13,6 +13,8 @@ export default class ReadyListener extends Listener {
 	public async exec() {
 		this.client.logger.info(`[READY] Hello, I am ${this.client.user!.tag} (${this.client.user!.id}), one of the first fast battleships of the Sakura Empire. I'm someone who prefers the fist to the sword. Nice to meet you.`);
 		this.client.user!.setActivity(`@${this.client.user!.username} help 🎶`);
+		this.client.promServer.listen(5501);
+		this.client.logger.info('[READY][METRICS] Metrics listening on 5501');
 
 		const players = await this.client.storage.get('players', { type: ReferenceType.ARRAY });
 		if (players) {

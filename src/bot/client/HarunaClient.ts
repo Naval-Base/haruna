@@ -11,8 +11,8 @@ import { Setting } from '../models/Settings';
 import { Connection } from 'typeorm';
 import { ExtendedRedis } from 'lavaqueue/typings/QueueStore';
 import { Playlist } from '../models/Playlists';
-import { Counter, collectDefaultMetrics, register } from 'prom-client';
-import { createServer } from 'http';
+import { Counter, register } from 'prom-client';
+import { createServer, Server } from 'http';
 import { parse } from 'url';
 const Raven = require('raven'); // tslint:disable-line
 
@@ -28,6 +28,8 @@ declare module 'discord-akairo' {
 		prometheus: {
 			commandCounter: Counter;
 		};
+
+		promServer: Server;
 	}
 }
 
@@ -115,9 +117,16 @@ export default class HarunaClient extends AkairoClient {
 	public prometheus = {
 		messagesCounter: new Counter({ name: 'haruna_messages_total', help: 'Total number of messages Haruna has seen' }),
 		commandCounter: new Counter({ name: 'haruna_commands_total', help: 'Total number of commands used' }),
-		collectDefaultMetrics,
 		register
 	};
+
+	public promServer = createServer((req, res) => {
+		if (parse(req.url!).pathname === '/metrics') {
+			res.writeHead(200, { 'Content-Type': this.prometheus.register.contentType });
+			res.write(this.prometheus.register.metrics());
+		}
+		res.end();
+	});
 
 	public constructor(config: HarunaOptions) {
 		super({ ownerID: config.owner }, {
@@ -181,8 +190,6 @@ export default class HarunaClient extends AkairoClient {
 		} else {
 			process.on('unhandledRejection', (err: any) => this.logger.error(`[UNHANDLED REJECTION] ${err.message}`, err.stack));
 		}
-
-		this.prometheus.collectDefaultMetrics({ prefix: 'haruna_', timeout: 30000 });
 	}
 
 	private async _init() {
@@ -202,16 +209,6 @@ export default class HarunaClient extends AkairoClient {
 		await this.db.connect();
 		this.settings = new TypeORMProvider(this.db.getRepository(Setting));
 		await this.settings.init();
-	}
-
-	public metrics() {
-		createServer((req, res) => {
-			if (parse(req.url!).pathname === '/metrics') {
-				res.writeHead(200, { 'Content-Type': this.prometheus.register.contentType });
-				res.write(this.prometheus.register.metrics());
-			}
-			res.end();
-		}).listen(5501);
 	}
 
 	public async start() {
