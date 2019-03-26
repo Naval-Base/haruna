@@ -10,7 +10,9 @@ export default class ShardReconnectListener extends Listener {
 		});
 	}
 
-	public exec() {
-		this.client.logger.info('[RECONNECTING] Firepower--full force!!');
+	public exec(id: number) {
+		this.client.logger.info(`[SHARD ${id} RECONNECTING] Firepower--full force!!`);
+		this.client.promServer.close();
+		this.client.logger.info(`[SHARD ${id} RECONNECTING][METRICS] Metrics server closed.`);
 	}
 }
