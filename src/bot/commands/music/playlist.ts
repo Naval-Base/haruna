@@ -54,7 +54,8 @@ export default class PlaylistCommand extends Command {
 				['playlist-edit', 'edit'],
 				['playlist-info', 'info'],
 				['playlist-list', 'list']
-			]
+			],
+			otherwise: ''
 		};
 
 		return Flag.continue(method);
