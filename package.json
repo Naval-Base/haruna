@@ -35,7 +35,7 @@
 		"@types/common-tags": "^1.8.0",
 		"@types/ioredis": "^4.0.10",
 		"@types/moment-duration-format": "^2.2.2",
-		"@types/node": "^11.13.0",
+		"@types/node": "^11.13.1",
 		"@types/ws": "^6.0.1",
 		"fs-nextra": "^0.4.5",
 		"gulp": "^4.0.0",
