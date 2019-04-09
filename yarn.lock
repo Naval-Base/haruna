@@ -1918,7 +1918,7 @@ last-run@^1.1.0:
     default-resolution "^2.0.0"
     es6-weak-map "^2.0.1"
 
-lavalink@2.6.1, lavalink@^2.2.1:
+lavalink@2.6.1, lavalink@^2.6.1:
   version "2.6.1"
   resolved "https://registry.yarnpkg.com/lavalink/-/lavalink-2.6.1.tgz#5aa38b3792d807c765199ce6d8be51b7bca04bf5"
   integrity sha512-ByiWmGdISzFbAA3B9v1/6+1yQn2RY8/W8PR/Z6qII424pBvIMnGxns43ZpPfdRSmsxvyDThHHB5n5mPw8bnlHg==
@@ -1926,13 +1926,13 @@ lavalink@2.6.1, lavalink@^2.2.1:
     backoff "^2.5.0"
     ws "^6.0.0"
 
-lavaqueue@^3.1.0:
-  version "3.1.0"
-  resolved "https://registry.yarnpkg.com/lavaqueue/-/lavaqueue-3.1.0.tgz#5d1c36886ac9733ea35209e9aee61d0a1fd3670d"
-  integrity sha512-pdbpCxxpeMlDJS7k0IkxHbFAGKh+oSq8a2VFOhCropW+TY4VWg2RuAAvNYOiERVcx4b3PXkYG5FcjH6Cqizksg==
+lavaqueue@^3.1.1:
+  version "3.1.1"
+  resolved "https://registry.yarnpkg.com/lavaqueue/-/lavaqueue-3.1.1.tgz#4409f6079f5c418fbe0a5371ab10e168b12a11ab"
+  integrity sha512-wKREPUKy0AX6iTKeMbX6ysieG4VpcZF16Oifx9Vs7Swi93JdjZQ8tiw92c+R020Ox3wvBlgqz7YJkxAiuH1/JQ==
   dependencies:
     ioredis "^4.0.0"
-    lavalink "^2.2.1"
+    lavalink "^2.6.1"
 
 lazystream@^1.0.0:
   version "1.0.0"
