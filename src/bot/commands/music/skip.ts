@@ -28,7 +28,7 @@ export default class SkipCommand extends Command {
 		};
 
 		const num = yield (
-			msg.member.roles.has((msg.client as HarunaClient).settings.get('msg.guild', 'djRole', undefined)) && force ?
+			msg.member.roles.has((msg.client as HarunaClient).settings.get(msg.guild, 'djRole', undefined)) && force ?
 			{ match: 'rest', type: Argument.compose((_, str) => str.replace(/\s/g, ''), Argument.range(Argument.union('number', 'emojint'), 1, Infinity)) } :
 			{ match: 'rest', type: Argument.compose((_, str) => str.replace(/\s/g, ''), Argument.range(Argument.union('number', 'emojint'), 1, 10)) }
 		);
