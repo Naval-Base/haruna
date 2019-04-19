@@ -18,15 +18,15 @@ export default class PlaylistDeleteCommand extends Command {
 					match: 'content',
 					type: 'playlist',
 					prompt: {
-						start: (message: Message) => `${message.author}, what playlist do you want to delete?`,
-						retry: (message: Message, { failure }: { failure: { value: string } }) => `${message.author}, a playlist with the name **${failure.value}** does not exist.`
+						start: (message: Message): string => `${message.author}, what playlist do you want to delete?`,
+						retry: (message: Message, { failure }: { failure: { value: string } }): string => `${message.author}, a playlist with the name **${failure.value}** does not exist.`
 					}
 				}
 			]
 		});
 	}
 
-	public async exec(message: Message, { playlist }: { playlist: any }) {
+	public async exec(message: Message, { playlist }: { playlist: any }): Promise<Message | Message[]> {
 		if (playlist.user !== message.author.id) return message.util!.reply('you can only delete your own playlists.');
 		const playlistRepo = this.client.db.getRepository(Playlist);
 		await playlistRepo.remove(playlist);

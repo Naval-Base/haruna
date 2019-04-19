@@ -14,7 +14,7 @@ export default class PauseCommand extends Command {
 		});
 	}
 
-	public async exec(message: Message) {
+	public async exec(message: Message): Promise<Message | Message[]> {
 		if (!message.member.voice || !message.member.voice.channel) {
 			return message.util!.reply('you have to be in a voice channel first, silly.');
 		}

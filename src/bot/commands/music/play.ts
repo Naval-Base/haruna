@@ -22,16 +22,16 @@ export default class PlayCommand extends Command {
 					flag: ['--start', '-s']
 				},
 				{
-					id: 'query',
-					match: 'rest',
-					type: Argument.compose('string', (_, str) => str ? str.replace(/<(.+)>/g, '$1') : ''),
-					default: ''
+					'id': 'query',
+					'match': 'rest',
+					'type': Argument.compose('string', (_, str): string => str ? str.replace(/<(.+)>/g, '$1') : ''),
+					'default': ''
 				}
 			]
 		});
 	}
 
-	public async exec(message: Message, { query, unshift }: { query: string, unshift: boolean }) {
+	public async exec(message: Message, { query, unshift }: { query: string; unshift: boolean }): Promise<Message | Message[] | void> {
 		if (!message.member.voice || !message.member.voice.channel) {
 			return message.util!.reply('you have to be in a voice channel first, silly.');
 		} else if (!message.member.voice.channel.joinable) {
@@ -56,13 +56,13 @@ export default class PlayCommand extends Command {
 			else await queue.add(res.tracks[0].track);
 			msg = res.tracks[0].info.title;
 		} else if (res.loadType === 'PLAYLIST_LOADED') {
-			await queue.add(...res.tracks.map((track: { track: string }) => track.track));
+			await queue.add(...res.tracks.map((track: { track: string }): string => track.track));
 			msg = res.playlistInfo.name;
 		} else {
 			return message.util!.send("I know you hate to hear that, but even searching the universe I couldn't find what you were looking for.");
 		}
 		if (!queue.player.playing && !queue.player.paused) await queue.start();
 
-		return message.util!.send(`${this.client.emojis.get('479430354759843841')} **Queued up:** \`${msg}\``);
+		return message.util!.send(`**Queued up:** \`${msg}\``);
 	}
 }

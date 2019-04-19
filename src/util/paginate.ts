@@ -14,7 +14,14 @@
  * limitations under the License.
  */
 
-export default function paginate(items: any[], page: number = 1, pageLength: number = 10) {
+interface PaginateResults {
+	items: any[];
+	page: number;
+	maxPage: number;
+	pageLength: number;
+}
+
+export default function paginate(items: any[], page: number = 1, pageLength: number = 10): PaginateResults {
 	const maxPage = Math.ceil(items.length / pageLength);
 	if (page < 1) page = 1;
 	if (page > maxPage) page = maxPage;

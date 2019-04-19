@@ -23,7 +23,7 @@ export default class StartCommand extends Command {
 		});
 	}
 
-	public async exec(message: Message, { force }: { force: boolean }) {
+	public async exec(message: Message, { force }: { force: boolean }): Promise<Message | Message[] | void> {
 		if (!message.member.voice || !message.member.voice.channel) {
 			return message.util!.reply('you have to be in a voice channel first, silly.');
 		} else if (!message.member.voice.channel.joinable) {

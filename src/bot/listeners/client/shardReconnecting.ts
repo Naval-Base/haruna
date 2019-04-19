@@ -1,4 +1,3 @@
-import HarunaClient from '../../client/HarunaClient';
 import { Listener } from 'discord-akairo';
 
 export default class ShardReconnectListener extends Listener {
@@ -10,7 +9,7 @@ export default class ShardReconnectListener extends Listener {
 		});
 	}
 
-	public exec(id: number) {
+	public exec(id: number): void {
 		this.client.logger.info(`[SHARD ${id} RECONNECTING] Firepower--full force!!`);
 		this.client.promServer.close();
 		this.client.logger.info(`[SHARD ${id} RECONNECTING][METRICS] Metrics server closed.`);
