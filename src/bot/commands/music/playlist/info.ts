@@ -20,15 +20,15 @@ export default class PlaylistInfoCommand extends Command {
 					match: 'content',
 					type: 'playlist',
 					prompt: {
-						start: (message: Message) => `${message.author}, what playlist do you want information on?`,
-						retry: (message: Message, { failure }: { failure: { value: string } }) => `${message.author}, a playlist with the name **${failure.value}** does not exist.`
+						start: (message: Message): string => `${message.author}, what playlist do you want information on?`,
+						retry: (message: Message, { failure }: { failure: { value: string } }): string => `${message.author}, a playlist with the name **${failure.value}** does not exist.`
 					}
 				}
 			]
 		});
 	}
 
-	public async exec(message: Message, { playlist }: { playlist: any }) {
+	public async exec(message: Message, { playlist }: { playlist: any }): Promise<Message | Message[]> {
 		const user = await this.client.users.fetch(playlist.user);
 		const guild = this.client.guilds.get(playlist.guild);
 		const embed = new MessageEmbed()

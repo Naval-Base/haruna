@@ -22,8 +22,9 @@ export default class HelpCommand extends Command {
 		});
 	}
 
-	public async exec(message: Message, { command }: { command: Command }) {
-		const prefix = (this.handler.prefix as string[])[0];
+	public async exec(message: Message, { command }: { command: Command }): Promise<Message | Message[]> {
+		// @ts-ignore
+		const prefix = this.handler.prefix(message);
 		if (!command) {
 			const embed = new MessageEmbed()
 				.setColor(3447003)
@@ -32,7 +33,7 @@ export default class HelpCommand extends Command {
 				`);
 
 			for (const category of this.handler.categories.values()) {
-				embed.addField(`❯ ${category.id.replace(/(\b\w)/gi, lc => lc.toUpperCase())}`, `${category.filter(cmd => cmd.aliases.length > 0).map((cmd: Command) => `\`${cmd.aliases[0]}\``).join(' ')}`);
+				embed.addField(`❯ ${category.id.replace(/(\b\w)/gi, (lc): string => lc.toUpperCase())}`, `${category.filter((cmd): boolean => cmd.aliases.length > 0).map((cmd): string => `\`${cmd.aliases[0]}\``).join(' ')}`);
 			}
 
 			return message.util!.send(embed);

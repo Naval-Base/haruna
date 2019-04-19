@@ -21,25 +21,25 @@ export default class PlaylistShowCommand extends Command {
 					match: 'content',
 					type: 'playlist',
 					prompt: {
-						start: (message: Message) => `${message.author}, what playlist do you want information on?`,
-						retry: (message: Message, { failure }: { failure: { value: string } }) => `${message.author}, a playlist with the name **${failure.value}** does not exist.`
+						start: (message: Message): string => `${message.author}, what playlist do you want information on?`,
+						retry: (message: Message, { failure }: { failure: { value: string } }): string => `${message.author}, a playlist with the name **${failure.value}** does not exist.`
 					}
 				},
 				{
-					id: 'page',
-					match: 'content',
-					type: Argument.compose((_, str) => str.replace(/\s/g, ''), Argument.range(Argument.union('number', 'emojint'), 1, Infinity)),
-					default: 1
+					'id': 'page',
+					'match': 'content',
+					'type': Argument.compose((_, str): string => str.replace(/\s/g, ''), Argument.range(Argument.union('number', 'emojint'), 1, Infinity)),
+					'default': 1
 				}
 			]
 		});
 	}
 
-	public async exec(message: Message, { playlist, page }: { playlist: any, page: number }) {
+	public async exec(message: Message, { playlist, page }: { playlist: any; page: number }): Promise<Message | Message[]> {
 		if (!playlist.songs.length) return message.util!.send('This playlist has no songs!');
 		const decoded = await this.client.music.decode(playlist.songs);
 		// TODO: remove hack
-		const totalLength = (decoded as any).reduce((prev: number, song: any) => prev + song.info.length, 0); // tslint:disable-line
+		const totalLength = (decoded as any).reduce((prev: number, song: { info: { length: number } }): number => prev + song.info.length, 0);
 		const paginated = paginate(decoded as any, page);
 		let index = (paginated.page - 1) * 10;
 
@@ -48,7 +48,7 @@ export default class PlaylistShowCommand extends Command {
 			.setDescription(stripIndents`
 				**Song list${paginated.page > 1 ? `, page ${paginated.page}` : ''}**
 
-				${paginated.items.map(song => `**${++index}.** [${song.info.title}](${song.info.uri}) (${timeString(song.info.length)})`).join('\n')}
+				${paginated.items.map((song): string => `**${++index}.** [${song.info.title}](${song.info.uri}) (${timeString(song.info.length)})`).join('\n')}
 
 				**Total list time:** ${timeString(totalLength)}
 			`);

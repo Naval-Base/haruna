@@ -9,7 +9,7 @@ export default class ShardResumeListener extends Listener {
 		});
 	}
 
-	public exec(id: number) {
+	public exec(id: number): void {
 		this.client.logger.info(`[SHARD ${id} RESUMED] Alright, next time I'll--Eh...again...?`);
 		this.client.promServer.listen(5501);
 		this.client.logger.info(`[SHARD ${id} RESUMED][METRICS] Metrics listening on 5501`);

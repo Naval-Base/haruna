@@ -1,4 +1,4 @@
-export default function timeString(seconds: number, forceHours = false, ms = true) {
+export default function timeString(seconds: number, forceHours = false, ms = true): string {
 	if (ms) seconds /= 1000;
 	const hours = Math.floor(seconds / 3600);
 	const minutes = Math.floor(seconds % 3600 / 60);

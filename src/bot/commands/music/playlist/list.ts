@@ -22,13 +22,13 @@ export default class PlaylistListCommand extends Command {
 				},
 				{
 					id: 'page',
-					type: Argument.compose((_, str) => str.replace(/\s/g, ''), Argument.range(Argument.union('number', 'emojint'), 1, Infinity))
+					type: Argument.compose((_, str): string => str.replace(/\s/g, ''), Argument.range(Argument.union('number', 'emojint'), 1, Infinity))
 				}
 			]
 		});
 	}
 
-	public async exec(message: Message, { member, page }: { member: GuildMember, page: number }) {
+	public async exec(message: Message, { member, page }: { member: GuildMember; page: number }): Promise<Message | Message[]> {
 		const where = member ? { user: member.id, guild: message.guild.id } : { guild: message.guild.id };
 		const playlistRepo = this.client.db.getRepository(Playlist);
 		const playlists = await playlistRepo.find(where);
@@ -40,7 +40,7 @@ export default class PlaylistListCommand extends Command {
 			.setDescription(stripIndents`
 				**Playlists${paginated.page > 1 ? `, page ${paginated.page}` : ''}**
 
-				${paginated.items.map(playlist => `** • ** ${playlist.name}`).join('\n')}
+				${paginated.items.map((playlist): string => `** • ** ${playlist.name}`).join('\n')}
 			`);
 		if (paginated.maxPage > 1) embed.setFooter('Use playlist list <member> <page> to view a specific page.');
 

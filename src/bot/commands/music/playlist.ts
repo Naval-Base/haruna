@@ -1,5 +1,4 @@
 import { Command, Flag } from 'discord-akairo';
-import { Message } from 'discord.js';
 import { stripIndents } from 'common-tags';
 
 export default class PlaylistCommand extends Command {
@@ -42,7 +41,7 @@ export default class PlaylistCommand extends Command {
 		});
 	}
 
-	public *args() {
+	public *args(): object {
 		const method = yield {
 			type: [
 				['playlist-show', 'show'],

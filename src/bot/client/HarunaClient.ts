@@ -14,7 +14,7 @@ import { Playlist } from '../models/Playlists';
 import { Counter, register } from 'prom-client';
 import { createServer, Server } from 'http';
 import { parse } from 'url';
-const Raven = require('raven'); // tslint:disable-line
+const Raven = require('raven'); // eslint-disable-line
 
 declare module 'discord-akairo' {
 	interface AkairoClient {
@@ -43,7 +43,7 @@ export default class HarunaClient extends AkairoClient {
 		format: format.combine(
 			format.colorize({ level: true }),
 			format.timestamp({ format: 'YYYY/MM/DD HH:mm:ss' }),
-			format.printf((info: any) => {
+			format.printf((info: any): string => {
 				const { timestamp, level, message, ...rest } = info;
 				return `[${timestamp}] ${level}: ${message}${Object.keys(rest).length ? `\n${JSON.stringify(rest, null, 2)}` : ''}`;
 			})
@@ -72,13 +72,15 @@ export default class HarunaClient extends AkairoClient {
 		hosts: {
 			rest: process.env.LAVALINK_REST!,
 			ws: process.env.LAVALINK_WS!,
-			redis: process.env.REDIS ? {
-				port: 6379,
-				host: process.env.REDIS,
-				db: 0
-			} : undefined
+			redis: process.env.REDIS
+				? {
+					port: 6379,
+					host: process.env.REDIS,
+					db: 0
+				}
+				: undefined
 		},
-		send: async (guild, packet) => {
+		send: async (guild, packet): Promise<void> => {
 			const shardGuild = this.guilds.get(guild);
 			if (shardGuild) return shardGuild.shard.send(packet);
 			return Promise.resolve();
@@ -100,8 +102,8 @@ export default class HarunaClient extends AkairoClient {
 		defaultCooldown: 3000,
 		argumentDefaults: {
 			prompt: {
-				modifyStart: (_, str) => `${str}\n\nType \`cancel\` to cancel the command.`,
-				modifyRetry: (_, str) => `${str}\n\nType \`cancel\` to cancel the command.`,
+				modifyStart: (_, str): string => `${str}\n\nType \`cancel\` to cancel the command.`,
+				modifyRetry: (_, str): string => `${str}\n\nType \`cancel\` to cancel the command.`,
 				timeout: 'Guess you took too long, the command has been cancelled.',
 				ended: "More than 3 tries and you still didn't quite get it. The command has been cancelled",
 				cancel: 'The command has been cancelled.',
@@ -111,6 +113,7 @@ export default class HarunaClient extends AkairoClient {
 			otherwise: ''
 		}
 	});
+
 	public inhibitorHandler = new InhibitorHandler(this, { directory: join(__dirname, '..', 'inhibitors') });
 
 	public listenerHandler = new ListenerHandler(this, { directory: join(__dirname, '..', 'listeners') });
@@ -123,7 +126,7 @@ export default class HarunaClient extends AkairoClient {
 		register
 	};
 
-	public promServer = createServer((req, res) => {
+	public promServer = createServer((req, res): void => {
 		if (parse(req.url!).pathname === '/metrics') {
 			res.writeHead(200, { 'Content-Type': this.prometheus.register.contentType });
 			res.write(this.prometheus.register.metrics());
@@ -137,14 +140,14 @@ export default class HarunaClient extends AkairoClient {
 			disabledEvents: ['TYPING_START']
 		});
 
-		this.on('raw', async (packet: any) => {
+		this.on('raw', async (packet: any): Promise<void> => {
 			switch (packet.t) {
 				case 'VOICE_STATE_UPDATE':
 					if (packet.d.user_id !== process.env.ID) return;
 					this.music.voiceStateUpdate(packet.d);
-					const players: { guild_id: string, channel_id?: string }[] | null = await this.storage.get('players', { type: ReferenceType.ARRAY });
-					let index: number = 0;
-					if (Array.isArray(players)) index = players.findIndex(player => player.guild_id === packet.d.guild_id);
+					const players: { guild_id: string, channel_id?: string }[] | null = await this.storage.get('players', { type: ReferenceType.ARRAY }); // eslint-disable-line
+					let index = 0; // eslint-disable-line
+					if (Array.isArray(players)) index = players.findIndex((player): boolean => player.guild_id === packet.d.guild_id);
 					if (((!players && !index) || index < 0) && packet.d.channel_id) {
 						this.storage.upsert('players', [{ guild_id: packet.d.guild_id, channel_id: packet.d.channel_id }]);
 					} else if (players && typeof index !== 'undefined' && index >= 0 && !packet.d.channel_id) {
@@ -164,7 +167,7 @@ export default class HarunaClient extends AkairoClient {
 			}
 		});
 
-		this.commandHandler.resolver.addType('playlist', async (message, phrase) => {
+		this.commandHandler.resolver.addType('playlist', async (message, phrase): Promise<any> => {
 			if (!phrase) return Flag.fail(phrase);
 			phrase = Util.cleanContent(phrase.toLowerCase(), message);
 			const playlistRepo = this.db.getRepository(Playlist);
@@ -172,7 +175,7 @@ export default class HarunaClient extends AkairoClient {
 
 			return playlist || Flag.fail(phrase);
 		});
-		this.commandHandler.resolver.addType('existingPlaylist', async (message, phrase) => {
+		this.commandHandler.resolver.addType('existingPlaylist', async (message, phrase): Promise<any> => {
 			if (!phrase) return Flag.fail(phrase);
 			phrase = Util.cleanContent(phrase.toLowerCase(), message);
 			const playlistRepo = this.db.getRepository(Playlist);
@@ -191,11 +194,11 @@ export default class HarunaClient extends AkairoClient {
 				release: '0.1.0'
 			}).install();
 		} else {
-			process.on('unhandledRejection', (err: any) => this.logger.error(`[UNHANDLED REJECTION] ${err.message}`, err.stack));
+			process.on('unhandledRejection', (err: any): Logger => this.logger.error(`[UNHANDLED REJECTION] ${err.message}`, err.stack));
 		}
 	}
 
-	private async _init() {
+	private async _init(): Promise<void> {
 		this.commandHandler.useInhibitorHandler(this.inhibitorHandler);
 		this.commandHandler.useListenerHandler(this.listenerHandler);
 		this.listenerHandler.setEmitters({
@@ -214,7 +217,7 @@ export default class HarunaClient extends AkairoClient {
 		await this.settings.init();
 	}
 
-	public async start() {
+	public async start(): Promise<string> {
 		await this._init();
 		return this.login(this.config.token);
 	}

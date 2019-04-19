@@ -23,7 +23,7 @@ export default class LeaveCommand extends Command {
 		});
 	}
 
-	public async exec(message: Message, { clear }: { clear: boolean }) {
+	public async exec(message: Message, { clear }: { clear: boolean }): Promise<Message | Message[]> {
 		if (!message.member.voice || !message.member.voice.channel) {
 			return message.util!.reply('you have to be in a voice channel first, silly.');
 		}

@@ -18,7 +18,7 @@ interface SpreadAction {
 	kind: 'spread';
 }
 
-type Action = SingleAction | SliceAction | SpreadAction; // tslint:disable-line
+type Action = SingleAction | SliceAction | SpreadAction;
 
 interface OrderingMatch {
 	sliceFrom?: string;
@@ -30,7 +30,7 @@ interface OrderingMatch {
 const ORDERING_REGEX = /\s*(?<sliceFrom>\d+)-(?<sliceTo>\d+)\s*|\s*(?<singleNum>\d+)\s*|\s*(?<spread>\*)\s*/g;
 
 export default class ReorderCommand extends Command {
-	constructor() {
+	public constructor() {
 		super('reorder', {
 			aliases: ['reorder', '↕'],
 			description: {
@@ -55,7 +55,7 @@ export default class ReorderCommand extends Command {
 		});
 	}
 
-	public async exec(message: Message, { ordering }: { ordering: string | null }) {
+	public async exec(message: Message, { ordering }: { ordering: string | null }): Promise<Message | Message[]> {
 		if (!message.member.voice || !message.member.voice.channel) {
 			return message.util!.reply('you have to be in a voice channel first, silly.');
 		}
@@ -72,10 +72,10 @@ export default class ReorderCommand extends Command {
 		}
 
 		const queue = this.client.music.queues.get(message.guild.id);
-		const queueLength = await queue.length(); // tslint:disable-line
+		const queueLength = await queue.length();
 		const actions: Action[] = [];
 		let match;
-		while ((match = ORDERING_REGEX.exec(ordering)) !== null) { // tslint:disable-line
+		while ((match = ORDERING_REGEX.exec(ordering)) !== null) {
 			const groups: OrderingMatch = match.groups!;
 			if (groups.sliceFrom && groups.sliceTo) {
 				let from = Number(groups.sliceFrom) - 1;
@@ -114,7 +114,7 @@ export default class ReorderCommand extends Command {
 		}
 
 		const tracks = await queue.tracks();
-		const unusedIndices = new Set(Array.from({ length: queueLength }, (_, i) => i));
+		const unusedIndices = new Set(Array.from({ length: queueLength }, (_, i): number => i));
 		const newTracks = [];
 		for (const action of actions) {
 			switch (action.kind) {
@@ -123,7 +123,7 @@ export default class ReorderCommand extends Command {
 					unusedIndices.delete(action.num);
 					break;
 				case 'slice':
-					const slice = tracks.slice(action.from, action.to + 1);
+					const slice = tracks.slice(action.from, action.to + 1); // eslint-disable-line
 					if (action.reverse) slice.reverse();
 					newTracks.push(...slice);
 					for (let i = action.from; i <= action.to; i++) {
@@ -138,10 +138,10 @@ export default class ReorderCommand extends Command {
 			}
 		}
 
-		const spreadAmount = actions.filter(a => a.kind === 'spread').length;
+		const spreadAmount = actions.filter((a): boolean => a.kind === 'spread').length;
 		if (spreadAmount) {
 			const sliceSize = Math.ceil(unusedIndices.size / spreadAmount);
-			const unusedTracks = Array.from(unusedIndices, n => tracks[n]);
+			const unusedTracks = Array.from(unusedIndices, (n): string => tracks[n]);
 			for (let i = 0; i < newTracks.length; i++) {
 				if (newTracks[i] === '*') {
 					newTracks.splice(i, 1, ...unusedTracks.splice(0, sliceSize));

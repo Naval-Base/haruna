@@ -20,21 +20,21 @@ export default class PlaylistAddCommand extends Command {
 					id: 'playlist',
 					type: 'playlist',
 					prompt: {
-						start: (message: Message) => `${message.author}, what playlist should this song/playlist be added to?`,
-						retry: (message: Message, { failure }: { failure: { value: string } }) => `${message.author}, a playlist with the name **${failure.value}** does not exist.`
+						start: (message: Message): string => `${message.author}, what playlist should this song/playlist be added to?`,
+						retry: (message: Message, { failure }: { failure: { value: string } }): string => `${message.author}, a playlist with the name **${failure.value}** does not exist.`
 					}
 				},
 				{
-					id: 'query',
-					match: 'rest',
-					type: Argument.compose('string', (_, str) => str ? str.replace(/<(.+)>/g, '$1') : ''), // eslint-disable-line no-confusing-arrow
-					default: ''
+					'id': 'query',
+					'match': 'rest',
+					'type': Argument.compose('string', (_, str): string => str ? str.replace(/<(.+)>/g, '$1') : ''),
+					'default': ''
 				}
 			]
 		});
 	}
 
-	public async exec(message: Message, { playlist, query }: { playlist: any, query: string }) {
+	public async exec(message: Message, { playlist, query }: { playlist: any; query: string }): Promise<Message | Message[] | void> {
 		if (playlist.user !== message.author.id) return message.util!.reply('you can only add songs to your own playlists.');
 		if (!query && message.attachments.first()) {
 			query = message.attachments.first()!.url;
@@ -51,7 +51,7 @@ export default class PlaylistAddCommand extends Command {
 			playlist.songs.push(res.tracks[0].track);
 			msg = res.tracks[0].info.title;
 		} else if (res.loadType === 'PLAYLIST_LOADED') {
-			playlist.songs.push(...res.tracks.map((track: { track: string }) => track.track));
+			playlist.songs.push(...res.tracks.map((track: { track: string }): string => track.track));
 			msg = res.playlistInfo.name;
 		} else {
 			return message.util!.send("I know you hate to hear that, but even searching the universe I couldn't find what you were looking for.");
