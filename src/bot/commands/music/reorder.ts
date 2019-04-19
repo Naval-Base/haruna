@@ -18,7 +18,7 @@ interface SpreadAction {
 	kind: 'spread';
 }
 
-type Action = SingleAction | SliceAction | SpreadAction; // tslint:disable-line
+type Action = SingleAction | SliceAction | SpreadAction;
 
 interface OrderingMatch {
 	sliceFrom?: string;
