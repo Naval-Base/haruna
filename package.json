@@ -7,7 +7,7 @@
 	"license": "UNLICENSED",
 	"private": true,
 	"scripts": {
-		"version": "node set_version.js",
+		"set_version": "node set_version.js",
 		"prebuild": "yarn lint",
 		"build": "gulp",
 		"lint": "eslint src --ext .ts"
