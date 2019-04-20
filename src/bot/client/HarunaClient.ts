@@ -14,7 +14,7 @@ import { Playlist } from '../models/Playlists';
 import { Counter, register } from 'prom-client';
 import { createServer, Server } from 'http';
 import { parse } from 'url';
-const Raven = require('raven'); // eslint-disable-line
+import { init } from '@sentry/node';
 
 declare module 'discord-akairo' {
 	interface AkairoClient {
@@ -186,13 +186,12 @@ export default class HarunaClient extends AkairoClient {
 
 		this.config = config;
 
-		if (process.env.RAVEN) {
-			Raven.config(process.env.RAVEN, {
-				captureUnhandledRejections: true,
-				autoBreadcrumbs: true,
+		if (process.env.SENTRY) {
+			init({
+				dsn: process.env.SENTRY,
 				environment: process.env.NODE_ENV,
 				release: '0.1.0'
-			}).install();
+			});
 		} else {
 			process.on('unhandledRejection', (err: any): Logger => this.logger.error(`[UNHANDLED REJECTION] ${err.message}`, err.stack));
 		}

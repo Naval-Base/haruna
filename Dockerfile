@@ -27,6 +27,6 @@ ENV NODE_ENV= \
 	LAVALINK_WS= \
 	DB= \
 	REDIS= \
-	RAVEN=
+	SENTRY=
 
 CMD ["node", "dist/haruna.js"]
