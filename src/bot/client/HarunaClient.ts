@@ -172,7 +172,7 @@ export default class HarunaClient extends AkairoClient {
 			if (!phrase) return Flag.fail(phrase);
 			phrase = Util.cleanContent(phrase.toLowerCase(), message);
 			const playlistRepo = this.db.getRepository(Playlist);
-			const playlist = await playlistRepo.findOne({ name: phrase, guild: message.guild.id });
+			const playlist = await playlistRepo.findOne({ name: phrase, guild: message.guild!.id });
 
 			return playlist || Flag.fail(phrase);
 		});
@@ -180,7 +180,7 @@ export default class HarunaClient extends AkairoClient {
 			if (!phrase) return Flag.fail(phrase);
 			phrase = Util.cleanContent(phrase.toLowerCase(), message);
 			const playlistRepo = this.db.getRepository(Playlist);
-			const playlist = await playlistRepo.findOne({ name: phrase, guild: message.guild.id });
+			const playlist = await playlistRepo.findOne({ name: phrase, guild: message.guild!.id });
 
 			return playlist ? Flag.fail(phrase) : phrase;
 		});

@@ -44,7 +44,7 @@ export default class PlaylistShowCommand extends Command {
 		let index = (paginated.page - 1) * 10;
 
 		const embed = new MessageEmbed()
-			.setAuthor(`${message.author.tag} (${message.author.id})`, message.author.displayAvatarURL())
+			.setAuthor(`${message.author!.tag} (${message.author!.id})`, message.author!.displayAvatarURL())
 			.setDescription(stripIndents`
 				**Song list${paginated.page > 1 ? `, page ${paginated.page}` : ''}**
 

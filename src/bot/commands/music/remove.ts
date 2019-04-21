@@ -24,10 +24,10 @@ export default class RemoveCommand extends Command {
 	}
 
 	public async exec(message: Message, { num }: { num: number }): Promise<Message | Message[]> {
-		if (!message.member.voice || !message.member.voice.channel) {
+		if (!message.member!.voice || !message.member!.voice.channel) {
 			return message.util!.reply('you have to be in a voice channel first, silly.');
 		}
-		const queue = this.client.music.queues.get(message.guild.id);
+		const queue = this.client.music.queues.get(message.guild!.id);
 		const tracks = await queue.tracks();
 		num = num >= 1 ? num - 1 : tracks.length - (~num + 1);
 		const decoded = await this.client.music.decode([tracks[num]]);

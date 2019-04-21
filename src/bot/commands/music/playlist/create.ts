@@ -33,8 +33,8 @@ export default class PlaylistCreateCommand extends Command {
 	public async exec(message: Message, { playlist, info }: { playlist: any; info: string }): Promise<Message | Message[]> {
 		const playlistRepo = this.client.db.getRepository(Playlist);
 		const pls = new Playlist();
-		pls.user = message.author.id;
-		pls.guild = message.guild.id;
+		pls.user = message.author!.id;
+		pls.guild = message.guild!.id;
 		pls.name = playlist;
 		if (info) pls.description = Util.cleanContent(info, message);
 		await playlistRepo.save(pls);

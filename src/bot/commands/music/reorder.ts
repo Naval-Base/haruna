@@ -56,10 +56,10 @@ export default class ReorderCommand extends Command {
 	}
 
 	public async exec(message: Message, { ordering }: { ordering: string | null }): Promise<Message | Message[]> {
-		if (!message.member.voice || !message.member.voice.channel) {
+		if (!message.member!.voice || !message.member!.voice.channel) {
 			return message.util!.reply('you have to be in a voice channel first, silly.');
 		}
-		const DJ = message.member.roles.has(this.client.settings.get(message.guild, 'djRole', undefined));
+		const DJ = message.member!.roles.has(this.client.settings.get(message.guild!, 'djRole', undefined));
 		if (!DJ) {
 			return message.util!.reply('nuh, uh!');
 		}
@@ -71,7 +71,7 @@ export default class ReorderCommand extends Command {
 			return message.util!.reply('you have to supply a valid new order for the songs.');
 		}
 
-		const queue = this.client.music.queues.get(message.guild.id);
+		const queue = this.client.music.queues.get(message.guild!.id);
 		const queueLength = await queue.length();
 		const actions: Action[] = [];
 		let match;

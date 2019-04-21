@@ -28,7 +28,7 @@ export default class QueueCommand extends Command {
 	}
 
 	public async exec(message: Message, { page }: { page: number }): Promise<Message | Message[]> {
-		const queue = this.client.music.queues.get(message.guild.id);
+		const queue = this.client.music.queues.get(message.guild!.id);
 		const current = await queue.current();
 		const tracks = [(current || { track: null }).track].concat(await queue.tracks()).filter((track): string | null => track);
 		if (!tracks.length) return message.util!.send('Got nothing in queue!');
@@ -38,7 +38,7 @@ export default class QueueCommand extends Command {
 		let index = (paginated.page - 1) * 10;
 
 		const embed = new MessageEmbed()
-			.setAuthor(`${message.author.tag} (${message.author.id})`, message.author.displayAvatarURL())
+			.setAuthor(`${message.author!.tag} (${message.author!.id})`, message.author!.displayAvatarURL())
 			.setDescription(stripIndents`
 				**Now playing:**
 

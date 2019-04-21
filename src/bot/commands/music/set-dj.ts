@@ -25,7 +25,7 @@ export default class SetDJRoleCommand extends Command {
 	}
 
 	public async exec(message: Message, { role }: { role: Role }): Promise<Message | Message[]> {
-		this.client.settings.set(message.guild, 'djRole', role.id);
+		this.client.settings.set(message.guild!, 'djRole', role.id);
 		return message.util!.reply(`set DJ role to **${role.name}**`);
 	}
 }

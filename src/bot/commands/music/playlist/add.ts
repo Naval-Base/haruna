@@ -35,7 +35,7 @@ export default class PlaylistAddCommand extends Command {
 	}
 
 	public async exec(message: Message, { playlist, query }: { playlist: any; query: string }): Promise<Message | Message[] | void> {
-		if (playlist.user !== message.author.id) return message.util!.reply('you can only add songs to your own playlists.');
+		if (playlist.user !== message.author!.id) return message.util!.reply('you can only add songs to your own playlists.');
 		if (!query && message.attachments.first()) {
 			query = message.attachments.first()!.url;
 			if (!['.mp3', '.ogg', '.flac', '.m4a'].includes(path.parse(url.parse(query).path!).ext)) return;

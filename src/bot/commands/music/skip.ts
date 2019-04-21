@@ -28,7 +28,7 @@ export default class SkipCommand extends Command {
 		};
 
 		const num = yield (
-			msg.member.roles.has((msg.client as HarunaClient).settings.get(msg.guild, 'djRole', undefined)) && force
+			msg.member!.roles.has((msg.client as HarunaClient).settings.get(msg.guild!, 'djRole', undefined)) && force
 				? { match: 'rest', type: Argument.compose((_, str): string => str.replace(/\s/g, ''), Argument.range(Argument.union('number', 'emojint'), 1, Infinity)) }
 				: { match: 'rest', type: Argument.compose((_, str): string => str.replace(/\s/g, ''), Argument.range(Argument.union('number', 'emojint'), 1, 10)) }
 		);
@@ -37,12 +37,12 @@ export default class SkipCommand extends Command {
 	}
 
 	public async exec(message: Message, { num }: { num: number }): Promise<Message | Message[]> {
-		if (!message.member.voice || !message.member.voice.channel) {
+		if (!message.member!.voice || !message.member!.voice.channel) {
 			return message.util!.reply('you have to be in a voice channel first, silly.');
 		}
-		const queue = this.client.music.queues.get(message.guild.id);
+		const queue = this.client.music.queues.get(message.guild!.id);
 		let tracks;
-		if (num > 1) tracks = await this.client.music.queues.redis.lrange(`playlists.${message.guild.id}`, 0, num - 2);
+		if (num > 1) tracks = await this.client.music.queues.redis.lrange(`playlists.${message.guild!.id}`, 0, num - 2);
 		const current = await queue.current();
 		tracks = [(current || { track: null }).track].concat(tracks).filter((track): string | null => track);
 		const skip = await queue.next(num);
@@ -56,7 +56,7 @@ export default class SkipCommand extends Command {
 		let index = (paginated.page - 1) * 10;
 
 		const embed = new MessageEmbed()
-			.setAuthor(`${message.author.tag} (${message.author.id})`, message.author.displayAvatarURL())
+			.setAuthor(`${message.author!.tag} (${message.author!.id})`, message.author!.displayAvatarURL())
 			.setDescription(stripIndents`
 				**Skipped songs**
 

@@ -29,14 +29,14 @@ export default class PlaylistListCommand extends Command {
 	}
 
 	public async exec(message: Message, { member, page }: { member: GuildMember; page: number }): Promise<Message | Message[]> {
-		const where = member ? { user: member.id, guild: message.guild.id } : { guild: message.guild.id };
+		const where = member ? { user: member.id, guild: message.guild!.id } : { guild: message.guild!.id };
 		const playlistRepo = this.client.db.getRepository(Playlist);
 		const playlists = await playlistRepo.find(where);
-		if (!playlists.length) return message.util!.send(`${member ? `${member.displayName}` : `${message.guild.name}`} doesn't have any playlists.`);
+		if (!playlists.length) return message.util!.send(`${member ? `${member.displayName}` : `${message.guild!.name}`} doesn't have any playlists.`);
 		const paginated = paginate(playlists, page);
 
 		const embed = new MessageEmbed()
-			.setAuthor(`${message.author.tag} (${message.author.id})`, message.author.displayAvatarURL())
+			.setAuthor(`${message.author!.tag} (${message.author!.id})`, message.author!.displayAvatarURL())
 			.setDescription(stripIndents`
 				**Playlists${paginated.page > 1 ? `, page ${paginated.page}` : ''}**
 
