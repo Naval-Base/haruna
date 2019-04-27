@@ -42,7 +42,6 @@ interface HarunaOptions {
 export default class HarunaClient extends AkairoClient {
 	public logger = createLogger({
 		format: format.combine(
-			format.colorize({ level: true }),
 			format.timestamp({ format: 'YYYY/MM/DD HH:mm:ss' }),
 			format.printf((info: any): string => {
 				const { timestamp, level, message, ...rest } = info;
@@ -50,7 +49,10 @@ export default class HarunaClient extends AkairoClient {
 			})
 		),
 		transports: [
-			new transports.Console({ level: 'info' }),
+			new transports.Console({
+				format: format.colorize({ level: true }),
+				level: 'info'
+			}),
 			new DailyRotateFile({
 				format: format.combine(
 					format.timestamp(),
