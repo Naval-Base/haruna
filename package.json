@@ -23,7 +23,7 @@
 		"lavaqueue": "^3.1.1",
 		"moment": "^2.24.0",
 		"moment-duration-format": "^2.2.2",
-		"pg": "^7.10.0",
+		"pg": "^7.11.0",
 		"prom-client": "^11.3.0",
 		"reflect-metadata": "^0.1.13",
 		"rejects": "^0.6.2",
