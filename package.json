@@ -2,7 +2,7 @@
 	"name": "haruna",
 	"version": "0.1.0",
 	"description": "",
-	"main": "src/haruna.js",
+	"main": "dist/haruna.js",
 	"author": "iCrawl <icrawltogo@gmail.com>",
 	"license": "UNLICENSED",
 	"private": true,
