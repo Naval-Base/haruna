@@ -1,9 +1,12 @@
-workflow "Commit" {
+workflow "commit" {
 	on = "push"
-	resolves = ["ESLint"]
+	resolves = ["lint"]
 }
 
-action "ESLint" {
+action "lint" {
 	uses = "iCrawl/eslint-action-marine@master"
+	env = {
+		FOLDERS = "src"
+	}
 	secrets = ["GITHUB_TOKEN"]
 }
