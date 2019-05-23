@@ -3,6 +3,11 @@ workflow "commit" {
 	resolves = ["lint"]
 }
 
+workflow "pr" {
+	on = "pull_request"
+	resolves = ["lint"]
+}
+
 action "lint" {
 	uses = "iCrawl/eslint-action-marine@master"
 	env = {
@@ -10,3 +15,4 @@ action "lint" {
 	}
 	secrets = ["GITHUB_TOKEN"]
 }
+
