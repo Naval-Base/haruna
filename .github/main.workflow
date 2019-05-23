@@ -1,9 +1,9 @@
 workflow "Commit" {
 	on = "push"
-	resolves = ["ESLint Action Marine"]
+	resolves = ["ESLint"]
 }
 
-action "ESLint Action Marine" {
+action "ESLint" {
 	uses = "iCrawl/eslint-action-marine@master"
 	secrets = ["GITHUB_TOKEN"]
 }
