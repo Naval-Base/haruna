@@ -1023,12 +1023,10 @@ diagnostics@^1.1.1:
 
 discord-akairo@1Computer1/discord-akairo:
   version "8.0.0-beta.8"
-  uid de81244f8cbab3d6ff2270a28ee635ac1c90bd97
   resolved "https://codeload.github.com/1Computer1/discord-akairo/tar.gz/de81244f8cbab3d6ff2270a28ee635ac1c90bd97"
 
 discord.js@discordjs/discord.js:
   version "12.0.0-dev"
-  uid b3060ea229e5a5395f7fb67291ead0440e6c55ca
   resolved "https://codeload.github.com/discordjs/discord.js/tar.gz/b3060ea229e5a5395f7fb67291ead0440e6c55ca"
   dependencies:
     form-data "^2.3.3"
@@ -1165,17 +1163,17 @@ escape-string-regexp@^1.0.2, escape-string-regexp@^1.0.5:
   resolved "https://registry.yarnpkg.com/escape-string-regexp/-/escape-string-regexp-1.0.5.tgz#1b61c0562190a8dff6ae3bb2cf0200ca130b86d4"
   integrity sha1-G2HAViGQqN/2rjuyzwIAyhMLhtQ=
 
-eslint-config-aqua@^5.0.0:
-  version "5.0.0"
-  resolved "https://registry.yarnpkg.com/eslint-config-aqua/-/eslint-config-aqua-5.0.0.tgz#f0ed8be7805e86aa389c35f9c3021ba4c51234bd"
-  integrity sha512-cAeVOqDOpuHtr503joLxSfvQ9d/qla0u8GfgB76vhgEQ9wySTj182vK/alimDKOCl4TyN/0UgqMSK3aqq86LUA==
+eslint-config-aqua@^6.0.0:
+  version "6.0.0"
+  resolved "https://registry.yarnpkg.com/eslint-config-aqua/-/eslint-config-aqua-6.0.0.tgz#bfc49aaa757864e47c2584f3afcc6253a1c020d4"
+  integrity sha512-zH8/LTjA11ghrelRw5bGSReoz6gDAsSDGUNyy7EP7APkFvzEA0Xvnq+w2mu5R4i8z1g+GILReU0bI2uuDK7jAA==
 
-eslint-config-marine@^2.2.0:
-  version "2.2.0"
-  resolved "https://registry.yarnpkg.com/eslint-config-marine/-/eslint-config-marine-2.2.0.tgz#dc8f00e92f2c0c5990b4cfdb8e60538332011307"
-  integrity sha512-eYGWM8ItithjQMri2H7IN9g/Fcg0sJoJLBw9XvBNOIYG7m5fO2goFRjYoeul7e46xiUangMYqcOdp7kr93/bXQ==
+eslint-config-marine@^3.0.2:
+  version "3.0.2"
+  resolved "https://registry.yarnpkg.com/eslint-config-marine/-/eslint-config-marine-3.0.2.tgz#df9c09a5c15f618d5795f640e951a1fe82f0b3a2"
+  integrity sha512-jeI3ZHvnlGhrJoBs9BbSxilp3hxJQC0rzL3G9TFMElCoNeK9LeY3GxfBLL5j8JIjbC4EKQJX8DtbRI1goffelA==
   dependencies:
-    eslint-config-aqua "^5.0.0"
+    eslint-config-aqua "^6.0.0"
     eslint-plugin-promise "^4.1.1"
 
 eslint-plugin-promise@^4.1.1:
