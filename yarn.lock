@@ -2498,10 +2498,10 @@ mkdirp@^0.5.0, mkdirp@^0.5.1:
   dependencies:
     minimist "0.0.8"
 
-moment-duration-format@^2.3.0:
-  version "2.3.0"
-  resolved "https://registry.yarnpkg.com/moment-duration-format/-/moment-duration-format-2.3.0.tgz#f1d9de90966be8bd79bbf2ddc12a9e6818679034"
-  integrity sha512-1Ch2pmoREwWt7UJ15JHEZ69enMhyx8EAxYsJkSO0BChdBmlE+jmYa13Z5lb8ePjjQJI0D2y5ENq8mpt6780mtQ==
+moment-duration-format@^2.3.1:
+  version "2.3.1"
+  resolved "https://registry.yarnpkg.com/moment-duration-format/-/moment-duration-format-2.3.1.tgz#17a87c4b91f06dc8ac148a97d2fceedc1bff92a2"
+  integrity sha512-kCikJV3SsAYjP6axo9i8hGBPyJQNTpEvv+MqOYqNfKK3Iu/qTw41yc5illPiOGqdDCC50HWTZqHVWiId2vD+Xg==
 
 moment@>=2.14.0, moment@^2.11.2, moment@^2.24.0:
   version "2.24.0"
