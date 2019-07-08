@@ -1,7 +1,7 @@
 import { join } from 'path';
 import { AkairoClient, CommandHandler, InhibitorHandler, ListenerHandler, Flag } from 'discord-akairo';
 import { Util } from 'discord.js';
-import { Client as Lavaqueue } from 'lavaqueue';
+import Node from 'lavaqueue';
 import { Logger, createLogger, transports, format } from 'winston';
 import * as DailyRotateFile from 'winston-daily-rotate-file';
 import Storage, { ReferenceType } from 'rejects';
@@ -22,7 +22,7 @@ declare module 'discord-akairo' {
 		logger: Logger;
 		db: Connection;
 		settings: TypeORMProvider;
-		music: Lavaqueue;
+		music: Node;
 		redis: ExtendedRedis;
 		storage: Storage;
 		config: HarunaOptions;
@@ -69,7 +69,7 @@ export default class HarunaClient extends AkairoClient {
 
 	public settings!: TypeORMProvider;
 
-	public music = new Lavaqueue({
+	public music = new Node({
 		userID: process.env.ID!,
 		password: process.env.LAVALINK_PASSWORD!,
 		hosts: {
