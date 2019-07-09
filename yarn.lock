@@ -2224,10 +2224,10 @@ lavalink@2.8.1, lavalink@^2.6.1:
     backoff "^2.5.0"
     ws "^6.0.0"
 
-lavaqueue@^3.1.2:
-  version "3.1.2"
-  resolved "https://registry.yarnpkg.com/lavaqueue/-/lavaqueue-3.1.2.tgz#e8f26c3c7870130437d98d2ee1628bf2cdf6ba1d"
-  integrity sha512-nMm5UL3HRzM8fyEA82DEdmwe9pYMNTFRxHOc6FkrmD2sM4qKJ3VsDR5qK54sgTqpSSHqHFSrw+vimFVQjXaNfA==
+lavaqueue@^3.1.3:
+  version "3.1.3"
+  resolved "https://registry.yarnpkg.com/lavaqueue/-/lavaqueue-3.1.3.tgz#392fdd127170a91566eca3b44b56d53c8388713a"
+  integrity sha512-BZBKVKA6sjX/QEXTFglrhwGE36F2qWuUfQVmoO3xQBWc8HpG1zXVPW5SP1RYhRIyJWIGshiGRSNrKBNLCw/C7Q==
   dependencies:
     ioredis "^4.0.0"
     lavalink "^2.6.1"
