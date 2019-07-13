@@ -1,9 +1,10 @@
 version: '2.4'
+
 services:
   bot:
     build:
       context: .
-    restart: always
+    restart: unless-stopped
     env_file:
       - ./.env
     network_mode: 'host'
@@ -12,7 +13,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile-Lavalink
-    restart: always
+    restart: unless-stopped
     env_file:
       - ./.env_lavalink
     ports:
@@ -20,8 +21,8 @@ services:
     mem_limit: 4GB
 
   redis:
-    image: "redis:4-alpine"
-    restart: always
+    image: "redis:5-alpine"
+    restart: unless-stopped
     ports:
       - 6379:6379
     mem_limit: 1GB
