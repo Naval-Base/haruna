@@ -34,7 +34,7 @@ export default class StatsCommand extends Command {
 				true
 			)
 			.addField('❯ Version', `v${version}`, true)
-			.addField('❯ Source Code', '[View Here](https://github.com/Naval-Base/yukikaze)', true)
+			.addField('❯ Source Code', '[View Here](https://github.com/Naval-Base/haruna)', true)
 			.addField(
 				'❯ Library',
 				'[discord.js](https://discord.js.org)[-akairo](https://github.com/1Computer1/discord-akairo)',
