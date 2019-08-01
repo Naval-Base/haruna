@@ -18,7 +18,7 @@
 		"discord-akairo": "1Computer1/discord-akairo",
 		"discord.js": "discordjs/discord.js",
 		"dotenv": "^8.0.0",
-		"ioredis": "^4.11.2",
+		"ioredis": "^4.14.0",
 		"lavalink": "2.8.1",
 		"lavaqueue": "^3.1.4",
 		"moment": "^2.24.0",
