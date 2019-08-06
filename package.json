@@ -37,7 +37,7 @@
 		"@types/ioredis": "^4.0.13",
 		"@types/moment-duration-format": "^2.2.2",
 		"@types/node": "^12.6.9",
-		"@types/ws": "^6.0.1",
+		"@types/ws": "^6.0.2",
 		"@typescript-eslint/eslint-plugin": "^1.13.0",
 		"@typescript-eslint/parser": "^1.13.0",
 		"eslint": "^6.1.0",
