@@ -12,15 +12,16 @@
 			"esnext.symbol"
 		],
 		"declaration": false,
-		"sourceMap": true,
+		"inlineSourceMap": true,
+		"inlineSources": true,
+		"sourceRoot": "/",
+		"outDir": "dist",
+		"incremental": true,
 		"removeComments": false,
 		"experimentalDecorators": true,
 		"emitDecoratorMetadata": true,
 		"alwaysStrict": true,
 		"allowSyntheticDefaultImports": true,
 		"pretty": true
-	},
-	"include": [
-		"./src"
-	]
+	}
 }

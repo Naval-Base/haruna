@@ -9,7 +9,7 @@
 	"scripts": {
 		"set_version": "node set_version.js",
 		"prebuild": "yarn lint",
-		"build": "gulp",
+		"build": "rimraf dist && tsc",
 		"lint": "eslint src --ext .ts"
 	},
 	"dependencies": {
@@ -42,10 +42,7 @@
 		"@typescript-eslint/parser": "^2.0.0",
 		"eslint": "^6.1.0",
 		"eslint-config-marine": "^4.2.0",
-		"fs-nextra": "^0.4.5",
-		"gulp": "^4.0.2",
-		"gulp-sourcemaps": "^2.6.5",
-		"gulp-typescript": "^5.0.1",
+		"rimraf": "^3.0.0",
 		"typescript": "^3.5.3"
 	},
 	"optionalDependencies": {
