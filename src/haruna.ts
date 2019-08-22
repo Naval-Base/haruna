@@ -1,6 +1,6 @@
 import 'reflect-metadata';
 import HarunaClient from './bot/client/HarunaClient';
-import { Logger } from 'winston';
+import { Logger } from 'winston'
 
 const client = new HarunaClient({ owner: process.env.OWNERS, token: process.env.TOKEN });
 
