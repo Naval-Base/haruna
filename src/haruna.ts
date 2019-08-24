@@ -9,4 +9,4 @@ client
 	.on('shardError', (err, id): Logger => client.logger.error(`[SHARD ${id} ERROR] ${err.message}`, err.stack))
 	.on('warn', (warn): Logger => client.logger.warn(`[CLIENT WARN] ${warn}`));
 
-client.start()
+client.start();
