@@ -1,4 +1,5 @@
-name: Lint commit
+name: Lint
+
 on:
   push:
     branches:
@@ -6,12 +7,19 @@ on:
 
 jobs:
   lint:
-    name: Lint
+    name: lint
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@master
-    - name: ESLint
-      uses: iCrawl/eslint-action-marine@master
+    - uses: actions/checkout@v1
+    - name: install node v12
+      uses: actions/setup-node@v1
+      with:
+        node-version: 12
+    - name: yarn install
+      run: yarn install
+    - name: eslint
+      uses: icrawl/eslint-action-marine@v1-release
       env:
-        FOLDERS: src
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        job-name: lint
