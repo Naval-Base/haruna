@@ -65,7 +65,7 @@ export default class HarunaClient extends AkairoClient {
 		]
 	});
 
-	public db!: Connection;
+	public db!: Connection
 
 	public settings!: TypeORMProvider;
 
