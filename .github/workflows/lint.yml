@@ -2,13 +2,11 @@ name: Lint
 
 on:
   push:
-    branches:
-    - master
   pull_request:
 
 jobs:
-  lint:
-    name: lint
+  eslint:
+    name: eslint
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v1
@@ -19,8 +17,8 @@ jobs:
     - name: yarn install
       run: yarn install
     - name: eslint
-      uses: icrawl/eslint-action-marine@v1-release
+      uses: icrawl/action-eslint@v1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        job-name: lint
+        job-name: eslint
