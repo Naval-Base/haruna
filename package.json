@@ -34,7 +34,7 @@
 	"devDependencies": {
 		"@types/backoff": "^2.5.1",
 		"@types/common-tags": "^1.8.0",
-		"@types/ioredis": "^4.0.15",
+		"@types/ioredis": "^4.0.16",
 		"@types/moment-duration-format": "^2.2.2",
 		"@types/node": "^12.7.4",
 		"@types/ws": "^6.0.3",
