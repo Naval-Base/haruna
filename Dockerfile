@@ -25,5 +25,6 @@ ENV NODE_ENV= \
 	DB= \
 	REDIS= \
 	SENTRY=
+ENV VERSION=
 CMD ["node", "dist/haruna.js"]
 
