@@ -21,7 +21,7 @@ jobs:
       - name: Build, tag, and push container
         run: |
           sed -i 's/ENV VERSION=/ENV VERSION='"`git rev-parse HEAD`"'/' Dockerfile*
-          docker build . --file Dockerfile_bot --tag docker.pkg.github.com/naval-base/haruna/haruna_bot:latest
+          docker build . --file Dockerfile --tag docker.pkg.github.com/naval-base/haruna/haruna_bot:latest
           docker push docker.pkg.github.com/naval-base/haruna/haruna_bot:latest
 
       - name: Logout of GitHub docker registry
