@@ -8,7 +8,7 @@ export default class StartCommand extends Command {
 			description: {
 				content: 'Joins and starts the queue.',
 				usage: '[--force/-f]',
-				examples: ['--force', '-f']
+				examples: ['--force', '-f'],
 			},
 			category: 'music',
 			channel: 'guild',
@@ -17,13 +17,13 @@ export default class StartCommand extends Command {
 				{
 					id: 'force',
 					match: 'flag',
-					flag: ['--force', '-f']
-				}
-			]
+					flag: ['--force', '-f'],
+				},
+			],
 		});
 	}
 
-	public async exec(message: Message, { force }: { force: boolean }): Promise<Message | Message[] | void> {
+	public async exec(message: Message, { force }: { force: boolean }) {
 		if (!message.member!.voice || !message.member!.voice.channel) {
 			return message.util!.reply('you have to be in a voice channel first, silly.');
 		} else if (!message.member!.voice.channel.joinable) {

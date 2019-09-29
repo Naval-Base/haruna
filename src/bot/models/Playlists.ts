@@ -1,27 +1,25 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
-
-/* eslint-disable @typescript-eslint/explicit-member-accessibility */
+import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity('playlists')
 export class Playlist {
 	@PrimaryGeneratedColumn()
-	id!: number;
+	public id!: number;
 
 	@Column({ type: 'bigint' })
-	user!: string;
+	public user!: string;
 
 	@Column({ type: 'bigint' })
-	guild!: string;
+	public guild!: string;
 
 	@Column({ type: 'text' })
-	name!: string;
+	public name!: string;
 
 	@Column({ type: 'text' })
-	description!: string | null;
+	public description!: string | null;
 
-	@Column({ 'type': 'text', 'array': true, 'default': '{}' })
-	songs!: string[];
+	@Column({ type: 'text', array: true, default: '{}' })
+	public songs!: string[];
 
-	@Column({ 'default': 0 })
-	plays!: number;
+	@Column({ default: 0 })
+	public plays!: number;
 }

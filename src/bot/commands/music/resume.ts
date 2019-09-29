@@ -6,15 +6,15 @@ export default class ResumeCommand extends Command {
 		super('resume', {
 			aliases: ['resume'],
 			description: {
-				content: 'Resumes the queue.'
+				content: 'Resumes the queue.',
 			},
 			category: 'music',
 			channel: 'guild',
-			ratelimit: 2
+			ratelimit: 2,
 		});
 	}
 
-	public async exec(message: Message): Promise<Message | Message[]> {
+	public async exec(message: Message) {
 		if (!message.member!.voice || !message.member!.voice.channel) {
 			return message.util!.reply('you have to be in a voice channel first, silly.');
 		}

@@ -1,13 +1,13 @@
 import { ConnectionManager } from 'typeorm';
-import { Setting } from '../models/Settings';
 import { Playlist } from '../models/Playlists';
+import { Setting } from '../models/Settings';
 
 const connectionManager = new ConnectionManager();
 connectionManager.create({
 	name: 'haruna',
 	type: 'postgres',
 	url: process.env.DB,
-	entities: [Setting, Playlist]
+	entities: [Setting, Playlist],
 });
 
 export default connectionManager;

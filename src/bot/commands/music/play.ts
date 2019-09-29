@@ -1,7 +1,7 @@
 import { Argument, Command } from 'discord-akairo';
 import { Message } from 'discord.js';
-import * as url from 'url';
 import * as path from 'path';
+import * as url from 'url';
 
 export default class PlayCommand extends Command {
 	public constructor() {
@@ -10,7 +10,7 @@ export default class PlayCommand extends Command {
 			description: {
 				content: 'Play a song from literally any source you can think of.',
 				usage: '<link/search>',
-				examples: ['justin bieber']
+				examples: ['justin bieber'],
 			},
 			category: 'music',
 			channel: 'guild',
@@ -19,19 +19,22 @@ export default class PlayCommand extends Command {
 				{
 					id: 'unshift',
 					match: 'flag',
-					flag: ['--start', '-s']
+					flag: ['--start', '-s'],
 				},
 				{
-					'id': 'query',
-					'match': 'rest',
-					'type': Argument.compose('string', (_, str): string => str ? str.replace(/<(.+)>/g, '$1') : ''),
-					'default': ''
-				}
-			]
+					id: 'query',
+					match: 'rest',
+					type: Argument.compose(
+						'string',
+						(_, str) => (str ? str.replace(/<(.+)>/g, '$1') : ''),
+					),
+					default: '',
+				},
+			],
 		});
 	}
 
-	public async exec(message: Message, { query, unshift }: { query: string; unshift: boolean }): Promise<Message | Message[] | void> {
+	public async exec(message: Message, { query, unshift }: { query: string; unshift: boolean }) {
 		if (!message.member!.voice || !message.member!.voice.channel) {
 			return message.util!.reply('you have to be in a voice channel first, silly.');
 		} else if (!message.member!.voice.channel.joinable) {
@@ -46,8 +49,7 @@ export default class PlayCommand extends Command {
 			return;
 		}
 		if (!['http:', 'https:'].includes(url.parse(query).protocol!)) query = `ytsearch:${query}`;
-		// TODO: remove hack
-		const res: any = await this.client.music.load(query);
+		const res = await this.client.music.load(query);
 		const queue = this.client.music.queues.get(message.guild!.id);
 		if (!message.guild!.me!.voice.channel) await queue.player.join(message.member!.voice.channel.id);
 		let msg;
@@ -56,10 +58,12 @@ export default class PlayCommand extends Command {
 			else await queue.add(res.tracks[0].track);
 			msg = res.tracks[0].info.title;
 		} else if (res.loadType === 'PLAYLIST_LOADED') {
-			await queue.add(...res.tracks.map((track: { track: string }): string => track.track));
+			await queue.add(...res.tracks.map(track => track.track));
 			msg = res.playlistInfo.name;
 		} else {
-			return message.util!.send("I know you hate to hear that, but even searching the universe I couldn't find what you were looking for.");
+			return message.util!.send(
+				"I know you hate to hear that, but even searching the universe I couldn't find what you were looking for.",
+			);
 		}
 		if (!queue.player.playing && !queue.player.paused) await queue.start();
 

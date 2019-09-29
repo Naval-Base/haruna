@@ -1,12 +1,10 @@
-import { Entity, Column, PrimaryColumn } from 'typeorm';
-
-/* eslint-disable @typescript-eslint/explicit-member-accessibility */
+import { Column, Entity, PrimaryColumn } from 'typeorm';
 
 @Entity('settings')
 export class Setting {
 	@PrimaryColumn({ type: 'bigint' })
-	guild!: string;
+	public guild!: string;
 
-	@Column({ 'type': 'jsonb', 'default': (): string => "'{}'" })
-	settings: any;
+	@Column({ type: 'jsonb', default: (): string => "'{}'" })
+	public settings: any;
 }

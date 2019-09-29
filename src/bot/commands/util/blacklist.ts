@@ -1,5 +1,6 @@
 import { Command } from 'discord-akairo';
 import { Message, User } from 'discord.js';
+import { SETTINGS } from '../../../util/constants';
 
 export default class BlacklistCommand extends Command {
 	public constructor() {
@@ -8,7 +9,7 @@ export default class BlacklistCommand extends Command {
 			description: {
 				content: 'Prohibit/Allow a user from using Yukikaze.',
 				usage: '<user>',
-				examples: ['Crawl', '@Crawl', '81440962496172032']
+				examples: ['Crawl', '@Crawl', '81440962496172032'],
 			},
 			category: 'util',
 			ownerOnly: true,
@@ -19,26 +20,28 @@ export default class BlacklistCommand extends Command {
 					match: 'content',
 					type: 'user',
 					prompt: {
-						start: (message: Message): string => `${message.author}, who would you like to blacklist/unblacklist?`
-					}
-				}
-			]
+						start: (message: Message) => `${message.author}, who would you like to blacklist/unblacklist?`,
+					},
+				},
+			],
 		});
 	}
 
-	public async exec(message: Message, { user }: { user: User }): Promise<Message | Message[]> {
-		const blacklist = this.client.settings.get('global', 'blacklist', []);
+	public async exec(message: Message, { user }: { user: User }) {
+		const blacklist = this.client.settings.get('global', SETTINGS.BLACKLIST, ['']);
 		if (blacklist.includes(user.id)) {
 			const index = blacklist.indexOf(user.id);
 			blacklist.splice(index, 1);
-			if (blacklist.length === 0) this.client.settings.delete('global', 'blacklist');
-			else this.client.settings.set('global', 'blacklist', blacklist);
+			if (blacklist.length === 0) this.client.settings.delete('global', SETTINGS.BLACKLIST);
+			else this.client.settings.set('global', SETTINGS.BLACKLIST, blacklist);
 
-			return message.util!.send(`${user.tag}, ha!...If I wore gloves, I wouldn't have to dirty my hands hitting you next time.`);
+			return message.util!.send(
+				`${user.tag}, ha!...If I wore gloves, I wouldn't have to dirty my hands hitting you next time.`,
+			);
 		}
 
 		blacklist.push(user.id);
-		this.client.settings.set('global', 'blacklist', blacklist);
+		this.client.settings.set('global', SETTINGS.BLACKLIST, blacklist);
 
 		return message.util!.send(`${user.tag}, you've let down my expectations--`);
 	}

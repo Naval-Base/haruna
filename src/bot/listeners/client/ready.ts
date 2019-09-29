@@ -6,12 +6,16 @@ export default class ReadyListener extends Listener {
 		super('ready', {
 			emitter: 'client',
 			event: 'ready',
-			category: 'client'
+			category: 'client',
 		});
 	}
 
-	public async exec(): Promise<void> {
-		this.client.logger.info(`[READY] Hello, I am ${this.client.user!.tag} (${this.client.user!.id}), one of the first fast battleships of the Sakura Empire. I'm someone who prefers the fist to the sword. Nice to meet you.`);
+	public async exec() {
+		this.client.logger.info(
+			`[READY] Hello, I am ${this.client.user!.tag} (${
+				this.client.user!.id
+			}), one of the first fast battleships of the Sakura Empire. I'm someone who prefers the fist to the sword. Nice to meet you.`,
+		);
 		this.client.user!.setActivity(`@${this.client.user!.username} help 🎶`);
 		this.client.promServer.listen(5501);
 		this.client.logger.info('[READY][METRICS] Metrics listening on 5501');

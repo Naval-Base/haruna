@@ -6,15 +6,17 @@ export default class PrefixCommand extends Command {
 		super('prefix', {
 			aliases: ['prefix'],
 			description: {
-				content: 'Displays the prefix of the bot.'
+				content: 'Displays the prefix of the bot.',
 			},
 			category: 'util',
 			channel: 'guild',
-			ratelimit: 2
+			ratelimit: 2,
 		});
 	}
 
-	public async exec(message: Message): Promise<Message | Message[]> {
-		return message.util!.send(`The current prefixes for this guild are: ${(this.handler.prefix as string[]).join(' | ')}`);
+	public async exec(message: Message) {
+		return message.util!.send(
+			`The current prefixes for this guild are: ${(this.handler.prefix as string[]).join(' | ')}`,
+		);
 	}
 }

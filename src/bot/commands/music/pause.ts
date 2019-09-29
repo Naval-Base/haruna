@@ -6,15 +6,15 @@ export default class PauseCommand extends Command {
 		super('pause', {
 			aliases: ['pause'],
 			description: {
-				content: 'Pauses the queue.'
+				content: 'Pauses the queue.',
 			},
 			category: 'music',
 			channel: 'guild',
-			ratelimit: 2
+			ratelimit: 2,
 		});
 	}
 
-	public async exec(message: Message): Promise<Message | Message[]> {
+	public async exec(message: Message) {
 		if (!message.member!.voice || !message.member!.voice.channel) {
 			return message.util!.reply('you have to be in a voice channel first, silly.');
 		}

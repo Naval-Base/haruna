@@ -1,7 +1,7 @@
 import { Argument, Command } from 'discord-akairo';
 import { Message } from 'discord.js';
-import * as url from 'url';
 import * as path from 'path';
+import * as url from 'url';
 import { Playlist } from '../../../models/Playlists';
 
 export default class PlaylistAddCommand extends Command {
@@ -10,7 +10,6 @@ export default class PlaylistAddCommand extends Command {
 			description: {
 				content: 'Adds a song to the playlist.',
 				usage: '<playlist> <link/playlist>',
-				examples: []
 			},
 			category: 'music',
 			channel: 'guild',
@@ -20,22 +19,27 @@ export default class PlaylistAddCommand extends Command {
 					id: 'playlist',
 					type: 'playlist',
 					prompt: {
-						start: (message: Message): string => `${message.author}, what playlist should this song/playlist be added to?`,
-						retry: (message: Message, { failure }: { failure: { value: string } }): string => `${message.author}, a playlist with the name **${failure.value}** does not exist.`
-					}
+						start: (message: Message) => `${message.author}, what playlist should this song/playlist be added to?`,
+						retry: (message: Message, { failure }: { failure: { value: string } }) =>
+							`${message.author}, a playlist with the name **${failure.value}** does not exist.`,
+					},
 				},
 				{
-					'id': 'query',
-					'match': 'rest',
-					'type': Argument.compose('string', (_, str): string => str ? str.replace(/<(.+)>/g, '$1') : ''),
-					'default': ''
-				}
-			]
+					id: 'query',
+					match: 'rest',
+					type: Argument.compose(
+						'string',
+						(_, str) => (str ? str.replace(/<(.+)>/g, '$1') : ''),
+					),
+					default: '',
+				},
+			],
 		});
 	}
 
-	public async exec(message: Message, { playlist, query }: { playlist: any; query: string }): Promise<Message | Message[] | void> {
-		if (playlist.user !== message.author!.id) return message.util!.reply('you can only add songs to your own playlists.');
+	public async exec(message: Message, { playlist, query }: { playlist: Playlist; query: string }) {
+		if (playlist.user !== message.author!.id)
+			return message.util!.reply('you can only add songs to your own playlists.');
 		if (!query && message.attachments.first()) {
 			query = message.attachments.first()!.url;
 			if (!['.mp3', '.ogg', '.flac', '.m4a'].includes(path.parse(url.parse(query).path!).ext)) return;
@@ -43,18 +47,19 @@ export default class PlaylistAddCommand extends Command {
 			return;
 		}
 		if (!['http:', 'https:'].includes(url.parse(query).protocol!)) query = `ytsearch:${query}`;
-		// TODO: remove hack
-		const res: any = await this.client.music.load(query);
+		const res = await this.client.music.load(query);
 
 		let msg;
 		if (['TRACK_LOADED', 'SEARCH_RESULT'].includes(res.loadType)) {
 			playlist.songs.push(res.tracks[0].track);
 			msg = res.tracks[0].info.title;
 		} else if (res.loadType === 'PLAYLIST_LOADED') {
-			playlist.songs.push(...res.tracks.map((track: { track: string }): string => track.track));
+			playlist.songs.push(...res.tracks.map(track => track.track));
 			msg = res.playlistInfo.name;
 		} else {
-			return message.util!.send("I know you hate to hear that, but even searching the universe I couldn't find what you were looking for.");
+			return message.util!.send(
+				"I know you hate to hear that, but even searching the universe I couldn't find what you were looking for.",
+			);
 		}
 		const playlistRepo = this.client.db.getRepository(Playlist);
 		await playlistRepo.save(playlist);

@@ -8,7 +8,7 @@ export default class RemoveCommand extends Command {
 			description: {
 				content: 'Removes a song from the queue.',
 				usage: '[num]',
-				examples: ['3', '6']
+				examples: ['3', '6'],
 			},
 			category: 'music',
 			channel: 'guild',
@@ -17,13 +17,16 @@ export default class RemoveCommand extends Command {
 				{
 					id: 'num',
 					match: 'content',
-					type: Argument.compose((_, str): string => str.replace(/\s/g, ''), Argument.union('number', 'emojint'))
-				}
-			]
+					type: Argument.compose(
+						(_, str) => str.replace(/\s/g, ''),
+						Argument.union('number', 'emojint'),
+					),
+				},
+			],
 		});
 	}
 
-	public async exec(message: Message, { num }: { num: number }): Promise<Message | Message[]> {
+	public async exec(message: Message, { num }: { num: number }) {
 		if (!message.member!.voice || !message.member!.voice.channel) {
 			return message.util!.reply('you have to be in a voice channel first, silly.');
 		}
@@ -33,6 +36,6 @@ export default class RemoveCommand extends Command {
 		const decoded = await this.client.music.decode([tracks[num]]);
 		queue.remove(tracks[num]);
 
-		return message.util!.send(`${this.client.emojis.get('479430354759843841')} **Removed:** \`${decoded[0].info.title}\``);
+		return message.util!.send(`**Removed:** \`${decoded[0].info.title}\``);
 	}
 }

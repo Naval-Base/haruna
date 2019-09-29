@@ -1,20 +1,20 @@
-import { join } from 'path';
-import { AkairoClient, CommandHandler, InhibitorHandler, ListenerHandler, Flag } from 'discord-akairo';
+import { init } from '@sentry/node';
+import { AkairoClient, CommandHandler, Flag, InhibitorHandler, ListenerHandler } from 'discord-akairo';
 import { Util } from 'discord.js';
+import { createServer, Server } from 'http';
 import Node from 'lavaqueue';
-import { Logger, createLogger, transports, format } from 'winston';
-import * as DailyRotateFile from 'winston-daily-rotate-file';
+import { ExtendedRedis } from 'lavaqueue/typings/QueueStore';
+import { join } from 'path';
+import { Counter, register } from 'prom-client';
 import Storage, { ReferenceType } from 'rejects';
+import { Connection } from 'typeorm';
+import { parse } from 'url';
+import { createLogger, format, Logger, transports } from 'winston';
+import * as DailyRotateFile from 'winston-daily-rotate-file';
+import { Playlist } from '../models/Playlists';
+import { Setting } from '../models/Settings';
 import database from '../structures/Database';
 import TypeORMProvider from '../structures/SettingsProvider';
-import { Setting } from '../models/Settings';
-import { Connection } from 'typeorm';
-import { ExtendedRedis } from 'lavaqueue/typings/QueueStore';
-import { Playlist } from '../models/Playlists';
-import { Counter, register } from 'prom-client';
-import { createServer, Server } from 'http';
-import { parse } from 'url';
-import { init } from '@sentry/node';
 
 declare module 'discord-akairo' {
 	interface AkairoClient {
@@ -44,24 +44,23 @@ export default class HarunaClient extends AkairoClient {
 			format.timestamp({ format: 'YYYY/MM/DD HH:mm:ss' }),
 			format.printf((info: any): string => {
 				const { timestamp, level, message, ...rest } = info;
-				return `[${timestamp}] ${level}: ${message}${Object.keys(rest).length ? `\n${JSON.stringify(rest, null, 2)}` : ''}`;
-			})
+				return `[${timestamp}] ${level}: ${message}${
+					Object.keys(rest).length ? `\n${JSON.stringify(rest, null, 2)}` : ''
+				}`;
+			}),
 		),
 		transports: [
 			new transports.Console({
 				format: format.colorize({ level: true }),
-				level: 'info'
+				level: 'info',
 			}),
 			new DailyRotateFile({
-				format: format.combine(
-					format.timestamp(),
-					format.json()
-				),
+				format: format.combine(format.timestamp(), format.json()),
 				level: 'debug',
 				filename: 'haruna-%DATE%.log',
-				maxFiles: '14d'
-			})
-		]
+				maxFiles: '14d',
+			}),
+		],
 	});
 
 	public db!: Connection;
@@ -76,17 +75,17 @@ export default class HarunaClient extends AkairoClient {
 			ws: process.env.LAVALINK_WS!,
 			redis: process.env.REDIS
 				? {
-					port: 6379,
-					host: process.env.REDIS,
-					db: 0
-				}
-				: undefined
+						port: 6379,
+						host: process.env.REDIS,
+						db: 0,
+				  }
+				: undefined,
 		},
 		send: async (guild, packet): Promise<void> => {
 			const shardGuild = this.guilds.get(guild);
 			if (shardGuild) return shardGuild.shard.send(packet);
 			return Promise.resolve();
-		}
+		},
 	});
 
 	public redis = this.music.queues.redis;
@@ -110,10 +109,10 @@ export default class HarunaClient extends AkairoClient {
 				ended: "More than 3 tries and you still didn't quite get it. The command has been cancelled",
 				cancel: 'The command has been cancelled.',
 				retries: 3,
-				time: 30000
+				time: 30000,
 			},
-			otherwise: ''
-		}
+			otherwise: '',
+		},
 	});
 
 	public inhibitorHandler = new InhibitorHandler(this, { directory: join(__dirname, '..', 'inhibitors') });
@@ -125,7 +124,7 @@ export default class HarunaClient extends AkairoClient {
 	public prometheus = {
 		messagesCounter: new Counter({ name: 'haruna_messages_total', help: 'Total number of messages Haruna has seen' }),
 		commandCounter: new Counter({ name: 'haruna_commands_total', help: 'Total number of commands used' }),
-		register
+		register,
 	};
 
 	public promServer = createServer((req, res): void => {
@@ -137,39 +136,47 @@ export default class HarunaClient extends AkairoClient {
 	});
 
 	public constructor(config: HarunaOptions) {
-		super({ ownerID: config.owner }, {
-			disableEveryone: true,
-			disabledEvents: ['TYPING_START']
-		});
+		super(
+			{ ownerID: config.owner },
+			{
+				disableEveryone: true,
+				disabledEvents: ['TYPING_START'],
+			},
+		);
 
-		this.on('raw', async (packet: any): Promise<void> => {
-			switch (packet.t) {
-				case 'VOICE_STATE_UPDATE':
-					if (packet.d.user_id !== process.env.ID) return;
-					this.music.voiceStateUpdate(packet.d);
-					const players: { guild_id: string, channel_id?: string }[] | null = await this.storage.get('players', { type: ReferenceType.ARRAY }); // eslint-disable-line
-					let index = 0; // eslint-disable-line
-					if (Array.isArray(players)) index = players.findIndex((player): boolean => player.guild_id === packet.d.guild_id);
-					if (((!players && !index) || index < 0) && packet.d.channel_id) {
-						this.storage.upsert('players', [{ guild_id: packet.d.guild_id, channel_id: packet.d.channel_id }]);
-					} else if (players && typeof index !== 'undefined' && index >= 0 && !packet.d.channel_id) {
-						players.splice(index, 1);
-						await this.storage.delete('players');
-						if (players.length) await this.storage.set('players', players);
-					}
-					break;
-				case 'VOICE_SERVER_UPDATE':
-					this.music.voiceServerUpdate(packet.d);
-					break;
-				case 'MESSAGE_CREATE':
-					this.prometheus.messagesCounter.inc();
-					break;
-				default:
-					break;
-			}
-		});
+		this.on(
+			'raw',
+			async (packet: any): Promise<void> => {
+				switch (packet.t) {
+					case 'VOICE_STATE_UPDATE':
+						if (packet.d.user_id !== process.env.ID) return;
+						this.music.voiceStateUpdate(packet.d);
+						const players: { guild_id: string, channel_id?: string }[] | null = await this.storage.get('players', { type: ReferenceType.ARRAY }); // eslint-disable-line
+						let index = 0; // eslint-disable-line
+						if (Array.isArray(players)) {
+							index = players.findIndex((player): boolean => player.guild_id === packet.d.guild_id);
+						}
+						if (((!players && !index) || index < 0) && packet.d.channel_id) {
+							this.storage.upsert('players', [{ guild_id: packet.d.guild_id, channel_id: packet.d.channel_id }]);
+						} else if (players && typeof index !== 'undefined' && index >= 0 && !packet.d.channel_id) {
+							players.splice(index, 1);
+							await this.storage.delete('players');
+							if (players.length) await this.storage.set('players', players);
+						}
+						break;
+					case 'VOICE_SERVER_UPDATE':
+						this.music.voiceServerUpdate(packet.d);
+						break;
+					case 'MESSAGE_CREATE':
+						this.prometheus.messagesCounter.inc();
+						break;
+					default:
+						break;
+				}
+			},
+		);
 
-		this.commandHandler.resolver.addType('playlist', async (message, phrase): Promise<any> => {
+		this.commandHandler.resolver.addType('playlist', async (message, phrase) => {
 			if (!phrase) return Flag.fail(phrase);
 			phrase = Util.cleanContent(phrase.toLowerCase(), message);
 			const playlistRepo = this.db.getRepository(Playlist);
@@ -177,7 +184,7 @@ export default class HarunaClient extends AkairoClient {
 
 			return playlist || Flag.fail(phrase);
 		});
-		this.commandHandler.resolver.addType('existingPlaylist', async (message, phrase): Promise<any> => {
+		this.commandHandler.resolver.addType('existingPlaylist', async (message, phrase) => {
 			if (!phrase) return Flag.fail(phrase);
 			phrase = Util.cleanContent(phrase.toLowerCase(), message);
 			const playlistRepo = this.db.getRepository(Playlist);
@@ -192,10 +199,12 @@ export default class HarunaClient extends AkairoClient {
 			init({
 				dsn: process.env.SENTRY,
 				environment: process.env.NODE_ENV,
-				release: process.env.VERSION!
+				release: process.env.VERSION!,
 			});
 		} else {
-			process.on('unhandledRejection', (err: any): Logger => this.logger.error(`[UNHANDLED REJECTION] ${err.message}`, err.stack));
+			process.on('unhandledRejection', (err: any) =>
+				this.logger.error(`[UNHANDLED REJECTION] ${err.message}`, err.stack),
+			);
 		}
 	}
 
@@ -205,7 +214,7 @@ export default class HarunaClient extends AkairoClient {
 		this.listenerHandler.setEmitters({
 			commandHandler: this.commandHandler,
 			inhibitorHandler: this.inhibitorHandler,
-			listenerHandler: this.listenerHandler
+			listenerHandler: this.listenerHandler,
 		});
 
 		this.commandHandler.loadAll();

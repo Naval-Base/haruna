@@ -1,5 +1,5 @@
-import { Command, Flag } from 'discord-akairo';
 import { stripIndents } from 'common-tags';
+import { Command, Flag } from 'discord-akairo';
 
 export default class PlaylistCommand extends Command {
 	public constructor() {
@@ -32,12 +32,12 @@ export default class PlaylistCommand extends Command {
 					'show Test',
 					'show Test 3',
 					'info Test',
-					'list Crawl 2'
-				]
+					'list Crawl 2',
+				],
 			},
 			category: 'music',
 			channel: 'guild',
-			ratelimit: 2
+			ratelimit: 2,
 		});
 	}
 
@@ -52,9 +52,9 @@ export default class PlaylistCommand extends Command {
 				['playlist-delete', 'del', 'delete'],
 				['playlist-edit', 'edit'],
 				['playlist-info', 'info'],
-				['playlist-list', 'list']
+				['playlist-list', 'list'],
 			],
-			otherwise: ''
+			otherwise: '',
 		};
 
 		return Flag.continue(method);

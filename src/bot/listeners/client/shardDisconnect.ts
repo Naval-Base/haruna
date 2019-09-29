@@ -5,12 +5,15 @@ export default class ShardDisconnectListener extends Listener {
 		super('shardDisconnect', {
 			emitter: 'client',
 			event: 'shardDisconnect',
-			category: 'client'
+			category: 'client',
 		});
 	}
 
-	public exec(event: any, id: number): void {
-		this.client.logger.warn(`[SHARD ${id} DISCONNECT] Ugh...I'm sorry...but, a loss is a loss... (${event.code})`, event);
+	public exec(event: any, id: number) {
+		this.client.logger.warn(
+			`[SHARD ${id} DISCONNECT] Ugh...I'm sorry...but, a loss is a loss... (${event.code})`,
+			event,
+		);
 		this.client.promServer.close();
 		this.client.logger.info(`[SHARD ${id} DISCONNECT][METRICS] Metrics server closed.`);
 	}

@@ -8,7 +8,7 @@ export default class PlaylistCreateCommand extends Command {
 			category: 'music',
 			description: {
 				content: 'Creates a playlist.',
-				usage: '<playlist> [info]'
+				usage: '<playlist> [info]',
 			},
 			channel: 'guild',
 			ratelimit: 2,
@@ -17,20 +17,21 @@ export default class PlaylistCreateCommand extends Command {
 					id: 'playlist',
 					type: 'existingPlaylist',
 					prompt: {
-						start: (message: Message): string => `${message.author}, what playlist do you want to create?`,
-						retry: (message: Message, { failure }: { failure: { value: string } }): string => `${message.author}, a playlist with the name **${failure.value}** already exists.`
-					}
+						start: (message: Message) => `${message.author}, what playlist do you want to create?`,
+						retry: (message: Message, { failure }: { failure: { value: string } }) =>
+							`${message.author}, a playlist with the name **${failure.value}** already exists.`,
+					},
 				},
 				{
 					id: 'info',
 					match: 'rest',
-					type: 'string'
-				}
-			]
+					type: 'string',
+				},
+			],
 		});
 	}
 
-	public async exec(message: Message, { playlist, info }: { playlist: any; info: string }): Promise<Message | Message[]> {
+	public async exec(message: Message, { playlist, info }: { playlist: string; info: string }) {
 		const playlistRepo = this.client.db.getRepository(Playlist);
 		const pls = new Playlist();
 		pls.user = message.author!.id;

@@ -1,5 +1,6 @@
 import { Command } from 'discord-akairo';
 import { Message, Role } from 'discord.js';
+import { SETTINGS } from '../../../util/constants';
 
 export default class SetDJRoleCommand extends Command {
 	public constructor() {
@@ -8,7 +9,7 @@ export default class SetDJRoleCommand extends Command {
 			description: {
 				content: 'Sets the DJ role many of the commands use for permission checking.',
 				usage: '<role>',
-				examples: ['dj @DJ', 'dj DJ']
+				examples: ['dj @DJ', 'dj DJ'],
 			},
 			category: 'util',
 			channel: 'guild',
@@ -18,14 +19,14 @@ export default class SetDJRoleCommand extends Command {
 				{
 					id: 'role',
 					match: 'content',
-					type: 'role'
-				}
-			]
+					type: 'role',
+				},
+			],
 		});
 	}
 
-	public async exec(message: Message, { role }: { role: Role }): Promise<Message | Message[]> {
-		this.client.settings.set(message.guild!, 'djRole', role.id);
+	public async exec(message: Message, { role }: { role: Role }) {
+		this.client.settings.set(message.guild!, SETTINGS.DJ, role.id);
 		return message.util!.reply(`set DJ role to **${role.name}**`);
 	}
 }

@@ -1,6 +1,6 @@
+import { stripIndents } from 'common-tags';
 import { Command } from 'discord-akairo';
 import { Message, MessageEmbed } from 'discord.js';
-import { stripIndents } from 'common-tags';
 import * as moment from 'moment';
 import 'moment-duration-format';
 
@@ -9,15 +9,15 @@ export default class StatsCommand extends Command {
 		super('stats', {
 			aliases: ['stats'],
 			description: {
-				content: 'Displays statistics about the bot.'
+				content: 'Displays statistics about the bot.',
 			},
 			category: 'util',
 			clientPermissions: ['EMBED_LINKS'],
-			ratelimit: 2
+			ratelimit: 2,
 		});
 	}
 
-	public async exec(message: Message): Promise<Message | Message[]> {
+	public async exec(message: Message) {
 		const embed = new MessageEmbed()
 			.setColor(3447003)
 			.setDescription(`**${this.client.user!.username} Statistics**`)
@@ -29,14 +29,18 @@ export default class StatsCommand extends Command {
 				• Guilds: ${this.client.guilds.size}
 				• Channels: ${this.client.channels.size}
 			`,
-				true
+				true,
 			)
-			.addField('❯ Version', `[${process.env.VERSION!}](https://github.com/Naval-Base/haruna/commit/${process.env.VERSION!})`, true)
+			.addField(
+				'❯ Version',
+				`[${process.env.VERSION!}](https://github.com/Naval-Base/haruna/commit/${process.env.VERSION!})`,
+				true,
+			)
 			.addField('❯ Source Code', '[View Here](https://github.com/Naval-Base/haruna)', true)
 			.addField(
 				'❯ Library',
 				'[discord.js](https://discord.js.org)[-akairo](https://github.com/1Computer1/discord-akairo)',
-				true
+				true,
 			)
 			.setThumbnail(this.client.user!.displayAvatarURL())
 			.setFooter(`© 2018 ${this.client.users.get(this.client.config.owner!)!.tag}`);

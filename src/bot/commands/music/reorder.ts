@@ -1,6 +1,7 @@
+import { stripIndents } from 'common-tags';
 import { Command } from 'discord-akairo';
 import { Message } from 'discord.js';
-import { stripIndents } from 'common-tags';
+import { SETTINGS } from '../../../util/constants';
 
 interface SingleAction {
 	kind: 'single';
@@ -41,7 +42,7 @@ export default class ReorderCommand extends Command {
 					A '\\*' means to spread the remaining songs out (multiple '\\*' will split it evenly).
 				`,
 				usage: '<ordering>',
-				examples: ['1-3 7 *', '1 2 3 *', '10-7 * 1 2 3 3 * 10-7']
+				examples: ['1-3 7 *', '1 2 3 *', '10-7 * 1 2 3 3 * 10-7'],
 			},
 			category: 'music',
 			channel: 'guild',
@@ -49,17 +50,17 @@ export default class ReorderCommand extends Command {
 			args: [
 				{
 					id: 'ordering',
-					match: 'content'
-				}
-			]
+					match: 'content',
+				},
+			],
 		});
 	}
 
-	public async exec(message: Message, { ordering }: { ordering: string | null }): Promise<Message | Message[]> {
+	public async exec(message: Message, { ordering }: { ordering: string | null }) {
 		if (!message.member!.voice || !message.member!.voice.channel) {
 			return message.util!.reply('you have to be in a voice channel first, silly.');
 		}
-		const DJ = message.member!.roles.has(this.client.settings.get(message.guild!, 'djRole', undefined));
+		const DJ = message.member!.roles.has(this.client.settings.get(message.guild!, SETTINGS.DJ));
 		if (!DJ) {
 			return message.util!.reply('nuh, uh!');
 		}
@@ -94,7 +95,7 @@ export default class ReorderCommand extends Command {
 					kind: 'slice',
 					from,
 					to,
-					reverse
+					reverse,
 				});
 			} else if (groups.singleNum) {
 				const num = Number(groups.singleNum) - 1;
@@ -104,17 +105,17 @@ export default class ReorderCommand extends Command {
 
 				actions.push({
 					kind: 'single',
-					num
+					num,
 				});
 			} else {
 				actions.push({
-					kind: 'spread'
+					kind: 'spread',
 				});
 			}
 		}
 
 		const tracks = await queue.tracks();
-		const unusedIndices = new Set(Array.from({ length: queueLength }, (_, i): number => i));
+		const unusedIndices = new Set(Array.from({ length: queueLength }, (_, i) => i));
 		const newTracks = [];
 		for (const action of actions) {
 			switch (action.kind) {
@@ -123,7 +124,8 @@ export default class ReorderCommand extends Command {
 					unusedIndices.delete(action.num);
 					break;
 				case 'slice':
-					const slice = tracks.slice(action.from, action.to + 1); // eslint-disable-line
+					// eslint-disable-next-line no-case-declarations
+					const slice = tracks.slice(action.from, action.to + 1);
 					if (action.reverse) slice.reverse();
 					newTracks.push(...slice);
 					for (let i = action.from; i <= action.to; i++) {
@@ -138,10 +140,10 @@ export default class ReorderCommand extends Command {
 			}
 		}
 
-		const spreadAmount = actions.filter((a): boolean => a.kind === 'spread').length;
+		const spreadAmount = actions.filter(a => a.kind === 'spread').length;
 		if (spreadAmount) {
 			const sliceSize = Math.ceil(unusedIndices.size / spreadAmount);
-			const unusedTracks = Array.from(unusedIndices, (n): string => tracks[n]);
+			const unusedTracks = Array.from(unusedIndices, n => tracks[n]);
 			for (let i = 0; i < newTracks.length; i++) {
 				if (newTracks[i] === '*') {
 					newTracks.splice(i, 1, ...unusedTracks.splice(0, sliceSize));

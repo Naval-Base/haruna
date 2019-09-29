@@ -5,11 +5,11 @@ export default class ShardReconnectListener extends Listener {
 		super('shardReconnecting', {
 			emitter: 'client',
 			event: 'shardReconnecting',
-			category: 'client'
+			category: 'client',
 		});
 	}
 
-	public exec(id: number): void {
+	public exec(id: number) {
 		this.client.logger.info(`[SHARD ${id} RECONNECTING] Firepower--full force!!`);
 		this.client.promServer.close();
 		this.client.logger.info(`[SHARD ${id} RECONNECTING][METRICS] Metrics server closed.`);

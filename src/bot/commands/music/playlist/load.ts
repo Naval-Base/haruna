@@ -8,7 +8,6 @@ export default class PlaylistLoadCommand extends Command {
 			description: {
 				content: 'Loads a playlist into the queue.',
 				usage: '<playlist>',
-				examples: []
 			},
 			category: 'music',
 			channel: 'guild',
@@ -19,15 +18,16 @@ export default class PlaylistLoadCommand extends Command {
 					match: 'content',
 					type: 'playlist',
 					prompt: {
-						start: (message: Message): string => `${message.author}, what playlist should be played?`,
-						retry: (message: Message, { failure }: { failure: { value: string } }): string => `${message.author}, a playlist with the name **${failure.value}** does not exist.`
-					}
-				}
-			]
+						start: (message: Message) => `${message.author}, what playlist should be played?`,
+						retry: (message: Message, { failure }: { failure: { value: string } }) =>
+							`${message.author}, a playlist with the name **${failure.value}** does not exist.`,
+					},
+				},
+			],
 		});
 	}
 
-	public async exec(message: Message, { playlist }: { playlist: any }): Promise<Message | Message[]> {
+	public async exec(message: Message, { playlist }: { playlist: Playlist }) {
 		if (!message.member!.voice || !message.member!.voice.channel) {
 			return message.util!.reply('you have to be in a voice channel first, silly.');
 		} else if (!message.member!.voice.channel.joinable) {

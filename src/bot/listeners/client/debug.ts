@@ -5,11 +5,11 @@ export default class DebugListener extends Listener {
 		super('debug', {
 			emitter: 'client',
 			event: 'debug',
-			category: 'client'
+			category: 'client',
 		});
 	}
 
-	public exec(event: any): void {
+	public exec(event: any) {
 		this.client.logger.debug(`[DEBUG] ${event}`);
 	}
 }
