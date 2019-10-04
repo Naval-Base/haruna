@@ -19,7 +19,7 @@ export default class PlayCommand extends Command {
 				{
 					id: 'unshift',
 					match: 'flag',
-					flag: ['--start', '-s'],
+					flag: ['--next', '-n', '--start', '-s'],
 				},
 				{
 					id: 'query',
