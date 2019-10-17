@@ -19,8 +19,8 @@ export default class CommandErrorListener extends Listener {
 			level: Severity.Error,
 			data: {
 				user: {
-					id: message.author!.id,
-					username: message.author!.tag,
+					id: message.author.id,
+					username: message.author.tag,
 				},
 				guild: message.guild
 					? {

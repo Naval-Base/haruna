@@ -67,8 +67,8 @@ export default class SkipCommand extends Command {
 		let index = (paginated.page - 1) * 10;
 
 		const embed = new MessageEmbed().setAuthor(
-			`${message.author!.tag} (${message.author!.id})`,
-			message.author!.displayAvatarURL(),
+			`${message.author.tag} (${message.author.id})`,
+			message.author.displayAvatarURL(),
 		).setDescription(stripIndents`
 				**Skipped songs**
 

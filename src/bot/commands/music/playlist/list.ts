@@ -42,8 +42,8 @@ export default class PlaylistListCommand extends Command {
 		const paginated = paginate(playlists, page);
 
 		const embed = new MessageEmbed().setAuthor(
-			`${message.author!.tag} (${message.author!.id})`,
-			message.author!.displayAvatarURL(),
+			`${message.author.tag} (${message.author.id})`,
+			message.author.displayAvatarURL(),
 		).setDescription(stripIndents`
 				**Playlists${paginated.page > 1 ? `, page ${paginated.page}` : ''}**
 

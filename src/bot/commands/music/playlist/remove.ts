@@ -36,7 +36,7 @@ export default class PlaylistRemoveCommand extends Command {
 	}
 
 	public async exec(message: Message, { playlist, position }: { playlist: Playlist; position: number }) {
-		if (playlist.user !== message.author!.id)
+		if (playlist.user !== message.author.id)
 			return message.util!.reply('you can only remove songs from your own playlists.');
 		position = position >= 1 ? position - 1 : playlist.songs.length - (~position + 1);
 		const decoded = await this.client.music.decode([playlist.songs[position]]);

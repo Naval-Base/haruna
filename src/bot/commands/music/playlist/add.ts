@@ -38,7 +38,7 @@ export default class PlaylistAddCommand extends Command {
 	}
 
 	public async exec(message: Message, { playlist, query }: { playlist: Playlist; query: string }) {
-		if (playlist.user !== message.author!.id)
+		if (playlist.user !== message.author.id)
 			return message.util!.reply('you can only add songs to your own playlists.');
 		if (!query && message.attachments.first()) {
 			query = message.attachments.first()!.url;
