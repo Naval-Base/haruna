@@ -16,7 +16,7 @@ export default class ReadyListener extends Listener {
 				this.client.user!.id
 			}), one of the first fast battleships of the Sakura Empire. I'm someone who prefers the fist to the sword. Nice to meet you.`,
 		);
-		this.client.user!.setActivity(`@${this.client.user!.username} help 🎶`);
+		this.client.user?.setActivity(`@${this.client.user?.username} help 🎶`);
 		this.client.promServer.listen(5501);
 		this.client.logger.info('[READY][METRICS] Metrics listening on 5501');
 

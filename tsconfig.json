@@ -3,7 +3,7 @@
 		"strict": true,
 		"module": "commonjs",
 		"moduleResolution": "node",
-		"target": "es2018",
+		"target": "es2019",
 		"lib": [
 			"esnext",
 			"esnext.array",
@@ -21,7 +21,6 @@
 		"experimentalDecorators": true,
 		"emitDecoratorMetadata": true,
 		"alwaysStrict": true,
-		"allowSyntheticDefaultImports": true,
 		"pretty": true
 	}
 }

@@ -25,15 +25,15 @@ export default class LeaveCommand extends Command {
 	}
 
 	public async exec(message: Message, { clear }: { clear: boolean }) {
-		if (!message.member!.voice || !message.member!.voice.channel) {
+		if (!message.member?.voice?.channel) {
 			return message.util!.reply('you have to be in a voice channel first, silly.');
 		}
-		const DJ = message.member!.roles.has(this.client.settings.get(message.guild!, SETTINGS.DJ));
+		const DJ = message.member.roles.has(this.client.settings.get(message.guild!, SETTINGS.DJ));
 		const queue = this.client.music.queues.get(message.guild!.id);
 		if (clear && DJ) await queue.clear();
 		await queue.player.stop();
 		await queue.player.destroy();
-		if (message.guild!.me!.voice && message.guild!.me!.voice.channel) await queue.player.leave();
+		if (message.guild?.me?.voice.channel) await queue.player.leave();
 
 		return message.util!.send('👋');
 	}

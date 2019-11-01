@@ -35,10 +35,11 @@ export default class PlaylistListCommand extends Command {
 		const where = member ? { user: member.id, guild: message.guild!.id } : { guild: message.guild!.id };
 		const playlistRepo = this.client.db.getRepository(Playlist);
 		const playlists = await playlistRepo.find(where);
-		if (!playlists.length)
+		if (!playlists.length) {
 			return message.util!.send(
 				`${member ? `${member.displayName}` : `${message.guild!.name}`} doesn't have any playlists.`,
 			);
+		}
 		const paginated = paginate(playlists, page);
 
 		const embed = new MessageEmbed().setAuthor(

@@ -57,10 +57,10 @@ export default class ReorderCommand extends Command {
 	}
 
 	public async exec(message: Message, { ordering }: { ordering: string | null }) {
-		if (!message.member!.voice || !message.member!.voice.channel) {
+		if (!message.member?.voice?.channel) {
 			return message.util!.reply('you have to be in a voice channel first, silly.');
 		}
-		const DJ = message.member!.roles.has(this.client.settings.get(message.guild!, SETTINGS.DJ));
+		const DJ = message.member?.roles.has(this.client.settings.get(message.guild!, SETTINGS.DJ));
 		if (!DJ) {
 			return message.util!.reply('nuh, uh!');
 		}

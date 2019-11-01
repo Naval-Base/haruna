@@ -24,10 +24,7 @@ export default class PlayCommand extends Command {
 				{
 					id: 'query',
 					match: 'rest',
-					type: Argument.compose(
-						'string',
-						(_, str) => (str ? str.replace(/<(.+)>/g, '$1') : ''),
-					),
+					type: Argument.compose('string', (_, str) => str?.replace(/<(.+)>/g, '$1')),
 					default: '',
 				},
 			],
@@ -35,11 +32,11 @@ export default class PlayCommand extends Command {
 	}
 
 	public async exec(message: Message, { query, unshift }: { query: string; unshift: boolean }) {
-		if (!message.member!.voice || !message.member!.voice.channel) {
+		if (!message.member?.voice?.channel) {
 			return message.util!.reply('you have to be in a voice channel first, silly.');
-		} else if (!message.member!.voice.channel.joinable) {
+		} else if (!message.member.voice.channel.joinable) {
 			return message.util!.reply("I don't seem to have permission to enter this voice channel.");
-		} else if (!message.member!.voice.channel.speakable) {
+		} else if (!message.member.voice.channel.speakable) {
 			return message.util!.reply("I don't seem to have permission to talk in this voice channel.");
 		}
 		if (!query && message.attachments.first()) {
@@ -51,7 +48,7 @@ export default class PlayCommand extends Command {
 		if (!['http:', 'https:'].includes(url.parse(query).protocol!)) query = `ytsearch:${query}`;
 		const res = await this.client.music.load(query);
 		const queue = this.client.music.queues.get(message.guild!.id);
-		if (!message.guild!.me!.voice.channel) await queue.player.join(message.member!.voice.channel.id);
+		if (!message.guild?.me?.voice.channel) await queue.player.join(message.member.voice.channel.id);
 		let msg;
 		if (['TRACK_LOADED', 'SEARCH_RESULT'].includes(res.loadType)) {
 			if (unshift) await queue.unshift(res.tracks[0].track);

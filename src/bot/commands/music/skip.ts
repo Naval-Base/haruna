@@ -28,7 +28,7 @@ export default class SkipCommand extends Command {
 			flag: ['--force', '-f'],
 		};
 
-		const num = yield msg.member!.roles.has((msg.client as HarunaClient).settings.get(msg.guild!, SETTINGS.DJ)) && force
+		const num = yield msg.member?.roles.has((msg.client as HarunaClient).settings.get(msg.guild!, SETTINGS.DJ)) && force
 			? {
 					match: 'rest',
 					type: Argument.compose(
@@ -48,7 +48,7 @@ export default class SkipCommand extends Command {
 	}
 
 	public async exec(message: Message, { num }: { num: number }) {
-		if (!message.member!.voice || !message.member!.voice.channel) {
+		if (!message.member?.voice?.channel) {
 			return message.util!.reply('you have to be in a voice channel first, silly.');
 		}
 		const queue = this.client.music.queues.get(message.guild!.id);

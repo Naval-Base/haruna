@@ -17,17 +17,14 @@ export default class RemoveCommand extends Command {
 				{
 					id: 'num',
 					match: 'content',
-					type: Argument.compose(
-						(_, str) => str.replace(/\s/g, ''),
-						Argument.union('number', 'emojint'),
-					),
+					type: Argument.compose((_, str) => str.replace(/\s/g, ''), Argument.union('number', 'emojint')),
 				},
 			],
 		});
 	}
 
 	public async exec(message: Message, { num }: { num: number }) {
-		if (!message.member!.voice || !message.member!.voice.channel) {
+		if (!message.member?.voice?.channel) {
 			return message.util!.reply('you have to be in a voice channel first, silly.');
 		}
 		const queue = this.client.music.queues.get(message.guild!.id);

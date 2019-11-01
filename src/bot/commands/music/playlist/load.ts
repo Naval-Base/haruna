@@ -28,16 +28,16 @@ export default class PlaylistLoadCommand extends Command {
 	}
 
 	public async exec(message: Message, { playlist }: { playlist: Playlist }) {
-		if (!message.member!.voice || !message.member!.voice.channel) {
+		if (!message.member?.voice?.channel) {
 			return message.util!.reply('you have to be in a voice channel first, silly.');
-		} else if (!message.member!.voice.channel.joinable) {
+		} else if (!message.member.voice.channel.joinable) {
 			return message.util!.reply("I don't seem to have permission to enter this voice channel.");
-		} else if (!message.member!.voice.channel.speakable) {
+		} else if (!message.member.voice.channel.speakable) {
 			return message.util!.reply("I don't seem to have permission to talk in this voice channel.");
 		}
 		const user = await this.client.users.fetch(playlist.user);
 		const queue = this.client.music.queues.get(message.guild!.id);
-		if (!message.guild!.me!.voice.channel) await queue.player.join(message.member!.voice.channel.id);
+		if (!message.guild?.me?.voice.channel) await queue.player.join(message.member.voice.channel.id);
 		await queue.add(...playlist.songs);
 		if (!queue.player.playing && !queue.player.paused) await queue.start();
 		const playlistRepo = this.client.db.getRepository(Playlist);

@@ -144,37 +144,34 @@ export default class HarunaClient extends AkairoClient {
 			},
 		);
 
-		this.on(
-			'raw',
-			async (packet: any): Promise<void> => {
-				switch (packet.t) {
-					case 'VOICE_STATE_UPDATE':
-						if (packet.d.user_id !== process.env.ID) return;
-						this.music.voiceStateUpdate(packet.d);
+		this.on('raw', async (packet: any) => {
+			switch (packet.t) {
+				case 'VOICE_STATE_UPDATE':
+					if (packet.d.user_id !== process.env.ID) return;
+					this.music.voiceStateUpdate(packet.d);
 						const players: { guild_id: string, channel_id?: string }[] | null = await this.storage.get('players', { type: ReferenceType.ARRAY }); // eslint-disable-line
 						let index = 0; // eslint-disable-line
-						if (Array.isArray(players)) {
-							index = players.findIndex((player): boolean => player.guild_id === packet.d.guild_id);
-						}
-						if (((!players && !index) || index < 0) && packet.d.channel_id) {
-							this.storage.upsert('players', [{ guild_id: packet.d.guild_id, channel_id: packet.d.channel_id }]);
-						} else if (players && typeof index !== 'undefined' && index >= 0 && !packet.d.channel_id) {
-							players.splice(index, 1);
-							await this.storage.delete('players');
-							if (players.length) await this.storage.set('players', players);
-						}
-						break;
-					case 'VOICE_SERVER_UPDATE':
-						this.music.voiceServerUpdate(packet.d);
-						break;
-					case 'MESSAGE_CREATE':
-						this.prometheus.messagesCounter.inc();
-						break;
-					default:
-						break;
-				}
-			},
-		);
+					if (Array.isArray(players)) {
+						index = players.findIndex(player => player.guild_id === packet.d.guild_id);
+					}
+					if (((!players && !index) || index < 0) && packet.d.channel_id) {
+						this.storage.upsert('players', [{ guild_id: packet.d.guild_id, channel_id: packet.d.channel_id }]);
+					} else if (players && typeof index !== 'undefined' && index >= 0 && !packet.d.channel_id) {
+						players.splice(index, 1);
+						await this.storage.delete('players');
+						if (players.length) await this.storage.set('players', players);
+					}
+					break;
+				case 'VOICE_SERVER_UPDATE':
+					this.music.voiceServerUpdate(packet.d);
+					break;
+				case 'MESSAGE_CREATE':
+					this.prometheus.messagesCounter.inc();
+					break;
+				default:
+					break;
+			}
+		});
 
 		this.commandHandler.resolver.addType('playlist', async (message, phrase) => {
 			if (!phrase) return Flag.fail(phrase);
@@ -208,7 +205,7 @@ export default class HarunaClient extends AkairoClient {
 		}
 	}
 
-	private async _init(): Promise<void> {
+	private async _init() {
 		this.commandHandler.useInhibitorHandler(this.inhibitorHandler);
 		this.commandHandler.useListenerHandler(this.listenerHandler);
 		this.listenerHandler.setEmitters({
@@ -227,7 +224,7 @@ export default class HarunaClient extends AkairoClient {
 		await this.settings.init();
 	}
 
-	public async start(): Promise<string> {
+	public async start() {
 		await this._init();
 		return this.login(this.config.token);
 	}
