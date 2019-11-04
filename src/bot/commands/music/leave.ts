@@ -31,7 +31,7 @@ export default class LeaveCommand extends Command {
 		const DJ = message.member.roles.has(this.client.settings.get(message.guild!, SETTINGS.DJ));
 		const queue = this.client.music.queues.get(message.guild!.id);
 		if (clear && DJ) await queue.clear();
-		await queue.player.stop();
+		await queue.stop();
 		await queue.player.destroy();
 		if (message.guild?.me?.voice.channel) await queue.player.leave();
 
