@@ -46,7 +46,7 @@ export default class QueueCommand extends Command {
 		).setDescription(stripIndents`
 				**Now playing:**
 
-				**❯** [${decoded[0].info.title}](${decoded[0].info.uri}) (${timeString(current!.position)}/${timeString(
+				**❯** [${decoded[0].info.title}](${decoded[0].info.uri}) (${timeString(current?.position ?? 0)}/${timeString(
 			decoded[0].info.length,
 		)})
 
