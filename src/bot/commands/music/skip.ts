@@ -55,7 +55,7 @@ export default class SkipCommand extends Command {
 		let tracks;
 		if (num > 1) tracks = await this.client.music.queues.redis.lrange(`playlists.${message.guild!.id}`, 0, num - 2);
 		const current = await queue.current();
-		tracks = [(current || { track: null }).track].concat(tracks).filter(track => track);
+		tracks = [(current || { track: null }).track].concat(tracks || []).filter(track => track);
 		const skip = await queue.next(num);
 		if (!skip) {
 			await queue.stop();
