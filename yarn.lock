@@ -2106,8 +2106,8 @@ prettier-linter-helpers@^1.0.0:
 
 prettier@prettier/prettier:
   version "1.20.0-dev"
-  uid "20d1521417e9eb986f74787ad0f49b93ad0c9ca6"
-  resolved "https://codeload.github.com/prettier/prettier/tar.gz/20d1521417e9eb986f74787ad0f49b93ad0c9ca6"
+  uid e606dcf4253aafbe867288be9a8742a0588f78de
+  resolved "https://codeload.github.com/prettier/prettier/tar.gz/e606dcf4253aafbe867288be9a8742a0588f78de"
   dependencies:
     "@angular/compiler" "8.2.14"
     "@babel/code-frame" "7.5.5"
@@ -2162,7 +2162,7 @@ prettier@prettier/prettier:
     resolve "1.13.1"
     semver "6.3.0"
     string-width "4.1.0"
-    typescript "3.7.2"
+    typescript "3.7.3"
     unicode-regex "3.0.0"
     unified "8.4.2"
     vnopts "1.0.2"
@@ -2728,12 +2728,7 @@ typeorm@^0.2.21:
     yargonaut "^1.1.2"
     yargs "^13.2.1"
 
-typescript@3.7.2:
-  version "3.7.2"
-  resolved "https://registry.yarnpkg.com/typescript/-/typescript-3.7.2.tgz#27e489b95fa5909445e9fef5ee48d81697ad18fb"
-  integrity sha512-ml7V7JfiN2Xwvcer+XAf2csGO1bPBdRbFCkYBczNZggrBZ9c7G3riSUeJmqEU5uOtXNPMhE3n+R4FA/3YOAWOQ==
-
-typescript@^3.7.3:
+typescript@3.7.3, typescript@^3.7.3:
   version "3.7.3"
   resolved "https://registry.yarnpkg.com/typescript/-/typescript-3.7.3.tgz#b36840668a16458a7025b9eabfad11b66ab85c69"
   integrity sha512-Mcr/Qk7hXqFBXMN7p7Lusj1ktCBydylfQM/FZCk5glCNQJrCUKPkMHdo9R0MTFWsC/4kPFvDS0fDPvukfCkFsw==
