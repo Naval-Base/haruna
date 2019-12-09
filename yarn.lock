@@ -2106,8 +2106,8 @@ prettier-linter-helpers@^1.0.0:
 
 prettier@prettier/prettier:
   version "1.20.0-dev"
-  uid e606dcf4253aafbe867288be9a8742a0588f78de
-  resolved "https://codeload.github.com/prettier/prettier/tar.gz/e606dcf4253aafbe867288be9a8742a0588f78de"
+  uid f421c7f6133761ad63ae2b86251ebba8e4f0ba7d
+  resolved "https://codeload.github.com/prettier/prettier/tar.gz/f421c7f6133761ad63ae2b86251ebba8e4f0ba7d"
   dependencies:
     "@angular/compiler" "8.2.14"
     "@babel/code-frame" "7.5.5"
