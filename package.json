@@ -27,7 +27,7 @@
 		"prom-client": "^11.5.3",
 		"reflect-metadata": "^0.1.13",
 		"rejects": "^0.6.2",
-		"typeorm": "^0.2.21",
+		"typeorm": "^0.2.22",
 		"winston": "^3.2.1",
 		"winston-daily-rotate-file": "^4.4.0"
 	},
