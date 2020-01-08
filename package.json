@@ -13,7 +13,7 @@
 		"lint:fix": "eslint . --ext .ts --fix"
 	},
 	"dependencies": {
-		"@sentry/node": "^5.10.2",
+		"@sentry/node": "^5.11.0",
 		"common-tags": "^1.8.0",
 		"discord-akairo": "1Computer1/discord-akairo",
 		"discord.js": "discordjs/discord.js",
