@@ -16,6 +16,7 @@
 		"sentry:commits": "sentry-cli releases set-commits --auto $VERSION"
 	},
 	"dependencies": {
+		"@sentry/integrations": "^5.11.0",
 		"@sentry/node": "^5.11.0",
 		"common-tags": "^1.8.0",
 		"discord-akairo": "1Computer1/discord-akairo",

@@ -1,3 +1,4 @@
+import { RewriteFrames } from '@sentry/integrations';
 import { init } from '@sentry/node';
 import { AkairoClient, CommandHandler, Flag, InhibitorHandler, ListenerHandler } from 'discord-akairo';
 import { Util } from 'discord.js';
