@@ -1,7 +1,8 @@
 import 'reflect-metadata';
 import HarunaClient from './bot/client/HarunaClient';
+import { __rootdir__ } from './root';
 
-const client = new HarunaClient({ owner: process.env.OWNERS, token: process.env.TOKEN });
+const client = new HarunaClient({ owner: process.env.OWNERS, token: process.env.TOKEN, root: __rootdir__ });
 
 client
 	.on('error', err => client.logger.error(`[CLIENT ERROR] ${err.message}`, err.stack))

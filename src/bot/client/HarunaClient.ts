@@ -36,11 +36,12 @@ declare module 'discord-akairo' {
 interface HarunaOptions {
 	owner?: string;
 	token?: string;
+	root: string;
 }
 
 export default class HarunaClient extends AkairoClient {
 	public root: string;
-	
+
 	public logger = createLogger({
 		format: format.combine(
 			format.timestamp({ format: 'YYYY/MM/DD HH:mm:ss' }),
@@ -145,7 +146,7 @@ export default class HarunaClient extends AkairoClient {
 				disabledEvents: ['TYPING_START'],
 			},
 		);
-		
+
 		this.root = config.root;
 
 		this.on('raw', async (packet: any) => {
