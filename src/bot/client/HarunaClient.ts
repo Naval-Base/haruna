@@ -39,6 +39,8 @@ interface HarunaOptions {
 }
 
 export default class HarunaClient extends AkairoClient {
+	public root: string;
+	
 	public logger = createLogger({
 		format: format.combine(
 			format.timestamp({ format: 'YYYY/MM/DD HH:mm:ss' }),
@@ -143,6 +145,8 @@ export default class HarunaClient extends AkairoClient {
 				disabledEvents: ['TYPING_START'],
 			},
 		);
+		
+		this.root = config.root;
 
 		this.on('raw', async (packet: any) => {
 			switch (packet.t) {
@@ -196,7 +200,17 @@ export default class HarunaClient extends AkairoClient {
 			init({
 				dsn: process.env.SENTRY,
 				environment: process.env.NODE_ENV,
-				release: process.env.VERSION!,
+				release: process.env.VERSION,
+				serverName: 'yukikaze_bot',
+				integrations: integrations => {
+					const integration = integrations.filter(integration => integration.name !== 'Breadcrumbs');
+					integration.push(
+						new RewriteFrames({
+							root: this.root,
+						}),
+					);
+					return integration;
+				},
 			});
 		} else {
 			process.on('unhandledRejection', (err: any) =>
