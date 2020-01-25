@@ -1,20 +1,17 @@
-FROM node:10-alpine AS build
-WORKDIR /usr/src/haruna
-COPY package.json yarn.lock .yarnclean ./
-RUN apk add --update \
-&& apk add --no-cache ca-certificates \
-&& apk add --no-cache --virtual .build-deps git curl build-base python g++ make \
-&& yarn install --ignore-engines \
-&& apk del .build-deps
-
 FROM node:10-alpine
 LABEL name "Haruna"
 LABEL version "0.1.0"
 LABEL maintainer "iCrawl <icrawltogo@gmail.com>"
 WORKDIR /usr/src/haruna
-COPY --from=build /usr/src/haruna .
+COPY package.json pnpm-lock.yaml ./
+RUN apk add --update \
+&& apk add --no-cache ca-certificates \
+&& apk add --no-cache --virtual .build-deps git curl build-base python g++ make \
+&& curl -L https://unpkg.com/@pnpm/self-installer | node \
+&& pnpm i \
+&& apk del .build-deps
 COPY . .
-RUN yarn build
+RUN pnpm run build
 ENV NODE_ENV= \
 	ID= \
 	OWNERS= \

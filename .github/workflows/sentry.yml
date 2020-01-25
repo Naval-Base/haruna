@@ -16,17 +16,20 @@ jobs:
         with:
           node-version: 12
 
+      - name: Install pnpm
+        run: curl -L https://unpkg.com/@pnpm/self-installer | node
+
       - name: Install dependencies
-        run: yarn install
+        run: pnpm i
 
       - name: Build
-        run: yarn build
+        run: pnpm run build
 
       - name: Create sentry release and upload sourcemaps
         run: |
-          yarn sentry:release
-          yarn sentry:commits
-          yarn sentry:sourcemaps
+          pnpm run sentry:release
+          pnpm run sentry:commits
+          pnpm run sentry:sourcemaps
         env:
           SENTRY_URL: ${{ secrets.SENTRY_URL }}
           SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
