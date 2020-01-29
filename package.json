@@ -61,5 +61,8 @@
 	},
 	"eslintConfig": {
 		"extends": "marine/prettier/node"
+	},
+	"renovate": {
+		"extends": ["teal"]
 	}
 }
