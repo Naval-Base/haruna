@@ -26,15 +26,15 @@ devDependencies:
   '@types/moment-duration-format': 2.2.2
   '@types/node': 13.5.0
   '@types/ws': 7.2.0
-  '@typescript-eslint/eslint-plugin': 2.17.0_97af7094b3b5e0995017f58badfa9a40
-  '@typescript-eslint/parser': 2.17.0_eslint@7.0.0+typescript@3.7.5
+  '@typescript-eslint/eslint-plugin': 2.17.0_f075a59b0c4d9af4922c287dff49cc7f
+  '@typescript-eslint/parser': 2.17.0_eslint@7.0.0+typescript@4.0.2
   eslint: 7.0.0
   eslint-config-marine: 6.0.0_920330fb45ad9632bbc570e57b682eb4
   eslint-config-prettier: 6.9.0_eslint@7.0.0
   eslint-plugin-prettier: 3.1.2_eslint@7.0.0+prettier@1.19.1
   prettier: 1.19.1
   rimraf: 3.0.0
-  typescript: 3.7.5
+  typescript: 4.0.2
 lockfileVersion: 5.1
 optionalDependencies:
   bufferutil: 4.0.1
@@ -218,15 +218,16 @@ packages:
     dev: true
     resolution:
       integrity: sha512-HnqczxiZ828df9FUh9OyY7vSOelpQNaj+SLEnDvU74rYijp61ggV7dhmDlMky0oYXKLdVuIG4KvExk8DEqzJgQ==
-  /@typescript-eslint/eslint-plugin/2.17.0_97af7094b3b5e0995017f58badfa9a40:
+  /@typescript-eslint/eslint-plugin/2.17.0_f075a59b0c4d9af4922c287dff49cc7f:
     dependencies:
-      '@typescript-eslint/experimental-utils': 2.17.0_eslint@7.0.0+typescript@3.7.5
-      '@typescript-eslint/parser': 2.17.0_eslint@7.0.0+typescript@3.7.5
+      '@typescript-eslint/experimental-utils': 2.17.0_eslint@7.0.0+typescript@4.0.2
+      '@typescript-eslint/parser': 2.17.0_eslint@7.0.0+typescript@4.0.2
       eslint: 7.0.0
       eslint-utils: 1.4.3
       functional-red-black-tree: 1.0.1
       regexpp: 3.0.0
-      tsutils: 3.17.1_typescript@3.7.5
+      tsutils: 3.17.1_typescript@4.0.2
+      typescript: 4.0.2
     dev: true
     engines:
       node: ^8.10.0 || ^10.13.0 || >=11.10.1
@@ -239,10 +240,10 @@ packages:
         optional: true
     resolution:
       integrity: sha512-tg/OMOtPeXlvk0ES8mZzEZ4gd1ruSE03nsKcK+teJhxYv5CPCXK6Mb/OK6NpB4+CqGTHs4MVeoSZXNFqpT1PyQ==
-  /@typescript-eslint/experimental-utils/2.17.0_eslint@7.0.0+typescript@3.7.5:
+  /@typescript-eslint/experimental-utils/2.17.0_eslint@7.0.0+typescript@4.0.2:
     dependencies:
       '@types/json-schema': 7.0.4
-      '@typescript-eslint/typescript-estree': 2.17.0_typescript@3.7.5
+      '@typescript-eslint/typescript-estree': 2.17.0_typescript@4.0.2
       eslint: 7.0.0
       eslint-scope: 5.0.0
     dev: true
@@ -253,13 +254,14 @@ packages:
       typescript: '*'
     resolution:
       integrity: sha512-2bNf+mZ/3mj5/3CP56v+ldRK3vFy9jOvmCPs/Gr2DeSJh+asPZrhFniv4QmQsHWQFPJFWhFHgkGgJeRmK4m8iQ==
-  /@typescript-eslint/parser/2.17.0_eslint@7.0.0+typescript@3.7.5:
+  /@typescript-eslint/parser/2.17.0_eslint@7.0.0+typescript@4.0.2:
     dependencies:
       '@types/eslint-visitor-keys': 1.0.0
-      '@typescript-eslint/experimental-utils': 2.17.0_eslint@7.0.0+typescript@3.7.5
-      '@typescript-eslint/typescript-estree': 2.17.0_typescript@3.7.5
+      '@typescript-eslint/experimental-utils': 2.17.0_eslint@7.0.0+typescript@4.0.2
+      '@typescript-eslint/typescript-estree': 2.17.0_typescript@4.0.2
       eslint: 7.0.0
       eslint-visitor-keys: 1.1.0
+      typescript: 4.0.2
     dev: true
     engines:
       node: ^8.10.0 || ^10.13.0 || >=11.10.1
@@ -271,7 +273,7 @@ packages:
         optional: true
     resolution:
       integrity: sha512-k1g3gRQ4fwfJoIfgUpz78AovicSWKFANmvTfkAHP24MgJHjWfZI6ya7tsQZt1sLczvP4G9BE5G5MgADHdmJB/w==
-  /@typescript-eslint/typescript-estree/2.17.0_typescript@3.7.5:
+  /@typescript-eslint/typescript-estree/2.17.0_typescript@4.0.2:
     dependencies:
       debug: 4.1.1
       eslint-visitor-keys: 1.1.0
@@ -279,7 +281,8 @@ packages:
       is-glob: 4.0.1
       lodash: 4.17.15
       semver: 6.3.0
-      tsutils: 3.17.1_typescript@3.7.5
+      tsutils: 3.17.1_typescript@4.0.2
+      typescript: 4.0.2
     dev: true
     engines:
       node: ^8.10.0 || ^10.13.0 || >=11.10.1
@@ -458,6 +461,7 @@ packages:
     dependencies:
       node-gyp-build: 3.7.0
     dev: false
+    optional: true
     requiresBuild: true
     resolution:
       integrity: sha512-xowrxvpxojqkagPcWRQVXZl0YXhRhAtBEIq3VoER1NH5Mw1n1o0ojdspp+GS2J//2gCVyrzQDApQ4unGF+QOoA==
@@ -1425,6 +1429,7 @@ packages:
       integrity: sha512-z81GNO7nnYMEhrGh9LeymoE4+Yr0Wn5McHIZMK5cfQCl+NDX08sCZgUc9/6MHni9IWuFLm1Z3HTCXu2z9fN62Q==
   /nan/2.14.0:
     dev: false
+    optional: true
     resolution:
       integrity: sha512-INOFj37C7k3AfaNTtX8RhsTw7qRy7eLET14cROi9+5HAVbbHuIWUHEauBv5qT4Av2tWasiTY1Jw6puUNqRJXQg==
   /natural-compare/1.4.0:
@@ -1439,6 +1444,7 @@ packages:
   /node-gyp-build/3.7.0:
     dev: false
     hasBin: true
+    optional: true
     resolution:
       integrity: sha512-L/Eg02Epx6Si2NXmedx+Okg+4UHqmaf3TNcxd50SF9NQGcJaON3AtU++kax69XV7YWz4tUspqZSAsVofhFKG2w==
   /object-assign/4.1.1:
@@ -2086,10 +2092,10 @@ packages:
     dev: false
     resolution:
       integrity: sha512-lTqkx847PI7xEDYJntxZH89L2/aXInsyF2luSafe/+0fHOMjlBNXdH6th7f70qxLDhul7KZK0zC8V5ZIyHl0/g==
-  /tsutils/3.17.1_typescript@3.7.5:
+  /tsutils/3.17.1_typescript@4.0.2:
     dependencies:
       tslib: 1.10.0
-      typescript: 3.7.5
+      typescript: 4.0.2
     dev: true
     engines:
       node: '>= 6'
@@ -2141,13 +2147,13 @@ packages:
     hasBin: true
     resolution:
       integrity: sha512-mDEnMtzRwX4zMYbyzM9xDn7jvGs8hfQ2ymOBq36Zxq1RVM642numwlRbr4W8dU7ZYx8CQUE9rmk+sU0baHD9Rw==
-  /typescript/3.7.5:
+  /typescript/4.0.2:
     dev: true
     engines:
       node: '>=4.2.0'
     hasBin: true
     resolution:
-      integrity: sha512-/P5lkRXkWHNAbcJIiHPfRoKqyd7bsyCma1hZNUGfn20qm64T6ZBlrzprymeu918H+mB/0rIg2gGK/BXkhhYgBw==
+      integrity: sha512-e4ERvRV2wb+rRZ/IQeb3jm2VxBsirQLpQhdxplZ2MEzGvDkkMmPglecnNDfSUBivMjP93vRbngYYDQqQ/78bcQ==
   /uri-js/4.2.2:
     dependencies:
       punycode: 2.1.1
@@ -2158,6 +2164,7 @@ packages:
     dependencies:
       node-gyp-build: 3.7.0
     dev: false
+    optional: true
     requiresBuild: true
     resolution:
       integrity: sha512-SwV++i2gTD5qh2XqaPzBnNX88N6HdyhQrNNRykvcS0QKvItV9u3vPEJr+X5Hhfb1JC0r0e1alL0iB09rY8+nmw==
@@ -2374,6 +2381,7 @@ packages:
     dependencies:
       nan: 2.14.0
     dev: false
+    optional: true
     requiresBuild: true
     resolution:
       integrity: sha512-B2XGrhlXs/izEks+705vn/aL+nWyPgnS1glyCeH8wgZdOvztRn3ZEdqclj6GoJSeA/iRSqaTlznG2KO1M/GuWg==
@@ -2467,7 +2475,7 @@ specifiers:
   rimraf: ^3.0.0
   tslib: ^2.0.0
   typeorm: ^0.2.22
-  typescript: ^3.7.5
+  typescript: ^4.0.0
   utf-8-validate: ^5.0.2
   winston: ^3.2.1
   winston-daily-rotate-file: ^4.4.2
